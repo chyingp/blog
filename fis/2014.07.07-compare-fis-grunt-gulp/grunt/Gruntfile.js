@@ -4,6 +4,7 @@
 
 
 module.exports = function(grunt) {
+	require('time-grunt')(grunt);
 
 	grunt.initConfig({
 		copy: {

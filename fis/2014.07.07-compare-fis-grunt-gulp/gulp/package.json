@@ -1,0 +1,17 @@
+{
+  "name": "gulp-demo",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "程序猿小卡",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.5",
+    "gulp-replace": "^0.3.0",
+    "gulp-ruby-sass": "^0.6.0",
+    "gulp-sass": "^0.7.2"
+  }
+}
