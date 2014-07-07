@@ -1,0 +1,11 @@
+{
+  "name": "fis-postprocessor-replace-user",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "程序猿小卡",
+  "license": "ISC"
+}
