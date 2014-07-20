@@ -5,6 +5,7 @@
 
 ### [目录](https://github.com/chyingp/blog/issues)
 
+* [实用前端资源](https://github.com/chyingp/blog/issues/15)
 * [fis系列](https://github.com/chyingp/blog/issues?labels=fis)
 * [grunt系列](https://github.com/chyingp/blog/issues?labels=grunt)
 * [gulp系列](https://github.com/chyingp/blog/issues?labels=gulp)
