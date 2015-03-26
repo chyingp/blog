@@ -1,0 +1,20 @@
+@import "compass/utilities/sprites";
+
+$icons-layout: horizontal;
+$icons-warn-repeat: repeat-x;
+$icons-sprite-dimensions: true;
+
+@import "icons/*.png";
+@include all-icons-sprites;
+
+.a-warn{
+	@include icons-sprite(warn);
+}
+
+.a-help{
+	@include icons-sprite(help);
+}
+
+.a-succ{
+	@include icons-sprite(succ);
+}

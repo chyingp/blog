@@ -1,0 +1,31 @@
+/* line 72, icons/*.png */
+.icons-sprite, .icons-help, .icons-long, .icons-succ, .icons-warn, .hello {
+  background-image: url('/images/icons-sea8176c5f1.png');
+  background-repeat: no-repeat;
+}
+
+/* line 84, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-help {
+  background-position: 0 0;
+}
+
+/* line 84, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-long {
+  background-position: 0 -36px;
+}
+
+/* line 84, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-succ {
+  background-position: 0 -86px;
+}
+
+/* line 84, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-warn {
+  background-position: 0 -122px;
+}
+
+/* line 8, ../sass/demo.scss */
+.hello {
+  background-position: 0 -122px;
+  background-repeat: repeat-x;
+}

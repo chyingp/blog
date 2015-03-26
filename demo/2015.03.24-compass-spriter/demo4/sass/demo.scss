@@ -1,0 +1,11 @@
+@import "compass/utilities/sprites";
+
+$icons-warn-repeat: repeat-x;
+@import "icons/*.png";
+@include all-icons-sprites;
+
+
+.hello{
+	@include icons-sprite(warn);
+	background-repeat: repeat-x;
+}

@@ -1,0 +1,12 @@
+@import "compass/utilities/sprites";
+
+// $icons-sprite-dimensions: true;	// sprite全部自动设置宽、高
+$icons-spacing: 10px;	// 设置sprite边距
+@import "icons/*.png";
+@include all-icons-sprites;
+
+.hello{
+	@include icons-sprite(succ);
+	width: icons-sprite-width(succ);	
+	height: icons-sprite-height(succ);
+}
