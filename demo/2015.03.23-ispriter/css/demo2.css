@@ -1,0 +1,11 @@
+div{
+	background: url(../img/calendar-content-point-normal.png) repeat;
+}
+
+span{
+	background: url(../img/calendar-content-point-selected.png) no-repeat;
+}
+
+ul{
+	background: url(../img/calendar-content-point-disabled.png);
+}

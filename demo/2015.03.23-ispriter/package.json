@@ -1,0 +1,14 @@
+{
+  "name": "2015.03.23-ispriter",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+  	"ispriter": "0.3.9"
+  },
+  "author": "chyingp",
+  "license": "ISC"
+}

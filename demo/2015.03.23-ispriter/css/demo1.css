@@ -1,0 +1,7 @@
+div{
+	background: url(../img/calendar-content-point-normal.png);
+}
+
+span{
+	background: url(../img/calendar-content-point-selected.png);
+}
