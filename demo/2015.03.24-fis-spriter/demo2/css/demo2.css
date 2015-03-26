@@ -1,0 +1,20 @@
+/*
+	用例：没有设置 background-position，设置了 background-repeat 
+	结论：设置了 repeat-x、repeat-y 会进行分类合并。
+	比如：同样设置了repeat-x 的会合到一起
+*/
+div{
+	background: url(../img/calendar-content-point-normal.png?__sprite) repeat-x;
+}
+
+span{
+	background: url(../img/calendar-content-point-selected.png?__sprite) repeat-x;
+}
+
+ul{
+	background: url(../img/calendar-content-point-disabled.png?__sprite) no-repeat;
+}
+
+li{
+	background: url(../img/calendar-content-point-disabled.png?__sprite) repeat-y;
+}

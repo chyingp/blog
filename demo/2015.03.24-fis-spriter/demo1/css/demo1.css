@@ -1,0 +1,15 @@
+/*
+	用例：没有设置 background-position、background-repeat 
+	结论：设置了 __sprite 的会合并，其他不会
+*/
+div{
+	background: url(../img/calendar-content-point-normal.png?__sprite);
+}
+
+span{
+	background: url(../img/calendar-content-point-selected.png?__sprite);
+}
+
+ul{
+	background: url(../img/calendar-content-point-disabled.png);
+}

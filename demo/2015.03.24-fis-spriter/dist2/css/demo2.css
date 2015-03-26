@@ -1,0 +1,13 @@
+/*
+	用例：没有设置 background-position，设置了 background-repeat 
+	结论：设置了 background-repeat:repeat; 的不会合并，其他会
+*/
+div{background-repeat: repeat-x}
+
+span{background-repeat: repeat-x}
+
+ul{background-repeat: repeat-y}
+
+li{background-repeat: repeat-y}
+
+a{background-repeat: repeat-y}div{background-position:0px 0px}span{background-position:0px -15px}div,span{background-image: url(/css/demo2_x.png)}ul{background-position:0px 0px}li{background-position:-16px 0px}a{background-position:-31px 0px}ul,li,a{background-image: url(/css/demo2_y.png)}

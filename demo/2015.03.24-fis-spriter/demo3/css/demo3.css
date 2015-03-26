@@ -1,0 +1,17 @@
+/*
+	参考：https://github.com/fex-team/fis-spriter-csssprites
+	用例：有设置 background-position、background-repeat 
+	结论：设置了 background-position 为center、left 等 会合并。center尽量不要用，会合并，但计算不准确。
+	可参考上面的文档
+*/
+div{
+	background: url(../img/calendar-content-point-normal.png?__sprite) no-repeat center center;
+}
+
+span{
+	background: url(../img/calendar-content-point-selected.png?__sprite) no-repeat 0px 0px;
+}
+
+ul{
+	background: url(../img/calendar-content-point-disabled.png?__sprite) no-repeat 0px 0px;
+}
