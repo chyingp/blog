@@ -1,0 +1,11 @@
+div.warn{
+	background: url(/img/warn.png#unsprite);
+}
+
+div.succ{
+	background: url(/img/succ.png);
+}
+
+div.help{
+	background: url(/img/help.png);
+}

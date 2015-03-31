@@ -1,0 +1,12 @@
+@import "compass/utilities/sprites";
+@import "icons/*.png";
+@include all-icons-sprites;
+$icons-sprite-dimensions: true;	// 
+
+.hello{
+	width: 200px;
+	height: 200px;
+	border: 1px solid #ccc;
+	background-position: 6px 6px;
+	@include icons-sprite(warn);
+}

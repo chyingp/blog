@@ -1,0 +1,14 @@
+// @import "compass/utilities/sprites";
+// @import "../img/icons/*.png";
+// @include all-icons-sprites;
+// $icons-sprite-dimensions: true;	// 
+
+// .hello{
+// 	@include icons-sprite(warn);
+// }
+
+.hello{
+	.world{
+		color: red;
+	}
+}

@@ -1,0 +1,31 @@
+/* line 64, icons/*.png */
+.icons-sprite, .icons-help, .icons-succ, .icons-warn, .hello {
+  background-image: url('/images/icons-sfbb12270f3.png');
+  background-repeat: no-repeat;
+}
+
+/* line 84, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-help {
+  background-position: 0 0;
+}
+
+/* line 84, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-succ {
+  background-position: 0 -36px;
+}
+
+/* line 84, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-warn {
+  background-position: 0 -72px;
+}
+
+/* line 6, ../sass/demo.scss */
+.hello {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #ccc;
+  background-position: 6px 6px;
+  background-position: 0 -72px;
+  height: 36px;
+  width: 36px;
+}

@@ -1,0 +1,5 @@
+div.warn {background: -39px 0;}
+div.succ {background: 0 0;}
+div.help {background-image: url(../img/help.png);}
+div.warn{background-image: url(./img/sprite_demo5.png);}
+div.succ{background-image: url(./img/sprite_demo6.png);}
