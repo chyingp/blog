@@ -1,3 +1,4 @@
-div.warn {background-image: url(/img/warn.png);}
-div.succ {background-image: url(/img/succ.png);}
-div.help {background-image: url(/img/help.png);}
+div.warn {background-image: url(../img/warn.png);}
+div.succ {background: -39px 0;}
+div.help {background: 0 0;}
+div.help,div.succ{background-image: url(./img/sprite_demo4.png);}

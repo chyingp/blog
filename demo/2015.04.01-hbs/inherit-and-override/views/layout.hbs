@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	<link rel="stylesheet" type="text/css" href="/style.css">
+
+	{{#block "stylesheets"}}
+		<link rel="stylesheet" type="text/css" href="/css/default.css">
+	{{/block}}
+</head>
+<body>
+
+{{{body}}}
+
+{{#block "script"}}
+	<script type="text/javascript">
+		console.log('default script');
+	</script>	
+{{/block}}
+</body>
+</html>

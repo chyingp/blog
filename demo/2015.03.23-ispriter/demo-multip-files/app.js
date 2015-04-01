@@ -8,7 +8,7 @@ spriter.merge({
         /**
          * 原 cssRoot
          */
-        "cssSource": ["./css/*.css"]
+        "cssSource": ["./css/demo4.css"]
     },
     "output": {
 
