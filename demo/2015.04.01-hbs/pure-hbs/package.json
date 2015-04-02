@@ -1,5 +1,5 @@
 {
-  "name": "getting-started",
+  "name": "pure-hbs",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
@@ -9,8 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.12.3",
     "grunt": "^0.4.5",
+    "handlebars": "^3.0.1",
     "hbs": "^3.0.1"
   }
 }
