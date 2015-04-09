@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>demo</title>
+	<script src="build/react.js"></script>
+    <script src="build/JSXTransformer.js"></script>
+</head>
+<body>
+
+	<div id="example"></div>
+	<script type="text/jsx">    	
+
+		var HelloComponent = React.createClass({
+			getInitialState: function(){
+				return {
+					title: 'title1',
+					content: 'content1'
+				};
+			},
+			componentDidMount: function(){
+				var that = this;
+				setTimeout(function(){
+					that.setState({
+						title:'title2', 
+						content:'content2'
+					});
+				}, 2000);
+			},
+			render: function(){
+				return (
+					<div>
+						<h1>Title is: {this.state.title}</h1>
+						<p>Content is: {this.state.content}</p>
+					</div>					
+				);
+			}
+		});
+
+
+		React.render(
+			<HelloComponent />,
+			document.getElementById('example')
+		);
+
+    </script>
+</body>
+</html>

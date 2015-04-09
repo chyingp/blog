@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>getting started</title>
+	<script src="build/react.js"></script>
+  	<script src="build/JSXTransformer.js"></script>
+</head>
+<body>
+
+	<div id="example"></div>
+	<script type="text/jsx">
+      var HelloComponent = React.createClass({
+			render: function(){
+				return (
+						<h1>Hello World</h1>
+						<p>I am Hello World Component</p>			
+				);
+			}
+		});
+
+      React.render(
+      	<HelloComponent />,
+      	document.getElementById('example')
+      );
+    </script>
+</body>
+</html>

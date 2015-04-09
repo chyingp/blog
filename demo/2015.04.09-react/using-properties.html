@@ -10,19 +10,19 @@
 	<div id="example"></div>
 	<script type="text/jsx">    
 
-		var Article = React.createClass({
+		var HelloComponent = React.createClass({
 			render: function(){
 				return (
 					<div>
-						<h1>This is is Title: {this.props.title}</h1>
-						<p>This is Content: {this.props.content}</p>
+						<h1>Title is: {this.props.title}</h1>
+						<p>Content is: {this.props.content}</p>
 					</div>					
 				);
 			}
 		});
 
 		React.render(
-			<Article title="hello" content="world" />,
+			<HelloComponent title="hello" content="world" />,
 			document.getElementById('example')
 		);
 
