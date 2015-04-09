@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>demo</title>
+	<script src="build/react.js"></script>
+    <script src="build/JSXTransformer.js"></script>
+</head>
+<body>
+
+	<div id="example"></div>
+	<script type="text/jsx">    
+		// 备忘
+		// 事件绑定，比如click，需要用 onClick，不能用 onclick
+		// getInitialState 里返回的数据，可以通过 this.state 来获取
+		// 返回的节点，最外层需要有包裹节点，而不能是一组子节点。比如可以是 <div><span></span></span></span>，不能是 <span></span><span></span>
+		var localData = [{title: 'local title1', content: 'local content1'}, {title: 'local title2', content: 'local content2'}];
+		var remoteData = [{title: 'remote title1', content: 'remote content1'}, {title: 'remote title2', content: 'remote content2'}];
+		var Articles = React.createClass({
+			getInitialState: function() {
+				console.log('called!');
+				
+				return {data: localData};
+			},
+			componentDidMount: function() {
+				var that = this;
+				setTimeout(function(){
+					that.setState({data: remoteData});
+				}, 2000);
+			},
+			render: function(){
+				// console.log(this.props);
+				var nodes = this.state.data.map(function(item){
+					return (
+						<div class="article">
+							<h1>This is is Title: {item.title}</h1>
+							<p>This is Content: {item.content}</p>
+						</div>
+					);
+				});
+
+				return (
+					<div class="articles" onClick={this.handleClick}>
+						{nodes}
+					</div>
+				);
+			},
+			handleClick: function(){
+				alert('clicked');
+			}
+		});
+
+		React.render(
+			<Articles />,
+			document.getElementById('example')
+		);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>demo</title>
+	<script src="build/react.js"></script>
+    <script src="build/JSXTransformer.js"></script>
+</head>
+<body>
+
+	<div id="example"></div>
+  
+	<script type="text/jsx">
+
+		var Title = React.createClass({
+			render: function(){
+				return (
+					<h1>This is Title</h1>
+				);
+			}
+		});
+
+		var Content = React.createClass({
+			render: function(){
+				return (
+					<p>This is Content</p>
+				);
+			}
+		});
+
+		var Article = React.createClass({
+			render: function() {
+				return (
+					<div class="article">
+						<Title />
+						<Content />
+					</div>
+				);				
+			}
+		});
+
+		React.render(
+		  <Article />,
+		  document.getElementById('example')
+		);
+	</script>
+</body>
+</html>
