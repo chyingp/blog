@@ -10,6 +10,7 @@
 * [grunt系列](https://github.com/chyingp/blog/issues?labels=grunt)
 * [gulp系列](https://github.com/chyingp/blog/issues?labels=gulp)
 * [jquery源码系列](https://github.com/chyingp/blog/issues?labels=jQuery)
+* [express系列](https://github.com/chyingp/blog/labels/express)
 
 ### 其他
 
