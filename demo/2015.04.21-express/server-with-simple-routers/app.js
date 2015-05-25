@@ -22,7 +22,7 @@ app.post('/login', function(req, res, next){
 
 // router with regular expression
 app.get(/^\/cgi-bin\/(\w+)$/, function(req, res, next){
-	res.send('CGI '+ req.params[0] +' is called !');
+	res.send('CGI '+ req.params[0] +' is called !');	
 });
 
 app.get('/cgi-bin/agency/:cgi_name', function(req, res, next){

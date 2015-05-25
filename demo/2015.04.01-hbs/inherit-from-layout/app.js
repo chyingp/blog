@@ -16,7 +16,4 @@ app.get('/profile', function(req, res){
 });
 
 app.listen(3000);
-
-
-
 	

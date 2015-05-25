@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>demo</title>
+	<!-- 组件相关css -->
+	<style type="text/css">
+		.com{}
+		.com .img-wrap{width: 250px; height: 421px; padding: 5px; margin-bottom: 10px; border: 1px solid #ccc;}
+		.com .img-wrap img{}
+		.com .btn{border: 1px solid #ccc; padding: 5px; cursor: pointer;}
+		.com .btn:hover{background: #fff;}
+
+	</style>
+</head>
+<body>
+
+<!-- 组件相关html -->
+<div class="com">
+	<div class="img-wrap">
+		<img id="img" src="http://id.qq.com/img/bg.png" />
+	</div>
+	
+	<button id="btn" class="btn">Toggle show!</button>
+</div>
+
+<!-- 组件相关js -->
+<script type="text/javascript">
+	var $ = function(id){
+		return document.getElementById(id);
+	};
+	$('btn').onclick = function(){		
+		var img = $('img'),
+			display = img.style.display;			
+		
+		if(display==='none'){
+			img.style.display = 'block';
+		}else{
+			img.style.display = 'none';
+		}
+	};
+</script>
+
+</body>
+</html>

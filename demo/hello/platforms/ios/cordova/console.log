@@ -1,0 +1,76 @@
+2015-05-18 13:32:42.593 HelloWorld[1742:124574] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/a/Library/Developer/CoreSimulator/Devices/F12D0954-A453-4540-890D-D098C21CD171/data/Containers/Data/Application/2AA4A0F5-9DA5-4A8C-8B32-BF52D39C26D6/Library/Cookies/Cookies.binarycookies
+2015-05-18 13:32:42.910 HelloWorld[1742:124574] Apache Cordova native platform version 3.8.0 is starting.
+2015-05-18 13:32:42.911 HelloWorld[1742:124574] Multi-tasking -> Device: YES, App: YES
+2015-05-18 13:32:42.932 HelloWorld[1742:124574] Unlimited access to network resources
+2015-05-18 13:32:42.946 HelloWorld[1742:124574] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-05-18 13:32:43.784 HelloWorld[1742:124574] Resetting plugins due to page load.
+2015-05-18 13:32:43.903 HelloWorld[1742:124574] Finished load of: file:///Users/a/Library/Developer/CoreSimulator/Devices/F12D0954-A453-4540-890D-D098C21CD171/data/Containers/Bundle/Application/628083BD-9C31-4F30-B41B-375BE8CE6CB7/HelloWorld.app/www/index.html
+2015-05-18 14:48:03.048 HelloWorld[1742:145679] Communications error: <OS_xpc_error: <error: 0x2d0a5f4> { count = 1, contents =
+	"XPCErrorDescription" => <string: 0x2d0a83c> { length = 22, contents = "Connection interrupted" }
+}>
+2015-05-18 14:48:03.052 HelloWorld[1742:145701] Terminating since there is no system app.
+2015-05-18 14:56:24.358 HelloWorld[2119:149386] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/a/Library/Developer/CoreSimulator/Devices/F12D0954-A453-4540-890D-D098C21CD171/data/Containers/Data/Application/B3D34678-56C7-4579-B829-8CDF9170B845/Library/Cookies/Cookies.binarycookies
+2015-05-18 14:56:24.480 HelloWorld[2119:149386] Apache Cordova native platform version 3.8.0 is starting.
+2015-05-18 14:56:24.480 HelloWorld[2119:149386] Multi-tasking -> Device: YES, App: YES
+2015-05-18 14:56:24.482 HelloWorld[2119:149386] Unlimited access to network resources
+2015-05-18 14:56:24.484 HelloWorld[2119:149386] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-05-18 14:56:24.614 HelloWorld[2119:149386] Resetting plugins due to page load.
+2015-05-18 14:56:24.651 HelloWorld[2119:149386] Finished load of: file:///Users/a/Library/Developer/CoreSimulator/Devices/F12D0954-A453-4540-890D-D098C21CD171/data/Containers/Bundle/Application/617F3E71-8088-4499-830D-AE1090B01214/HelloWorld.app/www/index.html
+2015-05-18 15:21:32.546 HelloWorld[2363:164772] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/a/Library/Developer/CoreSimulator/Devices/F12D0954-A453-4540-890D-D098C21CD171/data/Containers/Data/Application/5387EB68-3909-453C-8EDF-37AABB670087/Library/Cookies/Cookies.binarycookies
+2015-05-18 15:21:32.600 HelloWorld[2363:164772] Apache Cordova native platform version 3.8.0 is starting.
+2015-05-18 15:21:32.601 HelloWorld[2363:164772] Multi-tasking -> Device: YES, App: YES
+2015-05-18 15:21:32.602 HelloWorld[2363:164772] Unlimited access to network resources
+2015-05-18 15:21:32.604 HelloWorld[2363:164772] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-05-18 15:21:32.729 HelloWorld[2363:164772] Resetting plugins due to page load.
+2015-05-18 15:21:32.944 HelloWorld[2363:164772] Finished load of: file:///Users/a/Library/Developer/CoreSimulator/Devices/F12D0954-A453-4540-890D-D098C21CD171/data/Containers/Bundle/Application/659187CA-F747-474A-AB69-00E1019E15A9/HelloWorld.app/www/index.html
+2015-05-18 15:22:26.489 HelloWorld[2428:165697] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/a/Library/Developer/CoreSimulator/Devices/F12D0954-A453-4540-890D-D098C21CD171/data/Containers/Data/Application/46656568-5946-4C73-8157-AA9A327F7534/Library/Cookies/Cookies.binarycookies
+2015-05-18 15:22:26.544 HelloWorld[2428:165697] Apache Cordova native platform version 3.8.0 is starting.
+2015-05-18 15:22:26.544 HelloWorld[2428:165697] Multi-tasking -> Device: YES, App: YES
+2015-05-18 15:22:26.545 HelloWorld[2428:165697] Unlimited access to network resources
+2015-05-18 15:22:26.547 HelloWorld[2428:165697] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-05-18 15:22:26.648 HelloWorld[2428:165697] Resetting plugins due to page load.
+2015-05-18 15:22:26.761 HelloWorld[2428:165697] Finished load of: file:///Users/a/Library/Developer/CoreSimulator/Devices/F12D0954-A453-4540-890D-D098C21CD171/data/Containers/Bundle/Application/CFFDBBD6-05D5-4C73-BE5B-158DF69C3CD6/HelloWorld.app/www/index.html
+2015-05-18 15:27:26.728 HelloWorld[2428:165697] Resetting plugins due to page load.
+2015-05-18 15:27:29.223 HelloWorld[2428:165697] Finished load of: http://evanyou.me/
+2015-05-18 16:20:19.560 HelloWorld[2428:165697] CDVWebViewDelegate: Navigation started when state=1
+2015-05-18 16:20:19.561 HelloWorld[2428:165697] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-05-18 16:20:19.561 HelloWorld[2428:165697] Resetting plugins due to page load.
+2015-05-18 16:20:21.252 HelloWorld[2428:165697] Finished load of: http://blog.evanyou.me/
+2015-05-18 16:20:29.669 HelloWorld[2428:165697] Resetting plugins due to page load.
+2015-05-18 16:20:32.881 HelloWorld[2428:165697] Finished load of: http://blog.evanyou.me/2014/02/11/first-week-of-launching-an-oss-project/
+2015-05-18 16:20:38.240 HelloWorld[2428:165697] CDVWebViewDelegate: Navigation started when state=1
+2015-05-18 16:20:38.240 HelloWorld[2428:165697] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-05-18 16:20:38.241 HelloWorld[2428:165697] Resetting plugins due to page load.
+2015-05-18 16:20:38.815 HelloWorld[2428:165697] Failed to load webpage with error: The operation couldn’t be completed. (NSURLErrorDomain error -999.)
+2015-05-18 16:20:38.816 HelloWorld[2428:165697] Resetting plugins due to page load.
+2015-05-18 16:20:40.116 HelloWorld[2428:165697] Failed to load webpage with error: The operation couldn’t be completed. (NSURLErrorDomain error -999.)
+2015-05-18 16:20:40.117 HelloWorld[2428:165697] Resetting plugins due to page load.
+2015-05-18 16:20:42.951 HelloWorld[2428:165697] Finished load of: http://vuejs.org/

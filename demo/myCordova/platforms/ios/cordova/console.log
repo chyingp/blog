@@ -1,0 +1,27 @@
+2015-05-18 20:46:53.224 HelloWorld[4696:315427] Apache Cordova native platform version 3.8.0 is starting.
+2015-05-18 20:46:53.225 HelloWorld[4696:315427] Multi-tasking -> Device: YES, App: YES
+2015-05-18 20:46:53.239 HelloWorld[4696:315427] Unlimited access to network resources
+2015-05-18 20:46:53.248 HelloWorld[4696:315427] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-05-18 20:46:53.770 HelloWorld[4696:315427] Resetting plugins due to page load.
+2015-05-18 20:46:53.889 HelloWorld[4696:315427] Finished load of: file:///Users/a/Library/Developer/CoreSimulator/Devices/F12D0954-A453-4540-890D-D098C21CD171/data/Containers/Bundle/Application/01E4F963-C6B7-46B7-91C8-6CE07BC8F59B/HelloWorld.app/www/index.html
+2015-05-18 21:03:56.364 HelloWorld[4999:326674] Apache Cordova native platform version 3.8.0 is starting.
+2015-05-18 21:03:56.365 HelloWorld[4999:326674] Multi-tasking -> Device: YES, App: YES
+2015-05-18 21:03:56.366 HelloWorld[4999:326674] Unlimited access to network resources
+2015-05-18 21:03:56.369 HelloWorld[4999:326674] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-05-18 21:03:56.501 HelloWorld[4999:326674] Resetting plugins due to page load.
+2015-05-18 21:03:56.555 HelloWorld[4999:326674] Finished load of: file:///Users/a/Library/Developer/CoreSimulator/Devices/F12D0954-A453-4540-890D-D098C21CD171/data/Containers/Bundle/Application/807FC9E2-DB7F-4B66-8338-7A58D42099B8/HelloWorld.app/www/index.html
+2015-05-18 21:09:29.643 HelloWorld[4999:326760] void SendDelegateMessage(NSInvocation *): delegate (webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame:) failed to return after waiting 10 seconds. main run loop mode: kCFRunLoopDefaultMode

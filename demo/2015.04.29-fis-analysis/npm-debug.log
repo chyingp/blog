@@ -1,0 +1,56 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'search',
+1 verbose cli   'commander',
+1 verbose cli   '--dd' ]
+2 info using npm@2.7.4
+3 info using node@v0.12.2
+4 silly mapToRegistry name -/all
+5 silly mapToRegistry using default registry
+6 silly mapToRegistry registry http://npm.oa.com/
+7 silly mapToRegistry uri http://npm.oa.com/-/all
+8 info updateIndex /Users/a/.npm/npm.oa.com/-/all/.cache.json
+9 warn Building the local index for the first time, please be patient
+10 verbose request uri http://npm.oa.com/-/all
+11 verbose request no auth needed
+12 info attempt registry request try #1 at 09:34:04
+13 verbose request id 7a276b7b6649a5dc
+14 http request GET http://npm.oa.com/-/all
+15 http 500 http://npm.oa.com/-/all
+16 info retry will retry, error on last attempt: Error: unknown_error badarg: -/all
+17 info attempt registry request try #2 at 09:34:18
+18 http request GET http://npm.oa.com/-/all
+19 http 500 http://npm.oa.com/-/all
+20 info retry will retry, error on last attempt: Error: unknown_error badarg: -/all
+21 info attempt registry request try #3 at 09:35:20
+22 http request GET http://npm.oa.com/-/all
+23 http 500 http://npm.oa.com/-/all
+24 verbose headers { server: 'nginx/1.0.15',
+24 verbose headers   date: 'Thu, 30 Apr 2015 01:35:22 GMT',
+24 verbose headers   'content-type': 'application/json',
+24 verbose headers   connection: 'keep-alive',
+24 verbose headers   'content-length': '44',
+24 verbose headers   'cache-control': 'must-revalidate' }
+25 verbose stack Error: unknown_error badarg: -/all
+25 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:247:14)
+25 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:170:14)
+25 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:344:22)
+25 verbose stack     at Request.emit (events.js:110:17)
+25 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1239:14)
+25 verbose stack     at Request.emit (events.js:129:20)
+25 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1187:12)
+25 verbose stack     at IncomingMessage.emit (events.js:129:20)
+25 verbose stack     at _stream_readable.js:908:16
+25 verbose stack     at process._tickCallback (node.js:355:11)
+26 verbose statusCode 500
+27 verbose cwd /Users/a/Documents/git-code/git-blog/demo/2015.04.29-fis-analysis
+28 error Darwin 14.3.0
+29 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "search" "commander" "--dd"
+30 error node v0.12.2
+31 error npm  v2.7.4
+32 error code E500
+33 error unknown_error badarg: -/all
+34 error If you need help, you may report this error at:
+34 error     <https://github.com/npm/npm/issues>
+35 verbose exit [ 1, true ]
