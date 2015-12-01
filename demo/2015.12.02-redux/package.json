@@ -1,0 +1,14 @@
+{
+  "name": "2015.12.02-redux",
+  "version": "1.0.0",
+  "description": "",
+  "main": "01-simple-action-creator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "redux": "^3.0.4"
+  }
+}
