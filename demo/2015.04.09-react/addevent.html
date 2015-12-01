@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>事件绑定</title>  
+  <script src="build/react.js"></script>
+  <script src="build/JSXTransformer.js"></script>
+</head>
+<body>
+
+  <div id="example"></div>
+  <script type="text/jsx">
+      var HelloComponent = React.createClass({
+        render: function(){
+          return (
+            <div>
+              <h1>Hello World</h1>
+              <p>I am Hello World Component</p>
+              <button onClick={this.handleClick}>点击我吧！</button>
+            </div>      
+          );
+        },
+        handleClick: function(evt){
+          alert('我被点击啦！');
+        }
+      });
+
+      React.render(
+        <HelloComponent />,
+        document.getElementById('example')
+      );
+    </script>
+</body>
+</html>

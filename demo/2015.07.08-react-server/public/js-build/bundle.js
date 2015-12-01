@@ -1,0 +1,1 @@
+console.error("Error: Cannot find module './react' from '/Users/a/Documents/git-code/git-blog/demo/2015.07.08-react-server/public/js-build'")

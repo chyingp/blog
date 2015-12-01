@@ -1,0 +1,23 @@
+{
+  "name": "2015.05.26-vue",
+  "version": "0.0.0",
+  "homepage": "https://github.com/chyingp/blog",
+  "authors": [
+    "casperchen(陈映平) <chyingp@gmail.com>"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "vue": "~0.11.10"
+  }
+}

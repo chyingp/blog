@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+	<script type="text/javascript" src="/react.js"></script>
+</head>
+<body>
+<h1>test</h1>
+<div id="container"></div>
+<script type="text/javascript">
+	function $(id){
+		return document.getElementById(id);
+	}
+	
+	var child = React.createElement('li', null, 'text content');
+	var root = React.createElement('ul', {className: 'list'}, child)
+	React.render(root, $('container'));
+</script>
+</body>
+</html>

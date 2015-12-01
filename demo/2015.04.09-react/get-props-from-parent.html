@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>从父级获得属性</title>  
+  <script src="build/react.js"></script>
+  <script src="build/JSXTransformer.js"></script>
+  <script src="js/jquery-2.1.3.min.js"></script>
+  <script src="js/marked.min.js"></script>
+</head>
+<body>
+
+  <div id="example"></div>
+  <script type="text/jsx">
+    
+    var Comment = React.createClass({
+      render: function(){
+        return (
+            <div class="comment">评论发表者：{this.props.author}，评论内容：{this.props.content}</div>
+          );
+      }
+    });
+
+    var CommentList = React.createClass({
+      render: function(){
+        return (
+            <div class="comment-list">
+            <Comment author="casper" content="casper发表的评论" />
+            <Comment author="chyingp" content="chyingp发表的评论" />
+            </div>
+          );
+      }
+    });
+
+    React.render(
+      <CommentList />,
+      document.getElementById('example')
+    );
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>与其他库配合</title>  
+  <script src="build/react.js"></script>
+  <script src="build/JSXTransformer.js"></script>
+  <script src="js/jquery-2.1.3.min.js"></script>
+  <script src="js/marked.min.js"></script>
+</head>
+<body>
+
+  <div id="example"></div>
+  <script type="text/jsx">
+      var HelloComponent = React.createClass({
+        getInitialState: function(){
+          return {
+            result: ''
+          };
+        },
+        render: function(){  
+          // 插入没有转义的 html 相当麻烦，react团队故意的，无语。。。
+          // 参考这小节：https://facebook.github.io/react/docs/tutorial.html#adding-markdown        
+          var result = marked(this.state.result, {sanitize: true});
+          return (            
+            <div>
+              <h1>与其他库配合</h1>
+              <p>请输入一段markdown文本</p>
+              <textarea ref="markdownText"></textarea>
+              <div>
+                未格式化前：
+                <div>{marked(this.state.result, {sanitize: true})}</div>                
+              </div>
+              <div ref="result">
+                格式化后：
+                <div dangerouslySetInnerHTML={{__html: result}} />
+              </div>
+              <button onClick={this.handleClick}>点击我吧！</button>
+            </div>      
+          );
+        },
+        handleClick: function(evt){
+          var txt = React.findDOMNode(this.refs.markdownText).value.trim();
+          this.setState({result:txt});
+        }
+      });
+
+      React.render(
+        <HelloComponent />,
+        document.getElementById('example')
+      );
+    </script>
+</body>
+</html>
