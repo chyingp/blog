@@ -22,6 +22,8 @@ function setVisibilityFilter(visibilityState){
 }
 
 function todos(state, action){
+	console.log('reducer: todos is called! state is -> ' + state);
+
 	if(typeof state === 'undefined') state = [];
 	
 	var newState = state.slice(0);
@@ -44,6 +46,7 @@ function todos(state, action){
 }
 
 function visibilityFilter(state, action){
+	console.log('reducer: visibilityFilter is called! state is -> ' + state);
 	if(typeof state === 'undefined') state = 'show_all';
 
 	switch(action.type){
@@ -62,17 +65,15 @@ var todoApp = Redux.combineReducers({
 });
 
 var store = Redux.createStore(todoApp);
-
-console.log(store.getState());
+var unsubscribe = store.subscribe(function(){
+	console.log(store.getState());
+});
 
 store.dispatch(addTodo('上班'));
 store.dispatch(addTodo('逛街'));
 
-console.log(store.getState());
-
 store.dispatch(completeTodo(0));
-console.log(store.getState());
 
 store.dispatch(setVisibilityFilter('hide_all'));
 
-console.log(store.getState());
+unsubscribe();
