@@ -1,5 +1,6 @@
 var Redux = require('redux');
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 // 传说中的action creator
 var addTodoActions = function(text){
@@ -57,7 +58,7 @@ var App = React.createClass({
 		});
 	},
 	handleAdd: function(){
-		var value = this.findDOMNode(this.refs.todo).value.trim();
+		var value = ReactDOM.findDOMNode(this.refs.todo).value.trim();
 		if(value)
 			store.dispatch(addTodoActions(value));
 	},
@@ -76,7 +77,7 @@ var App = React.createClass({
 	}
 });
 
-React.render(
+ReactDOM.render(
 	<App />, 
 	document.getElementById('container')
 	);

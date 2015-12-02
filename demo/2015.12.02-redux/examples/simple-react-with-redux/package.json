@@ -1,8 +1,8 @@
 {
-  "name": "2015.12.02-redux",
+  "name": "simple-react-with-redux",
   "version": "1.0.0",
   "description": "",
-  "main": "01-simple-action-creator.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "babel-preset-es2015": "^6.1.18",
-    "babelify": "^7.2.0",
+    "babel-preset-react": "^6.1.18",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
     "redux": "^3.0.4"
   }
 }
