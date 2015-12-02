@@ -69,25 +69,16 @@ function logger(store){
 	return function(next){
 		return function(action){
 			console.log('action: ' + action.type + 'is dispatched!');
-			next(action);
-			return store.getState();
+			return next(action);
 		}
 	}
 }
 var createStoreWithMiddleware = Redux.applyMiddleware(logger)(Redux.createStore);
-// var store = Redux.createStore(todoApp);
 var store = createStoreWithMiddleware(todoApp);
-var unsubscribe1 = store.subscribe(function(){
-	console.log('1: ' + store.getState());
+var unsubscribe = store.subscribe(function(){
+	// console.log('1: ' + store.getState());
 });
-// var unsubscribe2 = store.subscribe(function(){
-// 	console.log('2: ' + store.getState());
-// });
 
 console.log(store.dispatch(addTodo('上班')));
-// store.dispatch(addTodo('逛街'));
-// store.dispatch(completeTodo(0));
-// store.dispatch(setVisibilityFilter('hide_all'));
 
-unsubscribe1();
-// unsubscribe2();
+unsubscribe();
