@@ -7,18 +7,18 @@ var TodoActions = Reflux.createActions({
 var state = [];
 var TodoStore = Reflux.createStore({
 	listenables: [TodoActions],
-	init: function(){
-
-	},
 	onAddTodo: function(text){
 		state.push(text);
+		this.trigger(state);
 	},
 	getState: function(){
 		return state;
 	}
 });
 
+TodoStore.listen(function(state){
+	console.log('state is: ' + state);	
+});
 TodoActions.addTodo('起床');
 TodoActions.addTodo('吃早餐');
 TodoActions.addTodo('上班');
-console.log(TodoStore.getState());
