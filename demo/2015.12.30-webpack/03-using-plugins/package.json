@@ -1,0 +1,16 @@
+{
+  "name": "03-using-plugins",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-libs-browser": "^0.5.3",
+    "uglify-loader": "^1.3.0",
+    "webpack": "^1.9.11"
+  }
+}

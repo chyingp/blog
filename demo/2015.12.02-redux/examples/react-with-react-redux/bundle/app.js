@@ -39,19 +39,6 @@ var todoReducer = function todoReducer(state, action) {
 var App = React.createClass({
 	displayName: 'App',
 
-	// getInitialState: function(){
-	// 	return {
-	// 		items: store.getState()
-	// 	};
-	// },
-	// componentDidMount: function(){
-	// 	var unsubscribe = store.subscribe(this.onChange);
-	// },
-	// onChange: function(){
-	// 	this.setState({
-	// 		items: store.getState()
-	// 	});
-	// },
 	handleAdd: function handleAdd() {
 		var value = ReactDOM.findDOMNode(this.refs.todo).value.trim();
 		if (value) this.props.dispatch(addTodoActions(value));
@@ -88,9 +75,7 @@ function mapStateToProps(state) {
 	};
 }
 
-// var createStoreWithMiddleware = Redux.applyMiddleware(thunk)(Redux.createStore);
 var store = Redux.createStore(todoReducer);
-// var store = createStoreWithMiddleware(todoReducer);
 var ConnectedApp = connect(mapStateToProps)(App); // 映射
 
 ReactDOM.render(React.createElement(

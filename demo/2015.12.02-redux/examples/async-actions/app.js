@@ -37,10 +37,23 @@ var todoReducer = function(state, action){
 	}
 };
 
+var logger = function(store){
+	return function(next){
+		return function(action){
+			
+			if(typeof action!=='function') console.log('action: ' + action.type);
+
+			return next(action);
+		};
+	};
+};
+
 // 定义store
 var createStoreWithMiddleware = Redux.applyMiddleware(
+	logger,
 	thunkMiddleware
 	)(Redux.createStore);
+
 var store = createStoreWithMiddleware(todoReducer);
 var unsubscribe = store.subscribe(function(){
 	console.log(store.getState());

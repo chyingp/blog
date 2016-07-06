@@ -1,0 +1,9 @@
+{% extends "./layout.nj" %}
+
+{% block left %}
+<link rel="import" href="./header.html?__inline" />
+{% endblock %}
+
+{% block right %}
+This is the right side!
+{% endblock %}

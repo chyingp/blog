@@ -1,0 +1,19 @@
+{
+  "name": "02-using-loaders",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "css-loader": "^0.23.1",
+    "node-sass": "^3.4.2",
+    "sass-loader": "^3.1.2",
+    "scss-loader": "0.0.1",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.10"
+  }
+}

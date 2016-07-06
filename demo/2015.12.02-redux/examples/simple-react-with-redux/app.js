@@ -29,19 +29,6 @@ var todoReducer = function(state, action){
 	}
 };
 
-// 定义store
-// var store = Redux.createStore(todoReducer);
-// var unsubscribe = store.subscribe(function(){
-// 	console.log(store.getState());
-// });
-
-
-// store.dispatch(addTodoActions('吃早餐'));
-// store.dispatch(addTodoActions('上班'));
-// store.dispatch(addTodoActions('吃午餐'));
-
-// unsubscribe();
-
 var store = Redux.createStore(todoReducer);
 var App = React.createClass({
 	getInitialState: function(){
@@ -65,7 +52,7 @@ var App = React.createClass({
 	render: function(){
 		return (
 			<div>
-				<input ref="todo" type="text" placeholder="输入todo项" />
+				<input ref="todo" type="text" placeholder="输入todo项" style={{marginRight:'10px'}} />
 				<button onClick={this.handleAdd}>点击添加</button>
 				<ul>
 					{this.state.items.map(function(item){
