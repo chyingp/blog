@@ -12,7 +12,6 @@ server.on('listening', function () {
 
 server.on('message', function (message, remote) {
     console.log(remote.address + ':' + remote.port +' - ' + message);
-
 });
 
 server.bind(PORT, HOST);

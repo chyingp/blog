@@ -20,3 +20,5 @@ var server = net.createServer(function(socket){
 	});
 });
 server.listen(PORT, HOST);
+
+console.log(server instanceof net.Server);  // true
