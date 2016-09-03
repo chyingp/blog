@@ -139,9 +139,10 @@ proto.handle = function handle(req, res, out) {
 
   debug('dispatching %s %s', req.method, req.url);
 
+  // 比如 /user，那么 fqdn == false, protohost == ""
   var search = 1 + req.url.indexOf('?');  // 如果没有 ?xx=xx，则为 0，否则，是 index + 1
-  var pathlength = search ? search - 1 : req.url.length;  // 没有 ?，则长度为 req.url.length，否则，就是 serch - 1
-  var fqdn = req.url[0] !== '/' && 1 + req.url.substr(0, pathlength).indexOf('://');
+  var pathlength = search ? search - 1 : req.url.length;  // 请求路径部分的长度（排除 ?xx=xx 这部分），比如 /user/detail?uid=11，则为 /usr/detail 这部分的长度
+  var fqdn = req.url[0] !== '/' && 1 + req.url.substr(0, pathlength).indexOf('://');  // fqdn: Fully Qualified Domain Name
   var protohost = fqdn ? req.url.substr(0, req.url.indexOf('/', 2 + fqdn)) : '';
   var idx = 0;
   var removed = '';
@@ -335,7 +336,12 @@ proto.process_params = function process_params(layer, called, req, res, done) {
   // captured parameters from the layer, keys and values
   var keys = layer.keys;
 
+  // 备注：下面这段代码来自 pathToRegexp 这个库，不是express 源码里，可以看到 keys 的数据结构
+  //   var re = pathToRegexp('/:foo/:bar', keys)
+  // // keys = [{ name: 'foo', prefix: '/', ... }, { name: 'bar', prefix: '/', ... }]
+
   // fast track
+  // 如果不存在 param 形式的路由，直接返回
   if (!keys || keys.length === 0) {
     return done();
   }

@@ -226,7 +226,8 @@ app.use = function use(fn) {
 
   fns.forEach(function (fn) {
     // 普通的中间件，或者 express.Router() 不是 express() 
-    // 
+    // 普通中间件：没有 fn.handle
+    // express.Router()：没有 fn.set
     // non-express app
     if (!fn || !fn.handle || !fn.set) {
       return router.use(path, fn);
@@ -484,7 +485,7 @@ app.disable = function disable(setting) {
 // 比如 app.get、app.post、app.head
 // 注意，app.get('/', callback) 跟 app.get('views') 是两种用法
 // 所以，当检测到 app.get(xx) 只有一个参数时，直接调用 app.set(xx)
-// 如果 这里调 的是 this.set(path)，那就死循环了，所以调了 this.set(path)
+// 如果 这里调 的是 this.get(path)，那就死循环了，所以调了 this.set(path)
 // 这也是为什么 app.set() 最前面会有一个奇怪的判断，只有一个参数的时候，就返回对应的属性值
 methods.forEach(function(method){
   app[method] = function(path){

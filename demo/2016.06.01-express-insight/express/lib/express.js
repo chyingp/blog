@@ -38,12 +38,13 @@ function createApplication() {
     app.handle(req, res, next);
   };
 
-  mixin(app, EventEmitter.prototype, false);
-  mixin(app, proto, false);
+  mixin(app, EventEmitter.prototype, false);  // 继承：事件原型
+  mixin(app, proto, false);  // 继承：application.js 中定义的方法，如 .listen()
 
-  app.request = { __proto__: req, app: app };
-  app.response = { __proto__: res, app: app };
-  app.init();
+  app.request = { __proto__: req, app: app };  // req -> require('./request')
+  app.response = { __proto__: res, app: app };  // req -> require('./response')
+  
+  app.init();  // 初始化
   return app;
 }
 

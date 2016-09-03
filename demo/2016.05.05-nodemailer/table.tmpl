@@ -1,0 +1,47 @@
+<div>
+	<style type="text/css">
+		.report-my-table{
+			border: 1px solid #e5e5e5;
+			border-collapse: collapse;
+		}
+		.report-my-table thead tr{
+			background: #f7f7f7
+		}
+		.report-my-table thead tr th{
+			background: #f7f7f7
+		}
+		.report-my-table thead tr th, .report-my-table tbody tr td{
+			border: 1px solid #e5e5e5;
+			line-height: 20px;
+			padding: 8px;
+		}
+	</style>
+	<table class="report-my-table" style="border: 1px solid #e5e5e5; border-collapse: collapse;">
+	<thead>
+		<tr style="background: #f7f7f7;">
+			<th {{{td}}}>序号</th>
+			<th {{{td}}}>路径</th>
+			<th {{{td}}}>访问次数</th>
+			<th {{{td}}}>出错次数</th>
+			<th {{{td}}}>出错率</th>
+			<th {{{td}}}>最慢</th>
+			<th {{{td}}}>最快</th>
+			<th {{{td}}}>平均速度</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#items}}
+		<tr>
+			<td {{{td}}}>{{idx}}</td>
+			<td {{{td}}}>{{path}}</td>
+			<td {{{td}}}>{{visit_times}}</td>
+			<td {{{td}}}>{{error_times}}</td>
+			<td {{{td}}}>{{errorRate}}</td>
+			<td {{{td}}}>{{max}}</td>
+			<td {{{td}}}>{{min}}</td>
+			<td {{{td}}}>{{average}}</td>
+		</tr>
+		{{/items}}
+	</tbody>
+</table>
+</div>

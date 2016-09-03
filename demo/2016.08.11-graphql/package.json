@@ -1,16 +1,17 @@
 {
-  "name": "2016.05.05-nodemailer",
+  "name": "2016.08.11-graphql",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "debug": "^2.2.0",
-    "mustache": "^2.2.1",
-    "nodemailer": "^2.3.2"
+    "express": "^4.14.0",
+    "express-graphql": "^0.5.3",
+    "graphql": "^0.6.2"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "2016.05.05-nodemailer",
+  "name": "2016.08.10-koa",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,8 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "debug": "^2.2.0",
-    "mustache": "^2.2.1",
-    "nodemailer": "^2.3.2"
+    "koa": "^1.2.1"
   }
 }

@@ -1,16 +1,15 @@
 {
-  "name": "2016.05.05-nodemailer",
+  "name": "2016.09.02-chai",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "debug": "^2.2.0",
-    "mustache": "^2.2.1",
-    "nodemailer": "^2.3.2"
+    "chai": "^3.5.0"
   }
 }
