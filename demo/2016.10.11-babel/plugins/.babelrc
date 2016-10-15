@@ -1,0 +1,9 @@
+{
+	"plugins": [
+		"babel-plugin-transform-es2015-arrow-functions",
+		"babel-plugin-transform-es2015-for-of"
+	],
+	"presets": [
+		"babel-preset-es2015"
+	]
+}
