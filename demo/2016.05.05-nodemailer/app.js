@@ -5,6 +5,9 @@ var Mustache = require('mustache');
 var fs = require('fs');
 var querystring = require('querystring');
 
+var user = '';  // 改成对应的账号
+var pass = '';  // 改成对应的密码
+
 process.chdir(__dirname);
 
 var renderTable = function(items){
@@ -73,12 +76,10 @@ var sendMail = function(emailContent){
 	var debug = require('debug')('sendMail');
 
 	// create reusable transporter object using the default SMTP transport 
-	var user = 'report@microption.com.cn';
-	var pass = 'HelloWorld123';
 	var conf = {
 		host: 'smtp.exmail.qq.com',
-	    port: 465,
-	    secure: true, // use SSL 
+	    port: 587,
+	    // secure: true, // use SSL 
 	    auth: {
 	        user: user,
 	        pass: pass
@@ -108,6 +109,9 @@ var sendMail = function(emailContent){
 };
 
 var run = function(){
+	sendMail('hello');
+	return;
+
 	getDailyReport(function(data){
 		var result = renderTable(data.data.items);
 		sendMail(result);
