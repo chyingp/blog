@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>计算属性</title>        
+    </head>
+    <body>
+
+        <div id="app">
+            <div>
+                <input type="text" v-model="firstName">
+                <input type="text" v-model="lastName">
+            </div>
+            <div>
+                <p>{{ fullName }}</p>
+            </div>
+        </div>
+
+        <script src="../node_modules/vue/dist/vue.js"></script>
+        <script>
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    firstName: 'firstName',
+                    lastName: 'lastName'
+                },
+                computed: {
+                    fullName: {
+                        get: function () {
+                            return this.firstName + ' ' + this.lastName
+                        },
+                        set: function (newValue) {
+                            var names = newValue.split(' ')
+                            this.firstName = names[0]
+                            this.lastName = names[names.length - 1]
+                        }
+                    }
+                }
+            })
+
+            vm.fullName = '黄 天霸'
+
+        </script>        
+    </body>
+</html>
