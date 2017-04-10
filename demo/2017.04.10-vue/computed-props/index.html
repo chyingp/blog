@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>计算属性</title>        
+    </head>
+    <body>
+
+        <div id="app">
+            <input type="text" v-model="message">
+            <span>{{ count }}</span>
+            <button v-on:click="increase">点击加1</button>
+            <p>{{ reversedMessage }}</p>
+            <p>{{ computedDate }}</p>
+            <p>{{ methodDate() }}</p>
+        </div>
+
+        <script src="../node_modules/vue/dist/vue.js"></script>
+        <script>
+            var fmDate = function (date) {
+                return [
+                    date.getHours(), 
+                    date.getMinutes(), 
+                    date.getSeconds()
+                ].map(function(n){ return n >= 10 ? n : '0' + n; }).join(':')
+            }
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    message: 'hello world',
+                    count: 1
+                },
+                computed: {
+                    reversedMessage: function () {
+                        return this.message.split('').reverse().join('')
+                    },
+                    computedDate: function () {
+                        return fmDate(new Date())
+                    }
+                },
+                methods: {
+                    increase: function () {
+                        this.count++;
+                    },
+                    methodDate: function () {
+                        return fmDate(new Date())
+                    }
+                }
+            })
+        </script>        
+    </body>
+</html>
