@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>slot</title>        
+    </head>
+    <body>
+
+        <div id="app">
+            <parent>
+                <h1 slot="title">父组件标题</h1>
+                <div slot="body">父组件内容</div>
+                <child></child>
+            </parent>
+        </div>
+
+        <script src="../node_modules/vue/dist/vue.js"></script>
+        
+        <script type="text/x-template" id="parent-tpl">
+            <div>
+                <slot name="title"></slot>
+                <slot name="body"></slot>
+                <child>
+                    <p>子组件内容2</p>
+                </child>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="child-tpl">
+            <div>
+                <h2>子组件标题</h2>
+                <slot>子组件内容1</slot>
+            </div>    
+        </script>
+
+        <script>
+            Vue.component('parent', {
+                template: '#parent-tpl'
+            })
+
+            Vue.component('child', {
+                template: '#child-tpl'
+            })
+
+            var app = new Vue({
+                el: '#app'
+            })
+        </script>        
+    </body>
+</html>
