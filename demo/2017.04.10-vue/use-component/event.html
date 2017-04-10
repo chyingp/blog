@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>自定义事件</title>        
+    </head>
+    <body>
+
+        <div id="app">
+            <p>parent count: {{ count }}</p>
+            <button-counter v-on:increase="parentIncrease"></button-counter>
+            <button-counter v-on:increase="parentIncrease"></button-counter>
+        </div>
+
+        <script src="../node_modules/vue/dist/vue.js"></script>
+        <script type="text/x-template" id="btn-counter-tpl">
+            <button v-on:click="increase">{{ count }}</button>            
+        </script>
+        <script>
+            Vue.component('button-counter', {
+                template: '#btn-counter-tpl',
+                data: function(){
+                    return {
+                        count: 0
+                    }
+                },
+                methods: {
+                    increase: function () {
+                        this.count++;
+                        this.$emit('increase')
+                    }
+                }
+            })
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    count: 0
+                },
+                methods: {
+                    parentIncrease: function () {
+                        this.count++
+                    }
+                }
+            })
+        </script>        
+    </body>
+</html>
