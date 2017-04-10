@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>模板语法</title>        
+    </head>
+    <body>
+
+        <div id="app">
+            <div>
+                <h3>text</h3>
+                <p>{{ text }}</p>
+            </div>
+
+            <div>
+                <h3>html</h3>
+                <p v-html="rawHtml"></p>
+            </div>
+
+            <div>
+                <h3>属性</h3>
+                <p v-bind:title="title"></p>
+            </div>
+
+            <div>
+                <h3>表达式</h3>
+                <p>{{ 'text is: ' + text  }}</p>
+            </div>
+
+            <div>
+                <h3>指令</h3>
+                <p v-if="seen">Now you see me</p>
+                <button v-on:click="toggleSeen">{{ seen ? '隐藏' : '展示' }}</button>
+            </div>
+
+            <div>
+                <h3>过滤器</h3>
+                <p>{{ text | capitalize }}</p>
+            </div>
+
+            <div>
+                <h3>缩写</h3>
+                <div> <a :href="href">{{ href }}</a> </div>
+                <button @click="click">点击</button>
+            </div>
+        </div>
+
+        <script src="../node_modules/vue/dist/vue.js"></script>
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    text: 'hello world',
+                    rawHtml: 'hello <b>world</b>',
+                    title: '属性',
+                    seen: true,
+                    href: 'http://www.qq.com'                  
+                },
+                methods: {
+                    toggleSeen: function(){
+                        this.seen = !this.seen;
+                    },
+                    click: function(){
+                        alert('hello');
+                    }
+                },
+                filters: {
+                    capitalize: function(value){
+                        return value.toUpperCase();
+                    }
+                }
+            })
+        </script>        
+    </body>
+</html>
