@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>双向绑定</title>        
+    </head>
+    <body>
+
+        <div id="app">
+            <parent 
+                v-bind:items="items" 
+                v-bind:count="count">
+            </parent>
+        </div>
+
+        <script src="../node_modules/vue/dist/vue.js"></script>
+        
+        <script type="text/x-template" id="parent-tpl">
+            <div>
+                <h1>父组件</h1>
+                <p>计数：{{ count }}</p>
+                <child v-bind:items="items"></child>
+            </div>            
+        </script>
+
+        <script type="text/x-template" id="child-tpl">
+            <div>
+                <h2>子组件</h2>
+                <ol>
+                    <li v-for="item in items">{{ item.text }}</li>
+                </ol>
+            </div>
+        </script>
+        
+        <script>
+            Vue.component('parent', {
+                template: '#parent-tpl',
+                props: ['items', 'count']
+            })
+
+            Vue.component('child', {
+                template: '#child-tpl',
+                props: ['items']
+            })
+
+            var app = new Vue({
+                el: '#app',
+                data: {        
+                    count: 1,            
+                    items: [
+                        { text: '语文' },
+                        { text: '数学' },                        
+                        { text: '英文' }
+                    ]
+                }
+            })
+        </script>        
+    </body>
+</html>
