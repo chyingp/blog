@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>双向绑定</title>        
+    </head>
+    <body>
+
+        <div id="app">
+            <input type="text" v-model="message">
+            <p>用户输入：{{ message }}</p>
+            <button v-on:click="reverseMessage">逆转消息</button>
+        </div>
+
+        <script src="../node_modules/vue/dist/vue.js"></script>
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    message: 'hello world'
+                },
+                methods: {
+                    reverseMessage: function () {
+                        this.message = this.message.split('').reverse().join('')
+                    }
+                }
+            })
+        </script>        
+    </body>
+</html>

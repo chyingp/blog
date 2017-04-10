@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>双向绑定</title>        
+    </head>
+    <body>
+
+        <div id="app">
+            <ol>
+                <todo-item v-for="item in items" v-bind:todo="item"></todo-item>
+            </ol>
+        </div>
+
+        <script src="../node_modules/vue/dist/vue.js"></script>
+        <script>
+            Vue.component('todo-item', {
+                template: '<li>{{ todo.text }}</li>',
+                props: ['todo']
+            })
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    items: [
+                        { text: '数学' },
+                        { text: '语文' },
+                        { text: '英文' }
+                    ]
+                }
+            })
+        </script>        
+    </body>
+</html>
