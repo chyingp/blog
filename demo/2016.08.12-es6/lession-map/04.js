@@ -1,5 +1,6 @@
 // 备注：类似 WeakSet，WeakMap 对对象的引用，也是弱引用，不计入垃圾回收的计数
 // 用途：比如 jquery 的data方法 $(el).data('count', 1) ，就可以考虑用 WeakMap
+// 备注：测试 WeakMap 对内存回收的作用，可以参考 http://es6.ruanyifeng.com/#docs/set-map#WeakMap
 var wm = new WeakMap();
 
 var obj1 = {};
