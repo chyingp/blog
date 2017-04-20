@@ -39,4 +39,10 @@ for(let [key, value] of map) {
 // key:gender, value:man
 // key:school, value:sysu
 
+map.forEach(function(value, key){
+    console.log('key: %s, value: %s', key, value);
+});
+// key: gender, value: man
+// key: school, value: sysu
+
 console.log( map[Symbol.iterator] === map.entries );  // true
