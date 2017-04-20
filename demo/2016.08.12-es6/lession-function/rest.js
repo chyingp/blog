@@ -71,5 +71,52 @@ function add_2 (x, y) {
 }
 console.log( add_2(...[2, 3]) );  // 5
 
-// 例子：替代数组的apply方法
+// 例子：替代数组的apply方法 （比如求数组里的最大值）
+{
+    let max = Math.max(100, 10, 1000);
+    console.log( max );  // 1000
 
+    max = Math.max.apply(Math, [100, 10, 1000]);
+    console.log( max );  // 1000
+
+    max = Math.max(...[100, 10, 1000]);
+    console.log( max );  // 1000
+}
+
+// 例子：将 数组2 添加到 数组1 的末尾
+{
+    let arr1 = [1, 2];
+    let arr2 = [3, 4];
+    Array.prototype.push.apply(arr1, arr2);
+    console.log(arr1);  // [ 1, 2, 3, 4 ]
+
+    let arr3 = [1, 2];
+    let arr4 = [3, 4];
+    arr3.push(...arr4);
+    console.log(arr3);  // [ 1, 2, 3, 4 ]
+}
+
+// 例子：合并数组
+{
+    let arr1 = [1, 2];
+    let arr2 = [3, 4];
+    let arr3 = arr1.concat(arr2);
+    console.log(arr3);  // [ 1, 2, 3, 4 ]
+
+    let arr4 = [1, 2];
+    let arr5 = [3, 4];
+    let arr6 = [...arr4, ...arr5];
+    console.log(arr6);  // [ 1, 2, 3, 4 ]
+
+    // 合并多个数组
+    let arr7 = [...[1], ...[2, 3, 4], ...[5, 6]];
+    console.log(arr7);  // [ 1, 2, 3, 4, 5, 6 ]
+}
+
+// 例子：与结构赋值结合
+{
+    let [first, second, ...items] = [1, 2, 3, 4, 5];
+    console.log(first);  // 1
+    console.log(second);  // 2
+    console.log(items);  // [ 3, 4, 5 ]
+}
