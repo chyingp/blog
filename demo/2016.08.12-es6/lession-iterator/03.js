@@ -15,3 +15,21 @@ for(let [key, value] of map) {
 }
 // key:nick, value:chyingp
 // key:gender, value:man
+
+let str = 'hello';
+for(let s of str) console.log(s);
+// h
+// e
+// l
+// l
+// o
+
+// 例子：普通的 arr.forEach(callback) 无法半路跳出循环
+let array = [1, 10, 100, 1000, 10000];
+for(let num of array) {
+    if(num > 100) break;
+    console.log(num);
+}
+// 1
+// 10
+// 100
