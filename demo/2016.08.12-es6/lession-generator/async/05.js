@@ -10,6 +10,30 @@ var gen = function * () {
     console.log(r2.toString());
 };
 
-co(gen).then(function(){
-    console.log('done');
+// co(gen).then(function(){
+//     console.log('done');
+// });
+
+// co(function* () {
+//   var res = yield [
+//     Promise.resolve(1),
+//     Promise.resolve(2)
+//   ];
+//   console.log(res);
+// }).catch(function(e){
+//     console.log(e.message);
+// });
+
+co(function* () {
+  var res = yield [
+    new Promise(function (resolve, reject) {
+        setTimeout(function () { resolve('hello') }, 2000);
+    }),
+    new Promise(function (resolve, reject) {
+        setTimeout(function () { resolve('world') }, 1000);
+    }),
+  ];
+  console.log(res);
+}).catch(function(e){
+    console.log(e.message);
 });
