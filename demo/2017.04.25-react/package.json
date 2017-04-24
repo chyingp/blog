@@ -1,0 +1,22 @@
+{
+  "name": "2017.04.25-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --config webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-router": "^4.1.1",
+    "redux": "^3.6.0"
+  },
+  "devDependencies": {
+    "webpack": "^2.4.1"
+  }
+}
