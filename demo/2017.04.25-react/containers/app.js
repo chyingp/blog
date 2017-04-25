@@ -5,45 +5,18 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import rootReducers from '../reducers';
 import { Provider, connect } from 'react-redux'
+import Home from './Home';
 
 class App extends React.Component {
 	
 	constructor (props) {
 		super(props);	
-		this.state = {
-			value: ''
-		};
+		this.state = {};
 	}
-
-	componentDidMount () {
-		// console.log( store.getState() );
-		// store.dispatch( queryHelp() );
-		this.props.getHelp();
-	}
-
-	getFilteredItems () {		
-		return this.props.items.filter( item => {
-			return item.title.toLowerCase().indexOf(this.state.value.toLowerCase()) !== -1;
-		});
-	}
-
+	
 	render () {
 		return (
-			<div>
-				<div>
-					<label htmlFor="">内容过滤：</label>
-					<input 
-						type="text" 
-						value={this.state.value} 
-						onChange={(evt) => this.setState({value: evt.target.value})} 
-					/>
-				</div>	
-				<div>
-					<ul>
-						{this.getFilteredItems().map(item => <li>{item.title}</li> )}
-					</ul>					
-				</div>			
-			</div>	
+			<Home />
 		);
 	}
 }
@@ -51,23 +24,9 @@ class App extends React.Component {
 let createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 let store = createStoreWithMiddleware(rootReducers);
 
-let mapStateToProps = (state) => {
-	return {
-		items: state.items
-	};
-};
-
-let mapDispatchToProps = (dispatch) => {
-	return {
-		getHelp: () => dispatch( queryHelp() )
-	};
-};
-
-let ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
-
 render(
 	<Provider store={store}>
-		<ConnectedApp />
+		<Home />
 	</Provider>, 
 	document.getElementById('container')
 );
