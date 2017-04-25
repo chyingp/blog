@@ -4,7 +4,7 @@
 
 
 ```bash
-npm install react react-dom react-router redux --save
+npm install react react-dom redux redux-thunk react-redux react-router react-router-redux --save
 ```
 
 ### 安装babel
@@ -26,8 +26,6 @@ npm install --save-dev babel-loader babel-core
 ```
 
 增加react支持，参考 https://babeljs.io/docs/plugins/preset-react/
-
-
 
 ### 安装webpack
 
@@ -63,3 +61,21 @@ module.exports = {
 ### 安装开发工具
 
 Download the React DevTools and use an HTTP server (instead of a file: URL) for a better development experience: https://fb.me/react-devtools
+
+
+## 步骤
+
+* 环境初始化
+* redux + redx-*
+* react-router
+* webpack
+* 组件：js + css
+* 按需加载
+* production 所需
+* eslint
+* test
+
+* react
+* react + redux
+* react + redux + redux-thunk
+* react + redux + redux-thunk + react-redux
