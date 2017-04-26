@@ -15,9 +15,10 @@ let queryHelp = () => (dispatch) => {
     dispatch ( queryHelpPending() );
 
     fetch('https://help.github.com/search/search.json')
-        .then(response => response.json())
-        .then(data => data.entries.filter(v => !!v.title) )
-        .then(items => dispatch( queryHelpSuccess(items) ) )
+        .then( response => response.json() )
+        .then( data => data.entries.filter(v => !!v.title) )
+        .then( items => items.map((item, index) => ({id: index, ...item})) )
+        .then( items => dispatch( queryHelpSuccess(items) ) )
 };
 
 export { queryHelp };

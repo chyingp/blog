@@ -1,11 +1,12 @@
 import React from 'react';
 import {render} from 'react-dom';
 import { queryHelp } from '../actions'
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import ReduxThunk from 'redux-thunk';
-import rootReducers from '../reducers';
+import rootReducer from '../reducers';
 import { Provider, connect } from 'react-redux'
 import Home from './Home';
+import HelpDetail from './HelpDetail';
 
 class App extends React.Component {
 	
@@ -13,64 +14,52 @@ class App extends React.Component {
 		super(props);	
 		this.state = {};
 	}
-	
+
 	render () {
-		return (
-			<Home />
+		return (			
+			<div>
+				<HelpDetail />
+				<Home />
+			</div>			
 		);
 	}
 }
 
-let createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
-let store = createStoreWithMiddleware(rootReducers);
+// let createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+// let store = createStoreWithMiddleware(reducers);
+
+import { createBrowserHistory } from 'history'
+import {BrowserRouter as Router,Route,Link} from 'react-router-dom'
+import { connectRouter, routerMiddleware } from 'connected-react-router'
+
+const history = createBrowserHistory()
+
+const store = createStore(
+  connectRouter(history)(rootReducer), // new root reducer with router state
+  {},
+  compose(
+    applyMiddleware(
+      routerMiddleware(history), // for dispatching history actions
+      ReduxThunk
+	  // ... other middlewares ...
+    ),
+  ),
+)
+
+import { Switch } from 'react-router'
+import { ConnectedRouter } from 'connected-react-router'
+
 
 render(
 	<Provider store={store}>
-		<Home />
+		<ConnectedRouter history={history}> 
+		<div> 
+			<Switch>
+			<Route exact path="/" component={Home} />
+			<Route render={() => (<div>Miss</div>)} />
+			</Switch>
+		</div>
+		</ConnectedRouter>
 	</Provider>, 
 	document.getElementById('container')
 );
-
-// setState() -> render
-// data <-> view
-// flex 
-
-
-// react + react-router + redux + react-router-redux react-dom
-// (typescript/babel/coffeescript) + webpack
-// es6/es5
-// 兼容性
-// 
-// node -> server / tool 
-// 
-// server + react server render
-// vue 
-// vue / react
-// angular
-
-// jsx -> jsx-transform
-// jsx
-// react-dom
-// react-server
-
-
-// function readFile (filepath) {
-// 	return new Promise((resolve) ＝> {
-// 		resolve(data);
-// 	})
-// }
-
-// // 
-// try{
-// 	let content = await readFile('hlelo.txt')
-// 	console.log('hello');
-// }cathc(e){
-// 
-// }
-
-// webassembly -> 
-// http2 ->
-// wpa -> android
-
-// service-worker
-// 

@@ -1,7 +1,15 @@
 import { combineReducers } from 'redux';
-import {QUERY_HELP, QUERY_HELP_PENDING, QUERY_HELP_SUCCESS, QUERY_HELP_ERROR} from '../constants';
+import {
+    QUERY_HELP, QUERY_HELP_PENDING, QUERY_HELP_SUCCESS, QUERY_HELP_ERROR,
+    SELECT_HELP
+} from '../constants';
 
-let items = function (state = [], action) {
+// const initialState = {
+//     items: [],
+//     curId: ''
+// };
+
+function items (state = [], action) {
     switch(action.type) {
         case QUERY_HELP_SUCCESS:
             return action.payload;
@@ -10,6 +18,16 @@ let items = function (state = [], action) {
     }
 };
 
+function curId (state = '', action) {
+    switch(action.type) {
+        case SELECT_HELP:
+            return action.payload;
+        default:
+            return state;    
+    }
+}
+
 export default combineReducers({
-    items
+    items,
+    curId
 });

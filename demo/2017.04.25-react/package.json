@@ -11,11 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "connected-react-router": "^4.1.0",
     "fetch": "^1.1.0",
+    "history": "^4.6.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
     "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
     "react-router-redux": "^4.0.8",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0"
@@ -24,6 +27,8 @@
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.4.0",
     "babel-preset-react": "^6.24.1",
     "webpack": "^2.4.1"

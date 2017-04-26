@@ -1,3 +1,4 @@
 {
-  "presets": ["env", "react"]  // 倒序，也就是说，react -> env
+  "presets": ["env", "react"],  // 倒序，也就是说，react -> env
+  "plugins": ["transform-es2015-destructuring", "transform-object-rest-spread"]
 }
