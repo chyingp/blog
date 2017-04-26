@@ -4,26 +4,37 @@ var ReactDOM = require('react-dom');
 var Button = React.createClass({
 	render: function () {
 		return (
-			<button style={{color: this.props.color}}>
+			<button style={{color: this.context.color}}>
 				{this.props.children}
 			</button>
 		);
 	}
 });
 
+Button.contextTypes = {
+	color: React.PropTypes.string
+};
+
 var Message = React.createClass({
 	render: function () {
 		return (
-			<div>{this.props.text} <Button color={this.props.color}>删除</Button></div>
+			<div>{this.props.text} <Button>删除</Button></div>
 		);
 	}
 });
 
 var MessageList = React.createClass({
+
+	getChildContext: function () {
+		return {
+			color: 'green'
+		};
+	},	
+
 	render: function () {
 		var list = [
-			{text: 'hello world', color: 'blue'},
-			{text: 'hello react', color: 'red'}
+			{text: 'hello world'},
+			{text: 'hello react'}
 		];
 
 		return (
@@ -35,6 +46,10 @@ var MessageList = React.createClass({
 		);
 	}
 });
+
+MessageList.childContextTypes = {
+	color: React.PropTypes.string
+};
 
 ReactDOM.render(
 	<MessageList />, 
