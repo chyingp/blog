@@ -1,46 +1,89 @@
-## 初始化
+## 安装react全家桶
 
-### 安装react全家桶
+基础套装：
 
 ```bash
-npm install react react-dom redux redux-thunk react-redux react-router react-router-redux --save
+npm install --save react react-dom
+```
+
+redux套餐：
+
+```bash
+npm install --save redux redux-thunk react-redux
+```
+
+react-router套餐：
+
+```bash
+npm install --save react-router react-router-redux
 ```
 
 注意：react-router 是个神坑，从 0.x -> 2.x -> 4.x ，每个版本API变化非常大
 
-### 安装babel
+## 安装babel全家桶
+
+首先，babel基础套餐：
 
 ```bash
-npm install --save-dev babel-cli babel-preset-env babel-preset-react
+npm install --save-dev babel-cli babel-preset-env
 ```
 
-```bash
-npm install --save-dev babel-loader babel-core
-```
+配套`.bashrc`
 
-创建`.babelrc`
-
-```js
+```javascript
 {
   "presets": ["env"]
 }
 ```
 
-增加react支持，参考 https://babeljs.io/docs/plugins/preset-react/
+最好安装下`babel-polyfill`，增加对`Promise`、`Array.from`等的支持。
 
-### 安装webpack
+```bash
+npm install --save-dev babel-polyfill
+```
+
+如果要支持react，那么
+
+```bash
+npm install --save-dev babel-preset-react
+```
+
+配置文件如下：
+
+```javascript
+{
+  "presets": ["env", "react"]
+}
+```
+
+TODO：启用source map
+
+```bash
+npm install --save-dev babel-loader babel-core
+```
+
+
+## 安装webpack全家桶
+
+基础套餐：
 
 ```bash
 npm install --save-dev webpack
 ```
 
+增加`babel-loader`
+
+```bash
+npm install --save-dev babel-loader
+```
+
 在package.json中添加webpack启动脚本
 
 ```
-"start": "webpack --config webpack.config.js",
+"start": "webpack --config webpack.config.js -w",
 ```
 
-基础配置：
+基础配置如下：
 
 ```js
 var path = require('path');
@@ -95,3 +138,7 @@ react-router中文文档：https://react-guide.github.io/react-router-cn/docs/In
 react-router-redux：https://github.com/reacttraining/react-router/tree/master/packages/react-router-redux
 react-router@4.0 使用和源码解析：http://www.jianshu.com/p/27ee7df4ccc1
 connected-react-router：https://github.com/supasate/connected-react-router
+
+
+babel-polyfill、babel-runtime区别：
+http://www.ruanyifeng.com/blog/2016/01/babel.html#comment-367093
