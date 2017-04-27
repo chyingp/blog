@@ -11,11 +11,16 @@ let queryHelpPending = () => ({type: QUERY_HELP_PENDING});
 let queryHelpSuccess = (items) => ({type: QUERY_HELP_SUCCESS, payload: items});
 let queryHelpError = () => ({type: QUERY_HELP_ERROR});
 
+let mock = function () {
+    return Promise.resolve( require('./search.json') );
+};
+
 let queryHelp = () => (dispatch) => {
     dispatch ( queryHelpPending() );
 
-    fetch('https://help.github.com/search/search.json')
-        .then( response => response.json() )
+    // fetch('https://help.github.com/search/search.json')
+    //     .then( response => response.json() )
+    mock()
         .then( data => data.entries.filter(v => !!v.title) )
         .then( items => items.map((item, index) => ({id: index, ...item})) )
         .then( items => dispatch( queryHelpSuccess(items) ) )

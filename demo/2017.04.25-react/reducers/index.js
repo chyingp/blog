@@ -27,7 +27,9 @@ function curId (state = '', action) {
     }
 }
 
-export default combineReducers({
-    items,
-    curId
-});
+export default { items };
+
+// export default combineReducers({
+//     items,
+//     curId
+// });

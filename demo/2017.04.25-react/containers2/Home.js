@@ -1,6 +1,7 @@
 import React from 'react';
 import { queryHelp } from '../actions';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 class Home extends React.Component {
 	
@@ -36,8 +37,10 @@ class Home extends React.Component {
 				</div>	
 				<div>
 					<ul>
-						{this.getFilteredItems().map((item, index) => {
-                            return <li key={index}><a href={`/detail/${index}`}>{item.title}</a></li>
+						{this.getFilteredItems().slice(0, 1).map((item, index) => {
+                            // return <li key={index}><a href={`/detail/${index}`}>{item.title}</a></li>
+                            // {`/detail/:${index}`}
+                            return <li key={index}><Link to="/fuck">{item.title}</Link></li>
                          } )}
 					</ul>					
 				</div>			
@@ -46,7 +49,7 @@ class Home extends React.Component {
 	}
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state, ownProps) => {
 	return {
 		items: state.items
 	};

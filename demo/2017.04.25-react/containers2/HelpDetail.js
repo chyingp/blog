@@ -19,7 +19,7 @@ HelpDetail.propTypes = {
     body: PropTypes.string.isRequired
 };
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state, ownProps) => {
 	return {
         id: state.curId,
 		..._.find(state.items, item => item.id === state.curId)

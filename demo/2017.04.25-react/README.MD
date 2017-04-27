@@ -11,7 +11,7 @@ npm install react react-dom redux redux-thunk react-redux react-router react-rou
 ### 安装babel
 
 ```bash
-npm install --save-dev babel-cli babel-preset-env
+npm install --save-dev babel-cli babel-preset-env babel-preset-react
 ```
 
 ```bash
@@ -76,10 +76,12 @@ Download the React DevTools and use an HTTP server (instead of a file: URL) for 
 * eslint
 * test
 
-* react
-* react + redux
-* react + redux + redux-thunk
-* react + redux + redux-thunk + react-redux
+* react -- ok
+* react + redux -- ok
+* react + redux + redux-thunk -- ok
+* react + redux + redux-thunk + react-redux -- ok
+* react + redux + redux-thunk + react-redux + react-router -- ok
+* react + redux + redux-thunk + react-redux + react-router + connected-react-router
 
 
 ## 相关链接
