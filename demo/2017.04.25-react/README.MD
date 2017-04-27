@@ -56,11 +56,15 @@ npm install --save-dev babel-preset-react
 }
 ```
 
-TODO：启用source map
+此外，如果加上类似解构赋值、`{...obj}`语法的话，还需要加额外的插件
 
 ```bash
-npm install --save-dev babel-loader babel-core
+npm install --save-dev babel-plugin-transform-es2015-destructuring babel-plugin-transform-object-rest-spread
 ```
+
+
+TODO：启用source map
+
 
 
 ## 安装webpack全家桶
@@ -74,7 +78,7 @@ npm install --save-dev webpack
 增加`babel-loader`
 
 ```bash
-npm install --save-dev babel-loader
+npm install --save-dev babel-loader babel-core
 ```
 
 在package.json中添加webpack启动脚本
