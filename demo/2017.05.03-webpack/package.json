@@ -12,5 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "webpack": "^2.4.1"
+  },
+  "dependencies": {
+    "loadash": "0.0.1"
   }
 }
