@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>state management</title>        
+    </head>
+    <body>
+
+        <div id="app"></div>
+
+        <script src="../node_modules/vue/dist/vue.js"></script>
+        <script src="../node_modules/vuex/dist/vuex.js"></script>        
+        <script>
+            var todoStore = {
+                state: {
+                    items: []
+                },
+                mutations: {
+                    addTodo (state, payload) {
+                        state.items.push(payload)
+                    }
+                }
+            }
+
+            var clockStore = {
+                state: {
+                    timeCost: 0
+                },
+                mutations: {
+                    increment (state, payload) {
+                        state.timeCost += payload
+                    }
+                }
+            }
+
+            var Todos = {
+                template: `
+                    <div>
+                        <h3>todos({{ items.length }})</h3>
+                        <ul>
+                            <li v-for="item in items">{{item}}</li>
+                        </ul>
+                    </div>`,  
+                computed: {
+                    items () {
+                        return this.$store.state.todo.items
+                    }
+                }
+            }
+
+            var Todo = {
+                template: `
+                    <div>
+                        <input type="text" v-model="msg" />
+                        <button v-on:click="addTodo">增加</button>
+                    </div>`,
+                data () {
+                    return {
+                        msg: ''
+                    }
+                },    
+                methods: {
+                    addTodo () {
+                        this.$store.commit('addTodo', this.msg)
+                    }
+                }
+            }
+
+            var store = new Vuex.Store({
+                modules: {
+                    todo: todoStore,
+                    clock: clockStore
+                }
+            })
+
+            var app = new Vue({
+                el: '#app',                
+                store,
+                components: { 'todo': Todo, 'todos': Todos },
+                template: `
+                    <div class="app">
+                        <todo></todo>
+                        <todos></todos>
+                    </div>
+                `
+            })
+        </script>        
+    </body>
+</html>
