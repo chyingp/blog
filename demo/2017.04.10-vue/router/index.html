@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>路由</title>        
+    </head>
+    <body>
+
+        <div id="app">
+
+        </div>
+
+        <script src="../node_modules/vue/dist/vue.js"></script>
+        <script>
+            const NotFound = { template: '<p>Page not found</p>' }
+            const Home = { template: '<p>home page</p>' }
+            const About = { template: '<p>about page</p>' }
+            const routes = {
+                '/': Home,
+                '/': About
+            }
+            new Vue({
+                el: '#app',
+                data: {
+                    currentRoute: window.location.pathname
+                },
+                computed: {
+                    ViewComponent () {
+                        return routes[this.currentRoute] || NotFound
+                    }
+                },
+                render (h) { return h(this.ViewComponent) }
+            })
+        </script>        
+    </body>
+</html>
