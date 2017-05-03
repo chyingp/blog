@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package Front.Trade.Proto;
+
+//用户登录、登出动作
+enum ELoginAction {
+	ELoginAction_Unknown= 0;
+	ELoginAction_In		= 1;	//登录
+	ELoginAction_Out	= 2;	//登出
+}
+
+//系统类型
+enum EClientType {
+	EClientType_Unknown	= 0;
+	EClientType_Android	= 1;	//安卓系统
+	EClientType_IPhone	= 2;	//苹果系统
+	EClientType_Web		= 3;	//手机Web终端
+	EClientType_PcWeb	= 4;	//PCWeb终端
+	EClientType_PC		= 5;	//PC客户端
+
+}
+
+//错误码类型
+enum EErrCode_FrontTrade {
+	EErrCode_FrontTrade_Ok					= 0;
+	EErrCode_FrontTrade_SystemError			= 201000;
+	EErrCode_FrontTrade_RetTypeUnknown		= 201001;	//请求类型不存在
+	EErrCode_FrontTrade_UserNotExist		= 201010;	//用户不存在
+	EErrCode_FrontTrade_ErrUserLoginPasswd	= 201011;	//用户登录密码错误
+	EErrCode_FrontTrade_ErrUserLoginSkey	= 201012;	//skey校验失败
+	EErrCode_FrontTrade_UserLogOutFailed	= 201013;	//用户登出失败
+}

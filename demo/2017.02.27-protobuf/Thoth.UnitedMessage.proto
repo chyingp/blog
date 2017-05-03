@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package Thoth.UnitedMessage;
+import "google/protobuf/any.proto";
+
+message DataUnited {
+    oneof Data {
+        string str_value = 1;
+        int64 int_value = 2;
+    }
+}
+
+message UnitedMessage {
+    int32 msg_type = 1;
+    int32 msg_id = 2;
+    int32 session_id = 3;
+    map<string, DataUnited> opaque_data = 4;
+    map<string, DataUnited> routing_key = 5;    
+}
+
+message UnitedMessage2 {
+    int32 msg_type = 1;
+    int32 msg_id = 2;
+    int32 session_id = 3;
+    oneof Data {
+        string str_value = 4;
+        int64 int_value = 5;
+    }
+}
+
+message DataUnited3 {
+    string str_value = 1;
+}
+
+message UnitedMessage3 {
+    int32 msg_type = 1;
+    int32 msg_id = 2;
+    int32 session_id = 3;
+    DataUnited3 du_3 = 4;
+}
+
+
+message DataUnited4 {
+    oneof Data {
+        string str_value = 1;
+        int64 int_value = 2;
+    }
+    int32 fuck = 3;
+}
+
+message UnitedMessage4 {
+    int32 msg_type = 1;
+    int32 msg_id = 2;
+    int32 session_id = 3;
+    DataUnited4 du_4 = 4;
+}
+
+message DataUnited5 {
+    oneof Data {
+        string str_value = 1;
+        int64 int_value = 2;
+    }
+}
+
+message UnitedMessage5 {
+    int32 msg_type = 1;
+    int32 msg_id = 2;
+    int32 session_id = 3;
+    map<string, DataUnited5> opaque_data = 5;
+}

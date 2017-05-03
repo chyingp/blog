@@ -1,0 +1,332 @@
+syntax = "proto3";
+
+package Front.Trade.Proto;
+
+import "google/protobuf/any.proto";
+import "Front.Trade.Proto.EnumType.proto";
+
+enum EReqType_FrontTrade {
+	EReqType_FrontTrade_Unknown				= 0;	//未知
+	EReqType_FrontTrade_UserLogin			= 10;	//用户登录
+	EReqType_FrontTrade_UserLogout			= 11;	//用户登出
+	EReqType_FrontTrade_UserSkeyVerify		= 12;	//用户登录skey校验
+	EReqType_FrontTrade_UserLoginTrade		= 13;	//用户登录交易
+	EReqType_FrontTrade_UserLogoutTrade		= 14;	//用户登出交易
+	EReqType_FrontTrade_UserTradeSkeyVerify	= 15;	//用户交易skey校验
+	EReqType_FrontTrade_MerchantStaffLogin	= 16;	//机构员工登录
+	EReqType_FrontTrade_MerchantStaffLogout	= 17;	//机构员工登出
+	EReqType_FrontTrade_StaffSkeyVerify		= 18;	//机构员工skey校验
+}
+
+enum ERspType_FrontTrade {
+	ERspType_FrontTrade_Unknown				= 0;		//未知
+	ERspType_FrontTrade_UserLogin			= 10010;	//用户登录
+	ERspType_FrontTrade_UserLogout			= 10011;	//用户登出
+	ERspType_FrontTrade_UserSkeyVerify		= 10012;	//用户skey登录校验
+	ERspType_FrontTrade_UserLoginTrade		= 10013;	//用户登录交易
+	ERspType_FrontTrade_UserLogoutTrade		= 10014;	//用户登出交易
+	ERspType_FrontTrade_UserTradeSkeyVerify	= 10015;	//用户交易skey校验
+	ERspType_FrontTrade_MerchantStaffLogin	= 10016;	//机构员工登录
+	ERspType_FrontTrade_MerchantStaffLogout	= 10017;	//机构员工登出
+	ERspType_FrontTrade_StaffSkeyVerify		= 10018;	//机构员工skey校验
+}
+
+//未知请求回应
+message RspReqTypeUnknown {
+	ERspType_FrontTrade	rsp_type		= 1;	//消息类型
+	EErrCode_FrontTrade	ret_code		= 2;
+	string				ret_msg			= 3;
+}
+
+//用户登录请求消息
+message ReqUserLogin {
+	EReqType_FrontTrade	req_type		= 1;	//消息类型
+	string				login_name		= 2;	//登录名
+	string				login_passwd	= 3;	//登录密码
+	EClientType			client_type		= 4;	//终端类型
+	string				client_info		= 5;	//终端信息
+	string				client_ip		= 6;	//终端ip
+}
+//用户登录请求回应
+message RspUserLogin {
+	ERspType_FrontTrade	rsp_type		= 1;	//消息类型
+	EErrCode_FrontTrade	ret_code		= 2;
+	string				ret_msg			= 3;
+	string				login_name		= 4;	//登录名
+	string				uid				= 5;	//用户uid
+	string				skey			= 6;	//sessionkey
+	int32				effective_time	= 7;	//session有效时长、单位秒
+}
+
+//用户登出请求消息
+message ReqUserLogout {
+	EReqType_FrontTrade	req_type		= 1;	//消息类型
+	string				uid				= 2;	//用户uid
+	string				skey			= 3;	//sessionkey
+	EClientType			client_type		= 4;	//终端类型
+	string				client_info		= 5;	//终端信息
+	string				client_ip		= 6;	//终端ip
+}
+//用户登出请求回应
+message RspUserLogout {
+	ERspType_FrontTrade	rsp_type		= 1;	//消息类型
+	EErrCode_FrontTrade	ret_code		= 2;
+	string				ret_msg			= 3;
+	string				uid				= 4;	//用户uid
+	string				skey			= 5;	//sessionkey
+}
+
+//校验用户skey请求消息
+message ReqUserSkeyVerify {
+	EReqType_FrontTrade	req_type		= 1;	//消息类型
+	string				uid				= 2;	//用户uid
+	string				skey			= 3;	//sessionkey
+	EClientType			client_type		= 4;	//终端类型
+	string				client_info		= 5;	//终端信息
+	string				client_ip		= 6;	//终端ip
+}
+//校验用户skey回应
+message RspUserSkeyVerify {
+	ERspType_FrontTrade	rsp_type		= 1;	//消息类型
+	EErrCode_FrontTrade	ret_code		= 2;
+	string				ret_msg			= 3;
+	string				uid				= 4;	//用户uid
+	string				skey			= 5;	//sessionkey
+}
+
+//用户交易登录请求消息
+message ReqUserLoginTrade {
+	EReqType_FrontTrade	req_type		= 1;	//消息类型
+	string				fid				= 2;	//资金帐号
+	string				trade_passwd	= 3;	//交易密码
+	EClientType			client_type		= 4;	//终端类型
+	string				client_info		= 5;	//终端信息
+	string				client_ip		= 6;	//终端ip
+}
+//用户交易登录请求回应
+message RspUserLoginTrade {
+	ERspType_FrontTrade	rsp_type		= 1;	//消息类型
+	EErrCode_FrontTrade	ret_code		= 2;
+	string				ret_msg			= 3;
+	string				fid				= 4;	//资金帐号
+	string				us_skey			= 5;	//sessionkey
+	int32				effective_time	= 6;	//session有效时长、单位秒
+}
+
+//用户交易登出请求消息
+message ReqUserLogoutTrade {
+	EReqType_FrontTrade	req_type		= 1;	//消息类型
+	string				fid				= 2;	//资金帐号
+	string				us_skey			= 3;	//sessionkey
+	EClientType			client_type		= 4;	//终端类型
+	string				client_info		= 5;	//终端信息
+	string				client_ip		= 6;	//终端ip
+}
+//用户交易登出请求回应
+message RspUserLogoutTrade {
+	ERspType_FrontTrade	rsp_type		= 1;	//消息类型
+	EErrCode_FrontTrade	ret_code		= 2;
+	string				ret_msg			= 3;
+	string				fid				= 4;	//资金帐号
+	string				us_skey			= 5;	//sessionkey
+}
+
+//校验用户交易skey请求消息
+message ReqUserTradeSkeyVerify {
+	EReqType_FrontTrade	req_type		= 1;	//消息类型
+	string				fid				= 2;	//资金id
+	string				us_skey			= 3;	//sessionkey
+	EClientType			client_type		= 4;	//终端类型
+	string				client_info		= 5;	//终端信息
+	string				client_ip		= 6;	//终端ip
+}
+//校验用户交易skey回应
+message RspUserTradeSkeyVerify {
+	ERspType_FrontTrade	rsp_type		= 1;	//消息类型
+	EErrCode_FrontTrade	ret_code		= 2;
+	string				ret_msg			= 3;
+	string				fid				= 4;	//资金id
+	string				us_skey			= 5;	//sessionkey
+}
+
+//机构员工登录请求消息
+message ReqMerchantStaffLogin {
+	EReqType_FrontTrade	req_type		= 1;	//消息类型
+	string				login_name		= 2;	//登录名
+	string				login_passwd	= 3;	//登录密码
+	EClientType			client_type		= 4;	//终端类型
+	string				client_info		= 5;	//终端信息
+	string				client_ip		= 6;	//终端ip
+}
+//机构员工登录请求回应
+message RspMerchantStaffLogin {
+	ERspType_FrontTrade	rsp_type		= 1;	//消息类型
+	EErrCode_FrontTrade	ret_code		= 2;
+	string				ret_msg			= 3;
+	string				login_name		= 4;	//登录名
+	string				msid			= 5;	//员工msid
+	string				ms_skey			= 6;	//sessionkey
+	int32				effective_time	= 7;	//session有效时长、单位秒
+}
+
+
+//机构员工登出请求消息
+message ReqMerchantStaffLogout {
+	EReqType_FrontTrade	req_type		= 1;	//消息类型
+	string				msid			= 2;	//员工msid
+	string				ms_skey			= 3;	//sessionkey
+	EClientType			client_type		= 4;	//终端类型
+	string				client_info		= 5;	//终端信息
+	string				client_ip		= 6;	//终端ip
+}
+//机构员工登出请求回应
+message RspMerchantStaffLogout {
+	ERspType_FrontTrade	rsp_type		= 1;	//消息类型
+	EErrCode_FrontTrade	ret_code		= 2;
+	string				ret_msg			= 3;
+	string				msid			= 4;	//员工msid
+	string				ms_skey			= 5;	//sessionkey
+}
+
+//校验机构员工skey请求消息
+message ReqStaffSkeyVerify {
+	EReqType_FrontTrade	req_type		= 1;	//消息类型
+	string				msid			= 2;	//员工msid
+	string				ms_skey			= 3;	//sessionkey
+	EClientType			client_type		= 4;	//终端类型
+	string				client_info		= 5;	//终端信息
+	string				client_ip		= 6;	//终端ip
+}
+//校验机构员工skey回应
+message RspStaffSkeyVerify {
+	ERspType_FrontTrade	rsp_type		= 1;	//消息类型
+	EErrCode_FrontTrade	ret_code		= 2;
+	string				ret_msg			= 3;
+	string				msid			= 4;	//员工msid
+	string				ms_skey			= 5;	//sessionkey
+}
+
+message ReqMessage {
+	EReqType_FrontTrade		req_type					= 1;	//消息类型
+	ReqUserLogin			req_user_login				= 10;	//用户登录请求消息
+	ReqUserLogout			req_user_logout				= 11;	//用户登出请求消息
+	ReqUserSkeyVerify		req_user_skey_verify		= 12;	//用户skey校验请求消息
+	ReqUserLoginTrade		req_user_login_trade		= 13;	//用户交易登录请求消息
+	ReqUserLogoutTrade		req_user_logout_trade		= 14;	//用户交易登出请求消息
+	ReqUserTradeSkeyVerify	req_user_trade_skey_verify	= 15;	//用户交易skey校验请求消息
+	ReqMerchantStaffLogin	req_merchant_staff_login	= 16;	//机构员工登录请求消息
+	ReqMerchantStaffLogout	req_merchant_staff_logout	= 17;	//机构员工登出请求消息
+	ReqStaffSkeyVerify		req_staff_skey_verify		= 18;	//机构员工skey校验请求消息
+}
+
+message RspMessage {
+	ERspType_FrontTrade		rsp_type					= 1;	//消息类型
+	RspReqTypeUnknown		rsp_req_type_unknown		= 2;	//未知请求类型
+	RspUserLogin			rsp_user_login				= 10;	//用户登录请求回应
+	RspUserLogout			rsp_user_logout				= 11;	//用户登出请求回应
+	RspUserSkeyVerify		rsp_user_skey_verify		= 12;	//用户skey校验请求回应
+	RspUserLoginTrade		rsp_user_login_trade		= 13;	//用户交易登录请求回应
+	RspUserLogoutTrade		rsp_user_logout_trade		= 14;	//用户交易登出请求回应
+	RspUserTradeSkeyVerify	rsp_user_trade_skey_verify	= 15;	//用户交易skey校验请求回应
+	RspMerchantStaffLogin	rsp_merchant_staff_login	= 16;	//机构员工登录请求回应
+	RspMerchantStaffLogout	rsp_merchant_staff_logout	= 17;	//机构员工登出请求回应
+	RspStaffSkeyVerify		rsp_staff_skey_verify		= 18;	//机构员工skey校验请求回应
+}
+
+/*
+//消息类型
+enum ETradeReqType {
+    KTradeReqType_Unknown = 0; //未知
+    KTradeReqType_Subscribe = 1;
+    KTradeReqType_Unsubscribe = 2;
+
+    KTradeReqType_CommodityFutureOption_PlaceOrder = 15; //委托
+    KTradeReqType_CommodityFutureOption_CancelOrder = 16; //撤单
+    KTradeReqType_CommodityFutureOption_ExecReport = 17; //交易回报
+
+    KTradeReqType_Change_UnlistedOptionMargin = 24; //资金冻结解冻转入转出请求
+
+    KTradeReqType_Query_OrderStatus = 31;
+}
+
+enum ETradeRspType {
+    KTradeRspType_Unknown = 0; //未知
+    KTradeRspType_UnlistedOptionSnapshot = 3;
+
+    KTradeRspType_CommodityFutureOption_OrderReport = 13; //委托回报
+    KTradeRspType_CommodityFutureOption_ExecReport = 16; //交易回报
+
+    KTradeRspType_Change_UnlistedOptionMargin = 24; //资金冻结解冻转入转出请求
+
+    KTradeRspType_Query_OrderStatus = 31;
+}
+
+message ReqSubscribe{
+    int32 request_id = 1;
+    repeated string accounts = 2;
+}
+
+message RspOrderStatus {
+    PlaceOrder place_order = 1;
+    OrderStatus order_status = 2;
+}
+
+message RspCommodityFutureOptionExecReport {
+    PlaceOrder place_order = 1;
+    OrderStatus order_status = 2;
+    ExecReport exec_report = 3;
+    UnlistedOptionMargin unlisted_option_margin = 4;
+    CommodityFutureOptionPosition commodity_future_option_position = 5;
+}
+
+message ReqCashChange {
+    string sender_user = 1; //发送者
+    string account = 2; //资金帐号
+
+    UnlistedOptionMargin unlisted_option_margin = 13;
+
+    map<string, google.protobuf.Any> others = 100;
+}
+
+message RspCashChange {
+    ReqCashChange ogr_req = 1;
+    UnlistedOptionMargin unlisted_option_margin = 4;
+    ECashChangeErrorCode error_code = 5;
+}
+
+message UnlistedOptionSnapshot {
+    ReqSubscribe org_req = 1;
+    UnlistedOptionMargin margin = 2;
+    repeated RspOrderStatus order_status = 3;
+    repeated CommodityFutureOptionPosition position = 4;
+}
+
+message ReqQueryOrderStatus{
+    string order_id = 1;
+}
+
+message Req {
+    string account = 1; //资金帐号
+    Thoth.BaseEnumType.EMainCategory main_category=2;
+    Thoth.BaseEnumType.ECategory category = 3;
+
+    ETradeReqType req_type = 10; //消息类型
+
+    ReqSubscribe req_subscribe = 21;
+    PlaceOrder place_order = 22;
+    CancelOrder cancel_order = 23;
+    ReqCashChange cash_change = 24;
+    ReqQueryOrderStatus query_order_status = 25;
+}
+
+message Rsp {
+    string account = 1; //资金帐号
+    Thoth.BaseEnumType.EMainCategory main_category=2;
+    Thoth.BaseEnumType.ECategory category = 3;
+
+    ETradeRspType rsp_type = 10; //消息类型
+    UnlistedOptionSnapshot unlisted_option_snapshot = 11;
+    RspOrderStatus order_status = 12;
+    RspCommodityFutureOptionExecReport commodity_future_option_exec_report = 14;
+    RspCashChange cash_change = 15;
+}*/

@@ -1,0 +1,1 @@
+export {encode, decode} from './util';

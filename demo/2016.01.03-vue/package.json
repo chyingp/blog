@@ -1,5 +1,5 @@
 {
-  "name": "2017.04.10-vue",
+  "name": "2016.01.03-vue",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vuex": "^2.2.1"
+    "vue": "^2.1.8"
   }
 }

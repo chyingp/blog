@@ -1,5 +1,5 @@
 {
-  "name": "2017.04.10-vue",
+  "name": "2017.02.28-native-promise",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vuex": "^2.2.1"
+    "native-promise-only": "^0.8.1"
   }
 }

@@ -1,15 +1,16 @@
 {
-  "name": "2017.04.10-vue",
+  "name": "lession-module",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "01.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "vuex": "^2.2.1"
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-latest": "^6.24.1"
   }
 }
