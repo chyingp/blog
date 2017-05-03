@@ -5,24 +5,35 @@
     </head>
     <body>
 
-        <div id="app">
-            {{ message }}
-        </div>
+        <div id="app"></div>
 
         <script src="../node_modules/vue/dist/vue.js"></script>
-        <script src="../node_modules/vuew/dist/vuex.js"></script>        
+        <script src="../node_modules/vuex/dist/vuex.js"></script>        
         <script>
-            var app = new Vue({
-                el: '#app',
-                data: {
-                    message: 'hello world'
-                }
-            })
-            
-            var Vuex = require('vuex')
-            var Vue = require('vue')
+            // var Vuex = require('vuex')
+            // var Vue = require('vue')
 
-            Vue.use(Vuex)
+            var Counter = {
+                template: `
+                    <div>
+                        总数：{{ count }}
+                        <button v-on:click="increment">同步+1</button>
+                        <button v-on:click="incrementAsync">异步+1</button>
+                    </div>`,
+                computed: {
+                    count () {
+                        return this.$store.state.count
+                    }
+                },
+                methods: {
+                    increment () {
+                        this.$store.commit('increment')
+                    },
+                    incrementAsync () {
+                        this.$store.dispatch('incrementAsync')
+                    }
+                }
+            }
 
             const store = new Vuex.Store({
                 state: {
@@ -32,15 +43,25 @@
                     increment (state) {
                         state.count++
                     }
+                },
+                actions: {
+                    incrementAsync (context) {
+                        setTimeout(() => context.commit('increment'), 2000)
+                    }
                 }
+            })            
+
+            var app = new Vue({
+                el: '#app',
+                // 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件
+                store,
+                components: { Counter },
+                template: `
+                    <div class="app">
+                    <counter></counter>
+                    </div>
+                `
             })
-
-            store.commit('increment')
-            store.commit('increment')
-            store.commit('increment')
-
-            console.log(store.state.count)
-
         </script>        
     </body>
 </html>
