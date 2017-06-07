@@ -1,0 +1,16 @@
+{
+  "name": "2017.06.07-vuex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^2.3.3",
+    "vuex": "^2.3.1"
+  }
+}
