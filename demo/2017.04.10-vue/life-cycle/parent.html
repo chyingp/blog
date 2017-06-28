@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>生命周期</title>        
+    </head>
+    <body>
+
+        <div id="app">
+            <my-parent></my-parent>
+        </div>
+
+        <script src="../node_modules/vue/dist/vue.js"></script>
+        <script>
+            Vue.component('my-child', {
+                template: `
+                    <div>
+                        <p>count: {{ count }}</p>
+                        <button v-on:click="increment">点击+1</button>
+                    </div>
+                `,
+                data: function () {
+                    return { count: 1 };
+                },
+                methods: {
+                    increment: function () {
+                        this.count++;
+                    }
+                },
+                mounted: function () {
+                    console.log('child mounted');
+                },
+                updated: function () {
+                  console.log('child updated');  
+                }
+            });
+
+            Vue.component('my-parent', {
+                template: `<my-child></my-child>`,
+                mounted: function () {
+                    console.log('parent mounted');
+                },
+                updated: function () {
+                  console.log('parent updated');  
+                }
+            });
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+
+                },
+                computed: {
+
+                },
+                mounted: function () {
+                    console.log('app mounted');
+                },
+                updated: function () {
+                    console.log('app updated');
+                }
+            });
+        </script>        
+    </body>
+</html>

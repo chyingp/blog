@@ -6,7 +6,11 @@
     <body>
 
         <div id="app">
-            {{ message }}
+            <ol>
+                <li v-for="msg in messageList">{{ msg }}</li>
+            </ol>
+            <p>count: {{ count }}</p>
+            <button v-on:click="refresh">强制更新</button>
         </div>
 
         <script src="../node_modules/vue/dist/vue.js"></script>
@@ -14,7 +18,30 @@
             var app = new Vue({
                 el: '#app',
                 data: {
-                    message: 'hello world'
+                    count: 0,
+                    messageList: ['initial message']
+                },
+                computed: {
+                    message: {
+                        get: function () {
+                            return this.messageList[this.messageList.length - 1];
+                        },
+                        set: function (newValue) {
+                            this.messageList.push(newValue);
+                        }
+                    }
+                },
+                methods: {
+                    refresh: function () {
+                        this.count++;
+                    }
+                },
+                mounted: function () {
+                    this.message = 'app mounted';
+                },
+                updated: function () {
+                    console.log('app updated');
+                    // this.message = 'app updated';
                 }
             })
         </script>        
