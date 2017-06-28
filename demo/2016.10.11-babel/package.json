@@ -14,11 +14,15 @@
     "babel-plugin-check-es2015-constants": "^6.8.0",
     "babel-plugin-transform-es2015-arrow-functions": "^6.8.0",
     "babel-plugin-transform-es2015-for-of": "^6.8.0",
-    "babel-polyfill": "^6.16.0",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.16.0",
-    "babel-preset-react": "^6.16.0"
+    "babel-preset-react": "^6.16.0",
+    "webpack": "^2.6.1"
   },
   "presets": [
     "babel-preset-es2015"
-  ]
+  ],
+  "dependencies": {
+    "core-js": "^2.4.1"
+  }
 }
