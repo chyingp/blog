@@ -6,3 +6,9 @@
 ```bash
 emcc hello.c -s WASM=1 -o hello.html
 ```
+
+运行http server，然后在浏览器里访问 http://xx.xx.xx.xx:8081/hello.html
+
+```bash
+python -m SimpleHTTPServer 8081
+```

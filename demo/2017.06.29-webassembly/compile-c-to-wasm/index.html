@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>load wasm module</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	fetch('/hello.wasm')
+		.then( response => response.arrayBuffer())
+		.then( bytes => WebAssembly.instantiate(bytes, {}) )
+		.then( results => results.instance );
+</script>
+
+</body>
+</html>
