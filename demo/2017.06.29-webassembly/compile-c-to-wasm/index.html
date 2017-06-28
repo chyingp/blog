@@ -7,9 +7,15 @@
 
 <script type="text/javascript">
 	fetch('/hello.wasm')
-		.then( response => response.arrayBuffer())
-		.then( bytes => WebAssembly.instantiate(bytes, {}) )
-		.then( results => results.instance );
+		.then( function (response) {
+			return response.arrayBuffer();
+		})
+		.then( function (bytes) {
+			return WebAssembly.instantiate(bytes, {});
+		})
+		.then( function (results) {
+			results.instance;
+		});
 </script>
 
 </body>
