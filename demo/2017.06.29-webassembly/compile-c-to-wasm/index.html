@@ -6,12 +6,16 @@
 <body>
 
 <script type="text/javascript">
+	var importObject = {
+		imports: {}
+	};
+	
 	fetch('/hello.wasm')
 		.then( function (response) {
 			return response.arrayBuffer();
 		})
 		.then( function (bytes) {
-			return WebAssembly.instantiate(bytes, {});
+			return WebAssembly.instantiate(bytes, importObject);
 		})
 		.then( function (results) {
 			results.instance;
