@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ccall例子</title>
+</head>
+<body>
+
+<div>
+	int_sqrt(16) === <span id="example"></span>
+</div>
+
+
+<script type="text/javascript" src="./function.js"></script>
+<script type="text/javascript">
+
+	var int_sqrt = Module.cwrap(
+		'int_sqrt',  // 方法名
+		'number',  // 返回值的类型
+		['number']  // 参数类型
+	);
+	document.getElementById('example').innerHTML = int_sqrt(16);
+</script>
+</body>
+</html>
