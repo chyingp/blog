@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>cwrap例子：下划线调用</title>
+</head>
+<body>
+
+<div>
+	int_sqrt(16) === <span id="example"></span>
+</div>
+
+
+<script type="text/javascript" src="./function.js"></script>
+<script type="text/javascript">
+
+	document.getElementById('example').innerHTML = Module._int_sqrt(16);
+</script>
+</body>
+</html>
