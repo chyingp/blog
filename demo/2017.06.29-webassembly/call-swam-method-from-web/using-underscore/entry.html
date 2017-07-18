@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>cwrap例子</title>
+	<title>cwrap例子：下划线调用</title>
 </head>
 <body>
 
@@ -13,12 +13,7 @@
 <script type="text/javascript" src="./function.js"></script>
 <script type="text/javascript">
 
-	var int_sqrt = Module.cwrap(
-		'int_sqrt',  // 方法名
-		'number',  // 返回值的类型
-		['number']  // 参数类型
-	);
-	document.getElementById('example').innerHTML = int_sqrt(16);
+	document.getElementById('example').innerHTML = Module._int_sqrt(16);
 </script>
 </body>
 </html>
