@@ -58,6 +58,8 @@ inline double Nd(double dvalue)
 	return dv;
 }
 
+extern "C" {
+
 double EMSCRIPTEN_KEEPALIVE NHCalcCall(double dprice, double dsigma, double driskfreerate, double dtargetprice, double dT_t)
 {
 	double d1 = NHCalcD1(dprice, dsigma, driskfreerate, dtargetprice, dT_t);
@@ -78,4 +80,6 @@ double EMSCRIPTEN_KEEPALIVE NHCalcPut(double dprice, double dsigma, double drisk
 	double dResult = dtargetprice*exp(-1 * driskfreerate*dT_t)*Nd2 - dprice*exp(-1 * driskfreerate*dT_t)*Nd1;
 
 	return dResult;
+}
+
 }
