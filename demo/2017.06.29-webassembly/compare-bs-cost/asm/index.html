@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BS公式耗：asm版本</title>
+</head>
+<body>
+
+<script type="text/javascript" src="./bs.js"></script>
+<script type="text/javascript">
+	var times = 1000000;  // 100万次
+	var topic = 'BS ASM'
+	
+	console.time(topic);
+	
+	for(var i = 0; i < times; i++) {
+		float ret = module.NHCalcCall(5899.2, 0.06, 0.06, 5898.8, 0.0054);
+	}
+
+	console.timeEnd(topic);	
+</script>
+
+</body>
+</html>
