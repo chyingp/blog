@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include "math.h"
+#include <emscripten/emscripten.h>
 
 const double PI = 3.14159265358979323846264338328;
 
@@ -57,9 +58,7 @@ inline double Nd(double dvalue)
 	return dv;
 }
 
-extern "C" {
-
-double NHCalcCall(double dprice, double dsigma, double driskfreerate, double dtargetprice, double dT_t)
+double EMSCRIPTEN_KEEPALIVE NHCalcCall(double dprice, double dsigma, double driskfreerate, double dtargetprice, double dT_t)
 {
 	double d1 = NHCalcD1(dprice, dsigma, driskfreerate, dtargetprice, dT_t);
 	double d2 = CalcD2(d1, dsigma, dT_t);
@@ -70,7 +69,7 @@ double NHCalcCall(double dprice, double dsigma, double driskfreerate, double dta
 	return dResult;
 }
 
-double NHCalcPut(double dprice, double dsigma, double driskfreerate, double dtargetprice, double dT_t)
+double EMSCRIPTEN_KEEPALIVE NHCalcPut(double dprice, double dsigma, double driskfreerate, double dtargetprice, double dT_t)
 {
 	double d1 = NHCalcD1(dprice, dsigma, driskfreerate, dtargetprice, dT_t);
 	double d2 = CalcD2(d1, dsigma, dT_t);
@@ -79,6 +78,4 @@ double NHCalcPut(double dprice, double dsigma, double driskfreerate, double dtar
 	double dResult = dtargetprice*exp(-1 * driskfreerate*dT_t)*Nd2 - dprice*exp(-1 * driskfreerate*dT_t)*Nd1;
 
 	return dResult;
-}
-
 }
