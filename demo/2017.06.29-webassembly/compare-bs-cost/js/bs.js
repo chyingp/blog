@@ -99,11 +99,11 @@ function CalcCall(dprice, dsigma, driskfreerate, dtargetprice, dT_t) {
 
     var dResult = dprice * Math.exp(-1 * driskfreerate * dT_t) * Nd1 - dtargetprice * Math.exp(-1 * driskfreerate * dT_t) * Nd2;
 
-    console.log("============== CalcCall =================");
-    console.log("d1",d1);
-    console.log("d2",d2);
-    console.log("Nd1",Nd1);
-    console.log("Nd2",Nd2);
+    // console.log("============== CalcCall =================");
+    // console.log("d1",d1);
+    // console.log("d2",d2);
+    // console.log("Nd1",Nd1);
+    // console.log("Nd2",Nd2);
     return dResult;
 }
 
@@ -125,11 +125,11 @@ function CalcPut(dprice, dsigma, driskfreerate, dtargetprice, dT_t) {
 
     var dResult = dtargetprice * Math.exp(-1 * driskfreerate * dT_t) * Nd2 - dprice * Math.exp(-1 * driskfreerate * dT_t) * Nd1;
 
-    console.log("============== CalcPut =================");
-    console.log("d1",d1);
-    console.log("d2",d2);
-    console.log("Nd1",Nd1);
-    console.log("Nd2",Nd2);
+    // console.log("============== CalcPut =================");
+    // console.log("d1",d1);
+    // console.log("d2",d2);
+    // console.log("Nd1",Nd1);
+    // console.log("Nd2",Nd2);
     return dResult;
 }
 
