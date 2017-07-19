@@ -4,8 +4,9 @@
 #include <vector>
 #include <map>
 #include "math.h"
+#include <emscripten/bind.h>
 
-using namespace std;
+using namespace emscripten;
 
 const double PI = 3.14159265358979323846264338328;
 
