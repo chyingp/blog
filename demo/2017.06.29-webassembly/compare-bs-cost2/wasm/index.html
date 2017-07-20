@@ -15,9 +15,10 @@
 
 	var runTest = function (times) {
 		var start = new Date ();
-		for(var i = 0; i < times; i++) {
-			Module.NHCalcCall(5899.2, 0.06, 0.06, 5898.8, 0.0054);
-		}
+		// for(var i = 0; i < times; i++) {
+		// 	Module.NHCalcCall(5899.2, 0.06, 0.06, 5898.8, 0.0054);
+		// }
+		Module.asm._GetCost(times);
 		var end = new Date();
 		document.getElementById('cost').innerHTML = (end - start).toFixed(2);
 	};
