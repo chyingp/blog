@@ -82,7 +82,7 @@ double EMSCRIPTEN_KEEPALIVE NHCalcPut(double dprice, double dsigma, double drisk
 	return dResult;
 }
 
-double EMSCRIPTEN_KEEPALIVE GetCost(times)
+void EMSCRIPTEN_KEEPALIVE GetCost(int times)
 {
 	for(int i = 0; i < times; i++)
 	{
