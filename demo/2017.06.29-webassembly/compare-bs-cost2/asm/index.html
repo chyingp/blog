@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>BS公式耗：asm版本</title>
+	<div>共耗时：<span id="cost">---</span>ms</div>
+</head>
+<body>
+
+<script type="text/javascript" src="./bs.js"></script>
+<script type="text/javascript">
+	var times = 1000000;  // 100万次
+	// var topic = 'BS ASM';
+
+	var runTest = function (times) {
+		var start = new Date ();
+		for(var i = 0; i < times; i++) {
+			Module.NHCalcCall(5899.2, 0.06, 0.06, 5898.8, 0.0054);
+		}
+		var end = new Date();
+		document.getElementById('cost').innerHTML = (end - start).toFixed(2);
+	};
+	
+	runTest(times);	
+</script>
+
+</body>
+</html>
