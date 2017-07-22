@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>BS公式耗：普通js版本</title>
+	<div>共耗时：<span id="cost">---</span>ms</div>
+</head>
+<body>
+
+<script type="text/javascript" src="./bs.js"></script>
+<script type="text/javascript">
+	var add = function (a, b) {
+		return a + b;
+	};
+
+	var times = 1000000;  // 100万次	
+
+	var runTest = function (times) {
+		var start = new Date ();
+		var int_arr = [1000, 1000];
+		var str_arr = ['hello', 'world'];
+		for(var i = 0; i < times; i++) {
+			if(i % 2 == 0) {
+				add(int_arr[0], int_arr[1]);
+			}else {
+				add(str_arr[0], str_arr[1]);
+			}
+		}
+		var end = new Date();
+		document.getElementById('cost').innerHTML = (end - start).toFixed(2);
+	};
+	
+	runTest(times);	
+</script>
+
+</body>
+</html>
