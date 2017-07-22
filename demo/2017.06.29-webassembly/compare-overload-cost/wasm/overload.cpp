@@ -26,7 +26,7 @@ int main ()
 	int r;
 	for(int i = 0; i < times; i++)
 	{
-		if(times % 2 == 0){
+		if(i % 2 == 0){
 			add(int_arr[0], int_arr[1]);
 		}else {
 			add(str_arr[0], str_arr[1]);
