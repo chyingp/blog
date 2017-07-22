@@ -1,0 +1,1 @@
+emcc --bind -o quick_example.js quick_example.cpp
