@@ -1,4 +1,4 @@
-## 例子
+## 例子一
 
 源码如下，引用`<emscripten/emscripten.h>`，同时在需要暴露的函数前加上`EMSCRIPTEN_KEEPALIVE`
 
@@ -27,6 +27,23 @@ emcc simple.c -o simple.html -s WASM=1
 
 ```javascript
 instance.exports._add(1, 2);  // 3
+```
+
+## 例子二
+
+有的时候，不想改动源代码（加`EMSCRIPTEN_KEEPALIVE`标记），那么可以这样。
+
+源码
+
+```c
+int add (int a, int b)
+{
+    return a + b;
+}
+```
+
+```
+emcc -o simple1.html simple1.c -lm -s WASM=1 -s EXPORTED_FUNCTIONS="['_add']"
 ```
 
 ## 原理分析
