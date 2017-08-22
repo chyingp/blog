@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>数值传递</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	fetch('./simple.wasm')
+		.then( response => response.arrayBuffer() )
+		.then( bytes => WebAssembly.instantiate(bytes) )
+		.then( result => result.instance.exports.add_one(10) )
+		.then( console.log )
+</script>
+
+</body>
+</html>
