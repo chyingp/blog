@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>export func</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+fetch('export-func.wasm').then(response =>
+	response.arrayBuffer()
+).then(bytes =>
+	WebAssembly.instantiate(bytes, {})
+).then(result =>	
+	result.instance.exports.add(10)  // 11
+);
+
+</script>
+
+</body>
+</html>

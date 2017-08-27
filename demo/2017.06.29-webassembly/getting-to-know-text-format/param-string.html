@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>param string</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var uint8Memory = new WebAssembly.Memory({
+	initial: 1  // 初始内存大小：64k
+})
+
+var importObject = {
+	console: {
+		log: function(index) {
+			let bytes = new Uint8Array(uint8Memory.buffer, index, 1);
+			let character = new TextDecoder('utf8').decode(bytes);
+			console.log(character);
+		}
+	},
+	mem: { 
+		uint8Memory: uint8Memory 
+	}
+}
+
+fetch('param-string.wasm')
+	.then(response => response.arrayBuffer())
+	.then(bytes => WebAssembly.instantiate(bytes, importObject))
+	.then(result => {
+		let character = 'a';
+		let buff = new TextEncoder().encode(character);
+		let uint8 = new Uint8Array(uint8Memory.buffer, 0, 1);
+		uint8.set(buff);
+
+		result.instance.exports.cLog(0);
+	});
+
+</script>
+
+</body>
+</html>

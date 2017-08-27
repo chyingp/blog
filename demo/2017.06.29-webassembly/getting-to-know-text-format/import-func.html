@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>import func</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var importObject = {
+	console: {
+		log: function(num) {
+			console.log(num);
+		}
+	}
+};
+
+fetch('import-func.wasm').then(response =>
+	response.arrayBuffer()
+).then(bytes =>
+	WebAssembly.instantiate(bytes, importObject)
+).then(result =>	
+	result.instance.exports.cLog(10)
+	// 输出：10
+);
+
+</script>
+
+</body>
+</html>
