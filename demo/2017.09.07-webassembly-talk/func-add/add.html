@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+	
+var importObject = {};
+
+fetch('/add.wasm')
+	.then( response => response.arrayBuffer() )
+	.then( bytes => WebAssembly.instantiate(bytes, {}) )
+	.then( module => {
+		module.instance.exports.add(10, 20);
+	} )
+
+</script>
+
+</body>
+</html>
