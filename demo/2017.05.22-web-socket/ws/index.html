@@ -1,0 +1,21 @@
+<html>
+<head>
+    <title>ws demo</title>
+    <meta charset="utf8">
+</head>
+<body>
+    
+</body>
+
+<script>
+  var ws = new WebSocket('ws://localhost:8080');
+  ws.onopen = function () {
+    console.log('client: ws connection is open');
+    ws.send('hello');
+  };
+  ws.onmessage = function (e) {
+    console.log('client: received %s', e.data);
+  };
+</script>
+
+</html>
