@@ -1,7 +1,7 @@
 const Emitter = require('events');
 const http = require('http');
 
-class Koa extends Event {
+module.exports = class Koa extends Emitter {
 	constructor() {
 		super();
 		this.middleware = [];
@@ -17,16 +17,36 @@ class Koa extends Event {
 	}
 
 	callback() {
-		const handleRequest = (request, response) => {
-			let len = this.middleware.length;
+		let len = this.middleware.length;
+
+		// 分两种情况
+		// 1、当前不是最后一个中间件
+		// 2、当前是最后一个中间件
+		const runMiddleware = async (ctx, index) => {
+			// 最后一个中间件
+			if (index === len - 1) {
+				return this.middleware[index](ctx, () => {});
+			} else {
+				this.middleware[index](ctx, async () => {
+					return runMiddleware(ctx, index + 1);
+				});
+			}
+			// return this.middleware[index](ctx, async () => {
+			// 	return runMiddleware(ctx, index + 1);
+			// });
+		};
+
+		const handleRequest = async (request, response) => {			
 			let ctx = {
 				body: () => {}
 			};
 
-			for(let i = 0; i < len; i++) {
-				await this.middleware[i]();
-			}
+			let ret = runMiddleware(ctx, 0);
+			ret.then(() => {
+				response.end('ok');
+			});
 		};
+
 		return handleRequest;
 	}
 }
