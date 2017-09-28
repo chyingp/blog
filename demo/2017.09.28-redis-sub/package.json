@@ -1,0 +1,15 @@
+{
+  "name": "2017.09.28-subscribe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "redis": "^2.8.0"
+  }
+}
