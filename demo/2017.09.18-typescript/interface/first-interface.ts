@@ -8,7 +8,7 @@
 // printLabel({nick: 'chyingp', label: 'label: chyingp'});
 
 interface labelShape {
-  label: string
+  label: string;
 }
 
 function printLabel(labelObject: labelShape): void {

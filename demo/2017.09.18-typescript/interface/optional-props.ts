@@ -1,6 +1,6 @@
 interface SquareConfig {
-  color?: string,
-  width?: number
+  color?: string;
+  width?: number;
 }
 
 function createSquare (config: SquareConfig): {color: string, area: number} {
