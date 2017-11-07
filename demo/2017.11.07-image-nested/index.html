@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>图片内嵌</title>
+</head>
+<body>
+
+<div>
+	<input type="file" name="" id="file">
+</div>
+
+<div>
+	<img src="about:blank" id="preview">
+</div>
+
+<script type="text/javascript">
+	function $ (id) {
+      return document.getElementById(id);
+    }
+
+    $('file').addEventListener('change', function (evt) {
+    	var files = evt.target.files;
+    	var file = files[0];
+
+    	if (!/^image/.test(file.type)) {
+    		alert('请选择图片文件');
+    		return;
+    	}
+
+    	var reader = new FileReader();
+    	reader.readAsDataURL(file);
+    	reader.onloadend = function (evt) {
+    		$('preview').src = evt.target.result; // data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAB...
+    	};
+    });
+
+</script>
+
+</body>
+</html>
