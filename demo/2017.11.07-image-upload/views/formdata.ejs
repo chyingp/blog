@@ -11,8 +11,11 @@
       <button id="upload-btn">文件上传</button>
   </div>
 
-  <div id="process">
+  <div id="stage">
     
+  </div>
+  <div>
+    <img id="preview" src="about:blank" />
   </div>
 
   <script>
@@ -24,13 +27,6 @@
       var stage = $('stage');
       var p = document.createElement('p');
       p.innerHTML = msg;
-      stage.appendChild(p);
-    }
-
-    function addProcess (percent) {
-      var stage = $('process');
-      var p = document.createElement('p');
-      p.innerHTML = percent + '%';
       stage.appendChild(p);
     }
 
@@ -60,19 +56,7 @@
 
         var buff = evt.target.result;
         var xhr = new XMLHttpRequest();
-        xhr.overrideMimeType('text/plain; charset=x-user-defined-binary'); 
-        
-        xhr.upload.addEventListener('progress', function (e) {
-          if (e.lengthComputable) {
-            var percentage = Math.round((e.loaded * 100) / e.total);
-            // self.ctrl.update(percentage);
-            addProcess(percentage);
-          }
-        });
-
-        xhr.upload.addEventListener('load', function () {
-          addProcess(100);
-        });
+        xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');        
 
         xhr.open('POST', '/upload');
         xhr.setRequestHeader('x-file-type', type);
