@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>拖拽</title>
+	<style type="text/css">
+		.area {
+			margin: 20px;
+			border: 1px solid #ccc;
+			width: 200px;
+			height: 200px;
+		}
+		.area:hover {
+			background: #eee;
+			border: 1px olid #aaa;
+		}
+	</style>
+</head>
+<body>
+
+<div id="box" class="area"></div>
+
+<div id="desc"></div>
+
+<img src="about:blank" id="preview">
+
+<script type="text/javascript">
+	function $ (id) {
+      return document.getElementById(id);
+    }
+
+    var box = $('box');
+
+    box.addEventListener('dragenter', dragenter, false);
+    box.addEventListener('dragover', dragenter, false);
+    box.addEventListener('drop', drop, false);
+
+	function dragenter (evt) {
+		evt.stopPropagation();
+  		evt.preventDefault();
+	}
+
+	function dragover (evt) {
+		evt.stopPropagation();
+  		evt.preventDefault();
+	}
+
+	function drop (evt) {
+		evt.stopPropagation();
+  		evt.preventDefault();
+
+  		var dt = evt.dataTransfer;
+  		var files = dt.files;
+  		var file = files[0];
+
+    	if (!/^image/.test(file.type)) {
+    		alert('请选择图片文件');
+    		return;
+    	}
+
+    	var desc = $('desc');
+    	desc.innerHTML = `
+    		文件名：${file.name} <br/>
+    		文件大小：${file.size}
+    	`;
+
+    	var reader = new FileReader();
+    	reader.readAsDataURL(file);
+    	reader.onloadend = function (evt) {
+    		$('preview').src = evt.target.result; // data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAB...
+    	};
+	}
+
+</script>
+
+</body>
+</html>
