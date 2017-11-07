@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf8">
+	<title>图片预览-使用filereader</title>
+</head>
+<body>
+
+  <div>
+      <input type="file" id="file" >
+      <button id="upload-btn">文件上传</button>
+  </div>
+
+  <div id="stage">
+    
+  </div>
+  <div>
+    <img id="preview" src="about:blank" />
+  </div>
+
+  <script>
+    function $ (id) {
+      return document.getElementById(id);
+    }
+
+    function addLog (msg) {
+      var stage = $('stage');
+      var p = document.createElement('p');
+      p.innerHTML = msg;
+      stage.appendChild(p);
+    }
+
+    $('upload-btn').addEventListener('click', function () {
+      var files = $('file').files;
+      if (files.length === 0) {
+        alert('请上传文件');
+      }
+
+      var file = files[0];
+      var reader = new FileReader();
+      reader.readAsArrayBuffer(file);
+
+      reader.onloadstart = function () {
+        addLog('onloadstart');
+      };
+      reader.onprogress = function (evt) {
+        addLog('onprogress');
+      };
+
+      reader.onloadend = function (evt) {
+        // var img = $('preview');
+        // var result = evt.target.result;
+        // img.src = result;
+        addLog('onloadend');
+
+        var buff = evt.target.result;
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/upload');
+        xhr.send(buff);
+      };
+
+    });
+
+    $('file').addEventListener('change', function (evt) {      
+      // var file = evt.target.files[0];
+      // if (!/^image/.test(file.type)) {
+      //   alert('只支持图片格式');
+      //   return;
+      // }
+
+      // var reader = new FileReader();
+      // reader.readAsDataURL(file);
+      // reader.onloadend = function (evt) {
+      //   var img = $('preview');
+      //   var result = evt.target.result;
+      //   img.src = result;
+      // };
+    });
+  </script>
+
+</body>
+</html>
