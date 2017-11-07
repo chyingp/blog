@@ -11,11 +11,8 @@
       <button id="upload-btn">文件上传</button>
   </div>
 
-  <div id="stage">
+  <div id="process">
     
-  </div>
-  <div>
-    <img id="preview" src="about:blank" />
   </div>
 
   <script>
@@ -30,6 +27,13 @@
       stage.appendChild(p);
     }
 
+    function addProcess (percent) {
+      var stage = $('process');
+      var p = document.createElement('p');
+      p.innerHTML = percent + '%';
+      stage.appendChild(p);
+    }
+
     $('upload-btn').addEventListener('click', function () {
       var files = $('file').files;
       if (files.length === 0) {
@@ -37,31 +41,34 @@
       }
 
       var file = files[0];
-      var type = file.type;
-      var filename = file.name;
+      // var type = file.type;
+      // var filename = file.name;
 
       var reader = new FileReader();
       reader.readAsArrayBuffer(file);
 
-      reader.onloadstart = function () {
-        // addLog('onloadstart');
-      };
-      
-      reader.onprogress = function (evt) {
-        // addLog('onprogress');
-      };
+      reader.onloadend = function (evt) {
 
-      reader.onloadend = function (evt) {        
-        // addLog('onloadend');
+        var fd = new FormData();
+        fd.append('file', file);
 
-        var buff = evt.target.result;
         var xhr = new XMLHttpRequest();
-        xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');        
+        xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
 
-        xhr.open('POST', '/upload');
-        xhr.setRequestHeader('x-file-type', type);
-        xhr.setRequestHeader('x-file-name', filename);
-        xhr.send(buff);
+        xhr.upload.addEventListener('progress', function (e) {
+          if (e.lengthComputable) {
+            var percentage = Math.round((e.loaded * 100) / e.total);
+            // self.ctrl.update(percentage);
+            addProcess(percentage);
+          }
+        });
+
+        xhr.upload.addEventListener('load', function () {
+          addProcess(100);
+        });        
+
+        xhr.open('POST', '/upload-single')
+        xhr.send(fd);
       };
 
     });

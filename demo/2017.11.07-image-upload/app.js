@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer = require('multer');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -37,8 +38,12 @@ function createTimeStr () {
   ].map(fixzero).join('-');
 }
 
-app.use('/index', function (req, res) {
+app.get('/filereader', function (req, res) {
   res.render('filereader');
+});
+
+app.get('/formdata', function (req, res) {
+  res.render('formdata');
 });
 
 app.use('/upload', function (req, res) {
@@ -46,6 +51,11 @@ app.use('/upload', function (req, res) {
   var outputStream = fs.createWriteStream(__dirname + '/uploads/' + createTimeStr() + '.' + req.headers['x-file-name']);
   req.pipe(outputStream);
   res.end('ok');
+});
+
+var uploadSingle = multer({ dest: 'uploads/' });
+app.post('/upload-single', uploadSingle.single('file'), function(req, res, next){
+	res.end('ok');
 });
 
 // catch 404 and forward to error handler
