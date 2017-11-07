@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf8">
+	<title>图片预览-使用createObjectURL</title>
+</head>
+<body>
+
+  <div>
+      <input type="file" id="file" >
+  </div>
+  <div>
+    <img id="preview" src="about:blank" />
+  </div>
+
+  <script>
+    var curObjectUrl;
+
+    function $ (id) {
+      return document.getElementById(id);
+    }
+    
+    $('file').addEventListener('change', function (evt) {      
+      var file = evt.target.files[0];
+      var img = $('preview');
+
+      if (!/^image/.test(file.type)) {
+        alert('只支持图片格式');
+        return;
+      }
+
+      if (curObjectUrl) {
+        window.URL.revokeObjectURL(curObjectUrl);
+      }
+
+      curObjectUrl = window.URL.createObjectURL(file);
+      img.src = curObjectUrl;
+    });
+  </script>
+
+</body>
+</html>
