@@ -1,3 +1,5 @@
+const WebpackShellPlugin = require('webpack-shell-plugin');
+
 module.exports = {
 	entry: './lib/app.js',  // 注意不要写 js/entry.js
 	output: {
@@ -10,21 +12,17 @@ module.exports = {
 			{
 	      test: /\.js$/,
 	      exclude: /(node_modules|bower_components)/,
-	      use: 'babel-loader',
-	      // query: {
-	      //   presets: ['es2015', 'react', 'stage-2']
-	      // }
+	      use: 'babel-loader'
 	    }
 		]
-	  // loaders: [
-	  //   {
-	  //     test: /\.js$/,
-	  //     exclude: /(node_modules|bower_components)/,
-	  //     loader: 'babel-loader',
-	  //     query: {
-	  //       presets: ['es2015', 'react', 'stage-2']
-	  //     }
-	  //   }
-	  // ]
-	}	
+	},
+	plugins: [
+    new WebpackShellPlugin({
+			onBuildStart: ['echo "Webpack Start"'], 
+			onBuildEnd:[
+				'echo "Webpack End"',
+				'gulp'
+			]
+		})
+  ],
 };

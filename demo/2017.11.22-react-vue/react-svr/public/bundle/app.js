@@ -25615,6 +25615,11 @@ var App = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
+          'div',
+          null,
+          'shell'
+        ),
+        _react2.default.createElement(
           'a',
           { href: 'javascript:void(0)', onClick: this.goToLogin },
           '\u767B\u5F55'
