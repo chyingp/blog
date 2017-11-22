@@ -1,0 +1,23 @@
+{
+  "name": "2017.11.22-react-vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "webpack app.js bundle.js -p"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-redux": "^5.0.6",
+    "react-router-redux": "^5.0.0-alpha.8",
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {
+    "webpack": "^3.8.1"
+  }
+}
