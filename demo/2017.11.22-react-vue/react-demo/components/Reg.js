@@ -9,7 +9,7 @@ class Reg extends React.Component {
   }
 
   render () {
-    return <div>Reg Component</div>
+    return <div>注册页面</div>
   }
 }
 

@@ -34,6 +34,11 @@ import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-ro
 const history = createHistory()
 const middleware = routerMiddleware(history)
 
+history.listen((location, action) => {
+  // location is an object like window.location
+  console.log(action, location.pathname, location.state)
+})
+
 // const thunkCreateStore = applyMiddleware(thunk)(createStore)
 // const store = thunkCreateStore(reducer)
 
@@ -67,14 +72,14 @@ const mapStateToProps = function(state){
 //   document.getElementById('root')
 // )
 
+import App from '../components/App'
+
+
 render(
   <Provider store={store}>
     { /* ConnectedRouter will use the store from Provider automatically */ }
     <ConnectedRouter history={history}>
-      <div>
-			<Route path="/login" component={Login}/>
-			<Route path="/reg" component={Reg}/>
-      </div>
+			<App history={history} />
     </ConnectedRouter>
   </Provider>,
   document.getElementById('container')
