@@ -11,46 +11,71 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider, connect } from 'react-redux'
-import reducer from '../reducers'
+import reducers from '../reducers'
 import * as actions from '../actions'
 
-import App from '../components/App'
-import Add from '../containers/Add'
-import Search from '../containers/Search'
-import Category from '../containers/Category'
+// import App from '../components/App'
+// import Add from '../containers/Add'
 
-import Edit from '../containers/EditCode'
+import Login from '../containers/Login'
+import Reg from '../containers/Reg'
 
+// import { Router, Route, browserHistory } from 'react-router'
+// import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
-import { Router, Route, browserHistory } from 'react-router'
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import createHistory from 'history/createBrowserHistory'
+import { Route } from 'react-router'
 
-const thunkCreateStore = applyMiddleware(thunk)(createStore)
-const store = thunkCreateStore(reducer)
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+
+const history = createHistory()
+const middleware = routerMiddleware(history)
+
+// const thunkCreateStore = applyMiddleware(thunk)(createStore)
+// const store = thunkCreateStore(reducer)
+
+const store = createStore(
+  combineReducers({
+    ...reducers,
+    router: routerReducer
+  }),
+  applyMiddleware(middleware)
+)
 
 const mapStateToProps = function(state){
 	return state
 }
 
-const history = syncHistoryWithStore(browserHistory, store)
-
+// const history = syncHistoryWithStore(browserHistory, store)
 // const WrappedApp = connect(mapStateToProps, actions)(App)
 
 // 参考：https://github.com/reactjs/react-router-redux
 
+// render(
+//   <Provider store={store}>
+// 	<Router history={history}>
+// 		<Route path="/" component={App}>
+			
+// 			<Route path="/login" component={Login}/>
+// 			<Route path="/reg" component={Reg}/>			
+//       </Route>      
+//     </Router>      
+//   </Provider>,
+//   document.getElementById('root')
+// )
+
 render(
   <Provider store={store}>
-	<Router history={history}>
-		<Route path="/" component={App}>
-			<Route path="/add" component={Add}/>
-			<Route path="/edit/:id" component={Edit}/>
-			<Route path="/search" component={Search}/>
-			<Route path="/category" component={Category}/>
-      </Route>      
-    </Router>      
+    { /* ConnectedRouter will use the store from Provider automatically */ }
+    <ConnectedRouter history={history}>
+      <div>
+			<Route path="/login" component={Login}/>
+			<Route path="/reg" component={Reg}/>
+      </div>
+    </ConnectedRouter>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('container')
 )

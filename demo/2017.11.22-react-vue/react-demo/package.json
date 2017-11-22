@@ -12,12 +12,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "history": "^4.7.2",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
     "react-router-redux": "^5.0.0-alpha.8",
     "react-weui": "^1.1.3",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "weui": "^1.1.0"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-class Login extends React.Component {
+class Reg extends React.Component {
   
   constructor(props){
     super(props)
@@ -9,8 +9,8 @@ class Login extends React.Component {
   }
 
   render () {
-    return <div>Login Component</div>
+    return <div>Reg Component</div>
   }
 }
 
-export default Login
+export default Reg
