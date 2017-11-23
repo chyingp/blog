@@ -4,7 +4,7 @@ import Login from '../components/Login'
 
 const mapStateToProps = state => state
 
-const mapDispatchToProps = Actions
+const mapDispatchToProps = {Actions}
 
 export default connect(
 	mapStateToProps, 

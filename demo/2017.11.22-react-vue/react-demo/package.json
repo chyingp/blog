@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack": "webpack app.js bundle.js -p",
     "build": "webpack",
-    "dev": "webpack --config webpack.dev.js -w"
+    "dev": "webpack --config webpack.dev.js -w",
+    "sp": "webpack --config webpack.sp.js",
+    "imp": "webpack --config webpack.imp.js"
   },
   "keywords": [],
   "author": "",
