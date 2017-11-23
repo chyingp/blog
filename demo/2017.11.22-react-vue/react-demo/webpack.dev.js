@@ -10,10 +10,11 @@ module.exports = {
   output: {
     path: __dirname,
     filename: 'build/app.js'
-  },
+	},
+	devtool: 'inline-source-map',
 	module: {
 		rules: [
-			{ test: /\.css$/, use: 'css-loader' },
+			{ test: /\.css$/, use: ['style-loader', 'css-loader'] },
 			{
 	      test: /\.js$/,
 	      exclude: /(node_modules|bower_components)/,

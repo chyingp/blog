@@ -1,3 +1,5 @@
+import { Button } from 'react-weui';
+
 import React from 'react'
 
 class Reg extends React.Component {
@@ -6,10 +8,19 @@ class Reg extends React.Component {
     super(props)
 
     this.state = {}
+    this.onReg = this.onReg.bind(this)
+  }
+
+  onReg () {
+    console.log( this.props.reg() )
   }
 
   render () {
-    return <div>注册页面</div>
+    return (
+      <div>
+        <Button type="primary" onClick={this.onReg}>注册</Button>
+      </div>
+    )
   }
 }
 

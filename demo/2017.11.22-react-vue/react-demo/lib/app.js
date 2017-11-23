@@ -37,6 +37,9 @@ const mapStateToProps = function(state){
 
 import App from '../components/App'
 
+// 样式文件
+import 'weui';
+import 'react-weui/build/packages/react-weui.css';
 
 render(
   <Provider store={store}>

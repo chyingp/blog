@@ -15,15 +15,23 @@ class App extends React.Component {
   }
 
   gotoLogin () {
-    this.props.history.push( this.createPath('login') )
+    this.props.history.push( this.getLoginPath() )
+  }
+
+  getLoginPath () {
+    return this.createPath('login.html')
   }
 
   gotoReg() {
-    this.props.history.push( this.createPath('reg') )
+    this.props.history.push( this.getRegPath() )
+  }
+
+  getRegPath () {
+    return this.createPath('reg.html')
   }
 
   gotoInquiry () {
-    this.props.history.push( this.createPath('inquiry') )
+    this.props.history.push( this.createPath('inquiry.html') )
   }
 
   /**
@@ -45,8 +53,8 @@ class App extends React.Component {
 					<a href="javascript:void(0)" onClick={this.gotoLogin}>登录</a>
 			    <a href="javascript:void(0)" onClick={this.gotoReg}>注册</a>
           <a href="javascript:void(0)" onClick={this.gotoInquiry}>询价</a>
-					<Route path="/login" component={Login}/>
-					<Route path="/reg" component={Reg}/>
+					<Route path={this.getLoginPath()} component={Login}/>
+					<Route path={this.getRegPath()} component={Reg}/>
       </div>
     )
   }

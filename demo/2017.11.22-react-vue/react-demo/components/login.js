@@ -1,3 +1,5 @@
+import { Button } from 'react-weui';
+
 import React from 'react'
 
 class Login extends React.Component {
@@ -6,10 +8,19 @@ class Login extends React.Component {
     super(props)
 
     this.state = {}
+    this.onLogin = this.onLogin.bind(this)
+  }
+
+  onLogin () {
+    console.log( this.props.login() )
   }
 
   render () {
-    return <div>登录页面</div>
+    return (
+      <div>
+        <Button type="primary" onClick={this.onLogin}>登录</Button>
+      </div>
+    )
   }
 }
 

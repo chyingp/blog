@@ -1,15 +1,10 @@
 import { connect } from 'react-redux'
-import { reg } from '../actions'
+import * as Actions from '../actions/reg'
 import Reg from '../components/Reg'
 
-const mapStateToProps = (state) => ({
-	...state.code,
-	categories: state.categories
-})
+const mapStateToProps = state => state
 
-const mapDispatchToProps =  ({
-	reg: reg
-})
+const mapDispatchToProps = Actions
 
 export default connect(
 	mapStateToProps, 
