@@ -1,12 +1,10 @@
 const WebpackShellPlugin = require('webpack-shell-plugin');
-// var ChunkManifestPlugin = require("chunk-manifest-webpack-plugin");
-// var WebpackChunkHash = require("webpack-chunk-hash");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-	entry: './lib/app.js',  // 注意不要写 js/entry.js
+	entry: './src/lib/app.js',  // 注意不要写 js/entry.js
   output: {
     path: __dirname,
     filename: 'build/app.js'
@@ -34,10 +32,6 @@ module.exports = {
         'echo "Webpack Build Exit"',
         'gulp'
       ]
-		}),
-
-		// new HtmlWebpackPlugin({			
-		// 	template: path.resolve(__dirname, 'page/app.ejs'), // Load a custom template (ejs by default see the FAQ for details)
-		// })
-	],
+		})
+	]
 };
