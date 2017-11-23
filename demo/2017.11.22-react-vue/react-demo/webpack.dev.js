@@ -9,7 +9,7 @@ module.exports = {
 	entry: './lib/app.js',  // 注意不要写 js/entry.js
   output: {
     path: __dirname,
-    filename: 'bundle/app.js'
+    filename: 'build/app.js'
   },
 	module: {
 		rules: [
@@ -25,10 +25,14 @@ module.exports = {
 
 		new WebpackShellPlugin({
 			onBuildStart: ['echo "Webpack Start"'], 
-			onBuildEnd:[
-				'echo "Webpack End"',
-				'gulp'
-			]
+			// onBuildEnd:[
+			// 	'echo "Webpack End"',
+			// 	'gulp'
+      // ],
+      onBuildExit: [
+        'echo "Webpack Build Exit"',
+        'gulp'
+      ]
 		}),
 
 		// new HtmlWebpackPlugin({			
