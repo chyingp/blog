@@ -1,4 +1,7 @@
-export let login = (data) => ({
-	type: 'LOGIN',
-	payload: data
+import { createAction } from 'redux-util'
+
+export let login = createAction('LOGIN')
+
+export let loginAsync = createAction('LOGIN_ASYNC', () => dispatch => {
+	return dispatch( login() )
 })

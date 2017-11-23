@@ -1,34 +1,30 @@
-import { combineReducers } from 'redux'
-import { addErrorCode } from '../actions'
+import { createReducers } from 'redux-util'
 
-let initialState = {
-	loginStatus: '',
-	regStatus: ''
-}
-
-const loginApp = (state = initialState, action) => {
-	switch (action.type) {
-		case 'LOGIN':
-			return {
-				...state,
-				loginStatus: 'pending'
-			}
-		default:
-			return state;	
+var loginApp = createReducers({
+	getInitialState: function(){
+		return {
+			loginStatus: '',
+			regStatus: ''
+		};
+	},
+	LOGIN: function(state, action){
+		state.loginStatus = 'pending';
+		return state;
 	}
-}
+});
 
-const regApp = (state = initialState, action) => {
-	switch (action.type) {
-		case 'REG':
-			return {
-				...state,
-				regStatus: 'pending'
-			}	
-		default:
-			return state;	
+var regApp = createReducers({
+	getInitialState: function(){
+		return {
+			regStatus: '',
+			regStatus: ''
+		};
+	},
+	LOGIN: function(state, action){
+		state.regStatus = 'pending';
+		return state;
 	}
-}
+});
 
 const reducer = {
 	loginApp: loginApp,

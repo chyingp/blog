@@ -12,7 +12,7 @@ class Login extends React.Component {
   }
 
   onLogin () {
-    console.log( this.props.login() )
+    console.log( this.props.loginAsync() )
   }
 
   render () {

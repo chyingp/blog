@@ -1,4 +1,3 @@
-export let reg = (data) => ({
-	type: 'REG',
-	payload: data
-})
+import { createAction } from 'redux-util'
+
+export let reg = createAction('REG')

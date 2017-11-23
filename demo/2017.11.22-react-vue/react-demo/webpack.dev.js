@@ -20,6 +20,9 @@ module.exports = {
 	    }
 		]
 	},
+	resolve: {
+		modules: [path.resolve(__dirname, "src/modules"), "node_modules"]
+	},
 	plugins: [		
 
 		new WebpackShellPlugin({

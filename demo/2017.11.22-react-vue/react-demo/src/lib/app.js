@@ -28,7 +28,7 @@ const store = createStore(
     ...reducers,
     router: routerReducer
   }),
-  applyMiddleware(middleware)
+  applyMiddleware(thunk, middleware)
 )
 
 const mapStateToProps = function(state){
