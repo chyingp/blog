@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack": "webpack app.js bundle.js -p",
-    "build": "webpack"
+    "build": "webpack",
+    "dev": "webpack --config webpack.dev.js"
   },
   "keywords": [],
   "author": "",
