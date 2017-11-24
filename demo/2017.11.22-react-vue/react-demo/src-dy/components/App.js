@@ -1,12 +1,16 @@
 import React from 'react'
 import { Route } from 'react-router'
-import Login from '../containers/Login'
-// import Reg from '../containers/Reg'
 import Bundle from './Bundle'
 
 const Reg = (props) => (
-  <Bundle load={() => import('../containers/Reg')}>
+  <Bundle load={() => import(/* webpackChunkName: "reg" */ '../containers/Reg')}>
     {(Reg) => <Reg {...props}/>}
+  </Bundle>
+)
+
+const Login = (props) => (
+  <Bundle load={() => import(/* webpackChunkName: "login" */ '../containers/Login')}>
+    {(Login) => <Login {...props}/>}
   </Bundle>
 )
 

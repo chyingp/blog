@@ -6,13 +6,13 @@ var svrRoot = '/Users/a/Documents/code/develop/xunjiatong/InquiryHandNodeSvr/bra
 
 gulp.task('views', function(){  
   let dest = path.join(svrRoot, 'app/view/kh-m');
-  return gulp.src(['src/page/*.html', 'src/page/*.ejs'])
+  return gulp.src(['src-dy/page/*.html', 'src-dy/page/*.ejs'])
     .pipe(gulp.dest(dest));
 });
 
 gulp.task('public', function(){
   let dest = path.join(svrRoot, 'app/public/kh-m');  
-  return gulp.src('build/*.js')
+  return gulp.src('build/**/*.js')
     .pipe(gulp.dest(dest));
 });
 
