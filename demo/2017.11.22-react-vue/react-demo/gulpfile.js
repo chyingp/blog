@@ -12,7 +12,7 @@ gulp.task('views', function(){
 
 gulp.task('public', function(){
   let dest = path.join(svrRoot, 'app/public/kh-m');  
-  return gulp.src('build/**/*.js')
+  return gulp.src(['build/**/*.js', 'build/**/*.json'])
     .pipe(gulp.dest(dest));
 });
 

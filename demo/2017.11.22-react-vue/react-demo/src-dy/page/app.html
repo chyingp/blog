@@ -4,7 +4,7 @@
   <meta charset="utf8">
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
   <title>询价云</title>
-  <link rel="stylesheet" href="/oc/public/kh-m/style.css">
+  <!-- <link rel="stylesheet" href="/oc/public/kh-m/style.css"> -->
 </head>
 <body>
 
@@ -12,9 +12,9 @@
 
   <div id="container"></div>
 
-  <!-- <%=htmlWebpackPlugin.files.webpackManifest%> -->
-  <script src="/oc/public/kh-m/vendor.js"></script>
-  <script src="/oc/public/kh-m/app.js"></script>
+  <script src="{{ vendor }}"></script>
+  <script src="{{ pre_module }}"></script>
+  <script src="{{ app }}"></script>
 
 </body>
 </html>
