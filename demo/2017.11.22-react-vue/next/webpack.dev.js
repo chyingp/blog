@@ -52,7 +52,7 @@ module.exports = {
       // ],
       onBuildExit: [
         'echo "Webpack Build Exit"',
-        'gulp'
+        'gulp dev'
       ]
 		})
 	]
