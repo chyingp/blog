@@ -8,10 +8,11 @@
     "pack": "webpack app.js bundle.js -p",
     "build": "webpack",
     "dev": "webpack --config webpack.dev.js -w",
-    "dy": "webpack --config webpack.dy.js -w",
+    "dy": "webpack --config webpack.dy.js",
     "sp": "webpack --config webpack.sp.js",
     "imp": "webpack --config webpack.imp.js",
-    "hash": "webpack --config webpack.sp.imp.hash.js"
+    "hash": "webpack --config webpack.sp.imp.hash.js",
+    "ba": "webpack --config webpack.babel.js"
   },
   "keywords": [],
   "author": "",

@@ -6,15 +6,11 @@ var path = require('path');
 
 module.exports = {
 	entry: {
-		app: './src-dy/lib/app.js',		
+		app: './src-babel-duplicate/app.js',		
 	},	
   output: {
     filename: '[name].js',
-		chunkFilename: '[name].js',
-		// path: path.resolve(__dirname, 'build'),
-		// publicPath: '/oc/public/kh-m/'		
-		// filename: '[name].[chunkhash].js',
-		// chunkFilename: '[name].[chunkhash].js',
+		chunkFilename: '[name].js',		
 		path: path.resolve(__dirname, 'build'),
 		publicPath: '/oc/public/kh-m/'
 	},
@@ -40,22 +36,18 @@ module.exports = {
 
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor', // Specify the common bundle's name.
-			minChunks: function (module) {
-				// this assumes your vendor imports exist in the node_modules directory
-				return module.context && module.context.indexOf('node_modules') !== -1;
-			}
+			// minChunks: function (module) {
+			// 	// this assumes your vendor imports exist in the node_modules directory
+			// 	return module.context && module.context.indexOf('node_modules') !== -1;
+			// }
 		}),	
 
-		new WebpackShellPlugin({
-			onBuildStart: ['echo "Webpack Start"'], 
-			// onBuildEnd:[
-			// 	'echo "Webpack End"',
-			// 	'gulp'
-      // ],
-      onBuildExit: [
-        'echo "Webpack Build Exit"',
-        'gulp'
-      ]
-		})
+		// new WebpackShellPlugin({
+		// 	onBuildStart: ['echo "Webpack Start"'], 
+    //   onBuildExit: [
+    //     'echo "Webpack Build Exit"',
+    //     'gulp'
+    //   ]
+		// })
 	]
 };
