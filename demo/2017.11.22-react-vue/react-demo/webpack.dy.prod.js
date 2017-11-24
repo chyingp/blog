@@ -10,12 +10,11 @@ module.exports = {
 		app: './src-dy/lib/app.js',		
 	},	
   output: {
-    filename: '[name].js',
-		chunkFilename: '[name].js',		
+    filename: '[name].[chunkhash].js',
+		chunkFilename: '[name].[chunkhash].js',		
 		path: path.resolve(__dirname, 'build'),
 		publicPath: publicPath
 	},
-	devtool: 'inline-source-map',
 	module: {
 		rules: [
 			{ test: /\.css$/, use: ['style-loader', 'css-loader'] },
@@ -27,7 +26,7 @@ module.exports = {
 		]
 	},
 	resolve: {
-		modules: [path.resolve(__dirname, "src/modules"), "node_modules"]
+		modules: [path.resolve(__dirname, "src-dy/modules"), "node_modules"]
 	},
 	plugins: [
 
