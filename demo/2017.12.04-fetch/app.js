@@ -48,6 +48,14 @@ app.get('/api/cors', cors(), function (req, res, next) {
   res.end('ok');
 });
 
+app.get('/api/setting-request-header', function (req, res, next) {
+  res.end(req.headers['x-my-header']);
+});
+
+app.get('/api/check_state', function (req, res, next) {
+  res.sendStatus(req.query.status);
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

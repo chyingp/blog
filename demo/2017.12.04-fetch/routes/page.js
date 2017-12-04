@@ -23,4 +23,13 @@ router.get('/cors', function(req, res, next) {
   res.render('cors');
 });
 
+router.get('/setting-request-header', function(req, res, next) {
+  res.render('setting-request-header');
+});
+
+router.get('/check-state', function(req, res, next) {
+  res.render('check-state');
+});
+
+
 module.exports = router;

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>设置请求首部</title>
+    <meta charset="utf8">
+  </head>
+  <body>
+    <h1>设置请求首部</h1>
+    <p>服务端返回的内容： <span id="result"></span></p>
+
+    <script>
+      var options = {
+        headers: {
+          'X-MY-HEADER': 'X-MY-VALUE'
+        }
+      };
+
+      fetch('/api/setting-request-header', options)
+        .then(response => response.text())
+        .then(result => {
+          console.log(`result is : ${result}`);
+        });
+    </script>
+  </body>
+</html>

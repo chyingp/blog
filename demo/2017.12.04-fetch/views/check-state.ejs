@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>请求返回状态判断</title>
+    <meta charset="utf8">
+  </head>
+  <body>
+    <h1>请求返回状态判断</h1>
+    <p>服务端返回的内容： <span id="result"></span></p>
+
+    <script>
+      function doFetch (status) {
+        fetch('/api/check_state?status=' + status)
+        .then(response => {
+          if (response.ok) {
+            return response.text();
+          } else {
+            throw new Error(`${response.statusText}（${response.status}）`);
+          }
+        })
+        .then(result => {
+          console.log(`成功啦！返回结果：${result}`);
+        })
+        .catch(error => {
+          console.log(`出错啦！出错原因：${error.message}`);
+        });
+      }
+
+      doFetch(200);
+      doFetch(404);
+    </script>
+  </body>
+</html>
