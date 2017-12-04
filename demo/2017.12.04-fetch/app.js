@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var pages = require('./routes/page');
 
 var app = express();
 
@@ -24,6 +25,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/page', pages);
+
+app.get('/api/getting-started', function (req, res, next) {
+  res.end('getting-started');
+});
+
+app.post('/api/del_user', function (req, res, next) {
+  res.json({code: 0, data: {uid: req.body.uid}});
+});
+
+app.get('/api/with-credentials', function (req, res, next) {
+  res.end(req.cookies.uid);
+});
+
+var cors = require('cors');
+var corsOptions = {
+  origin: 'http://www.chyingp.com:3000',
+};
+
+app.get('/api/cors', cors(), function (req, res, next) {
+  res.end('ok');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

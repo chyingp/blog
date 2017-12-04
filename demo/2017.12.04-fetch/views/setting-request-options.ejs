@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>设置请求参数</title>
+    <meta charset="utf8">
+  </head>
+  <body>
+    <h1>设置请求参数</h1>
+    <p>服务端返回的内容： <span id="result"></span></p>
+
+    <script>
+      var options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          uid: 1000
+        })
+      };
+
+      fetch('/api/del_user', options)
+        .then(response => response.json())
+        .then(json => {
+          document.getElementById('result').innerHTML = JSON.stringify(json);
+        });
+    </script>
+  </body>
+</html>

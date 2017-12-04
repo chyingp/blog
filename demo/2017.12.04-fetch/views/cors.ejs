@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>跨域请求</title>
+    <meta charset="utf8">
+  </head>
+  <body>
+    <h1>跨域请求</h1>
+    <p>服务端返回的内容： <span id="result"></span></p>
+
+    <script>
+      var options = {
+        // credentials: 'include',
+        mode: 'cors'
+      };
+
+      fetch('http://news.chyingp.com:3000/api/cors', options)
+        .then(response => response.text())
+        .then(result => {
+          console.log(`result is : ${result}`);
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>入门例子</title>
+    <meta charset="utf8">
+  </head>
+  <body>
+    <h1>入门例子</h1>
+    <p>服务端返回的内容： <span id="svr-content"></span></p>
+
+    <script>
+      fetch('/api/getting-started')
+        .then(response => response.text())
+        .then(text => {
+          document.getElementById('svr-content').innerHTML = text;
+        });
+    </script>
+  </body>
+</html>
