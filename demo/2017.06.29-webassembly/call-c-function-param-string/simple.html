@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>call c function with param string</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	
+var test = Module.cwrap(
+    'test', // 模块导出的方法名
+    'number', // 方法返回类型
+    ['string']  // 方法的参数类型
+);
+
+var num = test('hello');
+console.log(num);  // 5
+
+</script>
+
+</body>
+</html>

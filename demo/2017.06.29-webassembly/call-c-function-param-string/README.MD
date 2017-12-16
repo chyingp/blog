@@ -20,7 +20,7 @@ emcc simple.c -o simple.html -s WASM=1 -s EXPORTED_FUNCTIONS="['_test']"
 在js中测试下。
 
 ```javascript
-var test = Module.cwap(
+var test = Module.cwrap(
     'test', 
     'number',
     ['string']

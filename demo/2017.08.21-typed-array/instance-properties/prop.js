@@ -13,3 +13,11 @@ console.log(int32.length);
 console.log(int32.byteLength);
 // typed array 对应的字节长度，int32每个元素对应4个字节
 // 输出：20
+
+var buffer = new ArrayBuffer(16);
+
+var int8_1 = new Int8Array(buffer);
+console.log(int8_1.byteOffset);  // 输出：0
+
+var int8_2 = new Int8Array(buffer, 8);
+console.log(int8_2.byteOffset);  // 输出：8

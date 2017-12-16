@@ -1,0 +1,16 @@
+{
+  "name": "2017.03.10-rxjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "rxjs": "^5.4.2",
+    "rxjs-es": "^5.0.0-beta.12"
+  }
+}

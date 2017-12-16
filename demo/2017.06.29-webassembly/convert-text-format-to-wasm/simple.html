@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>simple</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	var s = window.performance.now();
+</script>
+<script type="text/javascript">	
+	var Util = {
+		imports: {
+			imported_func: function (str) {
+
+			}
+		},
+		exportss: {
+			exported_func: function (str) {
+				return 42;
+			}
+		}
+	};	
+</script>
+<script type="text/javascript">
+	var e = window.performance.now();
+	console.log(e - s);
+</script>
+
+<script type="text/javascript">
+	var importObject = {
+		imports: {
+			imported_func: function () {}
+		}		
+	};
+	var start, end, total;
+	var r = Math.random();
+	fetch('./simple.wasm?v=' + r, importObject).then(response => {
+		// start = performance.now();
+	  return response.arrayBuffer()
+	}).then(bytes =>{
+		start = performance.now();
+	  WebAssembly.instantiate(bytes, importObject)
+	  
+	}).then(results => {
+		end = performance.now();
+	  console.log(end - start);
+		// end = performance.now();
+		// console.log(end - start);
+	  // Do something with the compiled results!
+	});
+</script>
+
+</body>
+</html>

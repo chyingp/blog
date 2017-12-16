@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>asm2</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	function MyModule () {
+		"use asm";
+		function add (x) {
+			x = x | 0;
+			return x|0;
+		}
+		return add;
+	}
+
+	// var add = MyModule();
+	// var result = add(5);
+	// console.log(result);
+</script>
+
+</body>
+</html>

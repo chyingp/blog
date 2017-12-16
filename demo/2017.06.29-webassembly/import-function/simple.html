@@ -17,7 +17,7 @@
 	).then(bytes =>
 		WebAssembly.instantiate(bytes, importObject)
 	).then(module =>
-		module.instance.exports.test();
+		module.instance.exports.test(); // 1
 	);
 </script>
 

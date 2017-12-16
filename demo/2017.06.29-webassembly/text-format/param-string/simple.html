@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>数值传递</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	var memory = new WebAssembly.Memory({ 
+		initial: 1  // 64k
+	});
+
+	var importObject = {
+		js: {
+			mem: memory
+		},
+		console: {
+			printStringInMemory: function (offset, length) {
+				var bytes = new UInt8Array(memory.buffer, offset, length);
+				var textDecoder = new TextDecoder('utf8');
+				var content = textDecoder.decode(bytes);
+				console.log(content);
+			}
+		}
+	};
+
+	fetch('./simple.wasm')
+		.then( response => response.arrayBuffer() )
+		.then( bytes => WebAssembly.instantiate(bytes) )
+		.then( result => {
+			
+			var str = 'hello';  // 将要传递的字符串参数
+			var encoded = new TextEncoder().encode(str); // 编码：Uint8Array(5) [104, 101, 108, 108, 111]
+			
+			var uint8Arr = new UInt8Array(memory.buffer, 0, str.length);			
+			uint8Arr.set(encoded);  // 将 memory 的前5个字节填上
+			
+			result.instance.exports.test(0, 5);
+		} )
+</script>
+
+</body>
+</html>

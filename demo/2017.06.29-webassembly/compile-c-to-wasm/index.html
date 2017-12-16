@@ -6,20 +6,26 @@
 <body>
 
 <script type="text/javascript">
-	var importObject = {
-		imports: {}
-	};
+
+var importObject = {
+	env: {
+		printf: function (fm, vari) {
+			console.log(fm, vari);
+		}
+	}
+};
+
+fetch('/simple.wasm')
+	.then( function (response) {
+		return response.arrayBuffer();
+	})
+	.then( function (bytes) {
+		return WebAssembly.instantiate(bytes, importObject);
+	})
+	.then( function (module) {
+		module.instance.exported_func();
+	});
 	
-	fetch('/hello.wasm')
-		.then( function (response) {
-			return response.arrayBuffer();
-		})
-		.then( function (bytes) {
-			return WebAssembly.instantiate(bytes, importObject);
-		})
-		.then( function (results) {
-			results.instance;
-		});
 </script>
 
 </body>

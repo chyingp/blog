@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>asm</title>
+</head>
+<body>
+
+<script type="text/javascript" src="./mymodule.js"></script>
+<script type="text/javascript">
+// function fast_fib_module(stdlib, foreign, heap) {
+//   "use asm";
+
+//   function fib(n) {
+//     n = n|0;
+    
+//     if (n >>> 0 < 3) {
+//       return 1|0;
+//     }
+    
+//     return (fib((n-1)|0) + fib((n-2)|0))|0;
+//   }
+
+//   return fib;
+// }
+// fast_fib = fast_fib_module(window);
+	
+var result = 0;
+
+var start = new Date();
+
+var fib = MyModule().fib;
+result = fib(5);
+
+var end = new Date();
+
+alert(result);
+alert(end - start);
+
+</script>
+
+</body>
+</html>

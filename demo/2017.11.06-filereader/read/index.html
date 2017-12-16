@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <meta charset="utf8">
+    <title>标题</title>
+  </head>
+  <body>
+    <input type="file" id="file-input" />
+
+    <script>
+      function $ (id) {
+        return document.getElementById(id);
+      }
+
+      $('file-input').addEventListener('change', function () {
+        let files = this.files;
+        let file = files[0];
+
+        let reader = new FileReader();
+        // reader.readAsText(file);
+        reader.readAsArrayBuffer(file);
+        reader.onloadstart = function () {
+          console.log('onloadstart');
+        };
+        reader.onprogress = function () {
+          console.log('onprogress');
+        };
+        reader.onloadend = function (evt) {
+          console.log('onloadend');
+          console.log(evt.target.result);
+        };
+      });
+    </script>
+  </body>
+</html>

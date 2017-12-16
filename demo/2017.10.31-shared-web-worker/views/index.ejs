@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <script>
+    
+    var id = Math.random().toString().slice(2);
+
+    var myWorker = new SharedWorker("/js/worker5.js");
+
+    myWorker.port.onmessage = function(e) {
+      console.log('Message received from worker: ' + JSON.stringify(e.data, null, 2));
+    };
+
+    myWorker.port.postMessage({
+      action: 'page_open', 
+      url: location.href,
+      id: id
+    });
+
+    window.onbeforeunload = function () {
+      myWorker.port.postMessage({
+        action: 'page_close', 
+        url: location.href,
+        id: id
+      });
+    };
+    </script>
+
+  </body>
+</html>

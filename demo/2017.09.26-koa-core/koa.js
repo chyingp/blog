@@ -22,29 +22,26 @@ module.exports = class Koa extends Emitter {
 		// 分两种情况
 		// 1、当前不是最后一个中间件
 		// 2、当前是最后一个中间件
-		const runMiddleware = async (ctx, index) => {
+		const runMiddleware = (ctx, index) => {
 			// 最后一个中间件
 			if (index === len - 1) {
 				return this.middleware[index](ctx, () => {});
 			} else {
-				this.middleware[index](ctx, async () => {
+				return this.middleware[index](ctx, () => {
 					return runMiddleware(ctx, index + 1);
 				});
 			}
-			// return this.middleware[index](ctx, async () => {
-			// 	return runMiddleware(ctx, index + 1);
-			// });
 		};
 
-		const handleRequest = async (request, response) => {			
+		const handleRequest = (request, response) => {
 			let ctx = {
 				body: () => {}
 			};
 
-			let ret = runMiddleware(ctx, 0);
-			ret.then(() => {
-				response.end('ok');
-			});
+			runMiddleware(ctx, 0)
+				.then(() => {
+					response.end('ok');
+				})
 		};
 
 		return handleRequest;

@@ -29,10 +29,9 @@ int int_sqrt(int x) {
 然后，可以加上以下代码
 
 ```js
-Module.ccall(
-  'int_sqrt',  // 要调用的方法名
-  'number',  // 返回值的类型
-  ['number'],  // 参数类型
-  [16]  // 参数值
+var int_sqrt = Module.cwrap(
+    'int_sqrt',  // 方法名
+    'number',  // 返回值的类型
+    ['number']  // 参数类型
 );
 ```

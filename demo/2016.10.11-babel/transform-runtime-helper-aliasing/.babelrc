@@ -1,0 +1,11 @@
+{
+  "env": {
+    "runtime": {
+      "presets": ["babel-preset-env"],
+      "plugins": ["transform-runtime"]
+    },
+    "no_runtime": {
+      "presets": ["babel-preset-env"]
+    } 
+  }  
+}

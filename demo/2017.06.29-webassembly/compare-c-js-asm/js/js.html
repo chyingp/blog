@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>普通js</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+function fib(x) {
+  if (x < 2) {
+    return 1;
+  } else {
+    return fib(x - 1) + fib(x - 2);
+  }
+}
+
+var start = new Date();
+
+var result = fib(45);
+
+var end = new Date();
+
+// alert(result);
+alert(end - start);
+
+</script>
+
+</body>
+</html>
