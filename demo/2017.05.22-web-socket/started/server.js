@@ -26,13 +26,13 @@ io.on('connection', function (socket) {
   //   console.log(data);
   // });
   socket.on('disconnect', function () {
-    console.log('disconnect: ' + socket.id);
+    console.log('disconnect1: ' + socket.id);
   });
 });
 
-setInterval(function () {
-  console.log(arr.map(socket => socket.connected).join(','));
-}, 3000);
+// setInterval(function () {
+//   console.log(arr.map(socket => socket.connected).join(','));
+// }, 3000);
 
 /*
 var express = require('express');

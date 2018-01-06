@@ -1,18 +1,18 @@
 <!-- <script src="/socket.io/socket.io.js"></script> -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
 <script>
-  var url = 'http://www.xunjia.com';
-  var socket = io(url, {
-  	path: '/push',
-  	query: {
-  	  user_type: 1,	
-  	  mid: 1,
-  	  uid: 123,
-  	  skey: '12323'
-  	}
-  });
+  // var url = 'http://www.xunjia.com';
+  // var socket = io(url, {
+  // 	path: '/push',
+  // 	query: {
+  // 	  user_type: 1,	
+  // 	  mid: 1,
+  // 	  uid: 123,
+  // 	  skey: '12323'
+  // 	}
+  // });
   // var socket = io.connect(url);
-  // var socket = io.connect('http://localhost:3000?skey=hello');
+  var socket = io.connect('http://localhost:3000');
   
   socket.on('news', function (data) {
     console.log(data);

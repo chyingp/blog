@@ -7,8 +7,15 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/http-node-server/server.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "启动程序",
             "program": "${file}"
-        }
+        },
+
     ]
 }
