@@ -547,10 +547,10 @@ app.del = deprecate.function(app.delete, 'app.del: Use app.delete instead');
  */
 
 app.render = function render(name, options, callback) {
-  var cache = this.cache;
+  var cache = this.cache; // 模板渲染的cache，初始化的时候为 {}
   var done = callback;
-  var engines = this.engines;
-  var opts = options;
+  var engines = this.engines; // 渲染引擎，初始化的时候为 {}
+  var opts = options; // 配置项
   var renderOptions = {};
   var view;
 
@@ -560,6 +560,7 @@ app.render = function render(name, options, callback) {
     opts = {};
   }
 
+  // 最终 renderOptions => merge(app.locals, res.locals, options)
   // merge app.locals
   merge(renderOptions, this.locals);
 
@@ -571,26 +572,32 @@ app.render = function render(name, options, callback) {
   // merge options
   merge(renderOptions, opts);
 
+  // 1、当 NODE_ENV === 'production'，this.enabled('view cache') === true
+  // 2、
+  // renderOptions.cache 为 undefined 时，renderOptions.cache == null => true
   // set .cache unless explicitly provided
   if (renderOptions.cache == null) {
     renderOptions.cache = this.enabled('view cache');
   }
 
+  // 如果启用了缓存，那么先看是否已缓存
   // primed cache
   if (renderOptions.cache) {
     view = cache[name];
   }
 
+  // 如果没有缓存
   // view
   if (!view) {
-    var View = this.get('view');
+    var View = this.get('view'); // require('./view')
 
     view = new View(name, {
-      defaultEngine: this.get('view engine'),
-      root: this.get('views'),
-      engines: engines
+      defaultEngine: this.get('view engine'), // view engine初始值是undefined，需要显式设置；设置完后，会成为默认的渲染引擎；
+      root: this.get('views'), // 模板所在目录，默认是views，可以修改
+      engines: engines // 当前已经挂载的引擎
     });
 
+    // 模板文件不存在
     if (!view.path) {
       var dirs = Array.isArray(view.root) && view.root.length > 1
         ? 'directories "' + view.root.slice(0, -1).join('", "') + '" or "' + view.root[view.root.length - 1] + '"'
@@ -600,12 +607,16 @@ app.render = function render(name, options, callback) {
       return done(err);
     }
 
+    // 如果需要缓存
     // prime the cache
     if (renderOptions.cache) {
-      cache[name] = view;
+      cache[name] = view; // 比如 cache['index'] = view;
     }
   }
 
+  // 实际渲染操作，两种情况：
+  // 1、渲染成功：调用 done(renderedHTML)
+  // 2、渲染失败：调用 done(err)
   // render
   tryRender(view, renderOptions, done);
 };
