@@ -948,6 +948,7 @@ res.render = function render(view, options, callback) {
     opts = {};
   }
 
+  // 注意这里 opt._locals 其实就是 res.locals，在 app.render() 里会用到
   // merge res.locals
   opts._locals = self.locals;
 
