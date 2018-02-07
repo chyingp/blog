@@ -1,24 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// 创建context实例
 const ThemeContext = React.createContext({
   background: 'red',
   color: 'white'
 });
-
-// class Header extends React.Component {
-//   render () {
-//     return (
-//       <ThemeContext.Consumer>
-//         {themeContext => (
-//           <h1 style={{background: themeContext.background, color: themeContext.color}}>
-//             Hello React Context API
-//           </h1>
-//         )}
-//       </ThemeContext.Consumer>
-//     );
-//   }
-// }
 
 class Header extends React.Component {
   render () {
