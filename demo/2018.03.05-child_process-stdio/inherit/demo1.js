@@ -2,7 +2,7 @@ const child_process = require('child_process');
 const spawn = child_process.spawn;
 
 const child = spawn('ls', ['1.txt', '2.txt'], {
-  stdio: 'inherit'
+  stdio: 'inherit' // 等价于 ['inherit', 'inherit', 'inherit']
 });
 
 console.log( child.stdout );
