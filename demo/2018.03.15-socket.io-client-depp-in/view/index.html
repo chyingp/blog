@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>demo</title>
+</head>
+<body>
+
+<script type="text/javascript" src="/socket.io.js"></script>
+<script>
+	var socket = io.connect('http://localhost:3000');
+  
+  socket.on('news', function (data) {
+    console.log(data);
+    // socket.emit('my other event', { my: 'data' });
+  });
+  
+  socket.on('connect', function () {
+  	console.log('client: 连接上');
+  });
+
+  socket.on('connect_error', function () {
+  	console.log('client: connect_error');
+  });
+
+  socket.on('error', function (errorMessage) {
+		console.log('client: error, ' + errorMessage);
+  });
+</script>
+</body>
+</html>
