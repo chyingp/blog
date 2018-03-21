@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>demo</title>
+</head>
+<body>
+
+<script type="text/javascript" src="/socket.io.js"></script>
+<script>
+  function run () {
+    var socket = io.connect('http://127.0.0.1:3001', {
+      transports: ['websocket']
+    });
+
+    socket.on('alarm', function (msg) {
+      console.log(msg);
+    });
+    
+    socket.on('connect', function () {
+      console.log('client: 连接上');
+    });
+
+    socket.on('connect_error', function () {
+      console.log('client: connect_error');
+    });
+
+    socket.on('error', function (errorMessage) {
+      console.log('client: error, ' + errorMessage);
+    });
+    socket.emit('news', {nick: 'c'});
+  }
+
+  run();
+  // run();
+</script>
+</body>
+</html>

@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "debug": "^3.1.0",
+    "express": "^4.16.3",
     "socket.io": "^2.0.4",
-    "socket.io-emitter": "^3.1.1"
+    "socket.io-emitter": "^3.1.1",
+    "socket.io-redis": "^5.2.0"
   }
 }
