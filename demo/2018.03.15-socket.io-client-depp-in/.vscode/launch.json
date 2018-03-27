@@ -7,8 +7,20 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "启动程序",
+      "name": "app",
       "program": "${workspaceFolder}/app.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "app2",
+      "program": "${workspaceFolder}/app2.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "test",
+      "program": "${workspaceFolder}/test.js"
     }
   ]
 }
