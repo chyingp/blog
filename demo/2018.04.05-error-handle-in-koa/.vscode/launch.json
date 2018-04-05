@@ -15,6 +15,24 @@
       "request": "launch",
       "name": "app2",
       "program": "${workspaceFolder}/app2.js"
-    }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "app3",
+      "program": "${workspaceFolder}/app3.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "app4",
+      "program": "${workspaceFolder}/app4.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "app5",
+      "program": "${workspaceFolder}/app5.js"
+    }    
   ]
 }
