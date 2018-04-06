@@ -33,6 +33,12 @@
       "request": "launch",
       "name": "app5",
       "program": "${workspaceFolder}/app5.js"
-    }    
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "app9",
+      "program": "${workspaceFolder}/app9.js"
+    } 
   ]
 }

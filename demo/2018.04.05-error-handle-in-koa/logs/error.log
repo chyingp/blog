@@ -1,0 +1,98 @@
+[2018-04-05T16:36:23.812] [ERROR] default - ReferenceError: noneExistedVar is not defined
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app6.js:14:15)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at /Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:34:12
+    at Application.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:150:12)
+    at Server.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:132:19)
+    at emitTwo (events.js:126:13)
+    at Server.emit (events.js:214:7)
+    at parserOnIncoming (_http_server.js:602:12)
+    at HTTPParser.parserOnHeadersComplete (_http_common.js:117:23)
+[2018-04-05T16:44:22.418] [ERROR] default - { InternalServerError: some problem happened.
+    at Object.throw (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/context.js:93:11)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app7.js:15:12)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at /Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:34:12
+    at Application.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:150:12)
+    at Server.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:132:19)
+    at emitTwo (events.js:126:13)
+    at Server.emit (events.js:214:7)
+    at parserOnIncoming (_http_server.js:602:12)
+    at HTTPParser.parserOnHeadersComplete (_http_common.js:117:23) message: 'some problem happened.' }
+[2018-04-05T16:51:33.025] [ERROR] default - { InternalServerError: 抛出错误
+    at Object.throw (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/context.js:93:11)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app8.js:25:12)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at next (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:43:18)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app8.js:15:11)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at /Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:34:12
+    at Application.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:150:12)
+    at Server.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:132:19)
+    at emitTwo (events.js:126:13) message: '抛出错误' }
+[2018-04-06T00:11:35.343] [ERROR] default - { InternalServerError: code is 10002
+    at Object.throw (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/context.js:93:11)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app9.js:48:12)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at next (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:43:18)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app9.js:29:11)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at /Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:34:12
+    at Application.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:150:12)
+    at Server.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:132:19)
+    at emitTwo (events.js:126:13) message: 'code is 10002', code: 10002 }
+[2018-04-06T00:11:43.219] [ERROR] default - { InternalServerError: code is 0
+    at Object.throw (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/context.js:93:11)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app9.js:48:12)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at next (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:43:18)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app9.js:29:11)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at /Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:34:12
+    at Application.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:150:12)
+    at Server.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:132:19)
+    at emitTwo (events.js:126:13) message: 'code is 0', code: 0 }
+[2018-04-06T00:11:48.854] [ERROR] default - { InternalServerError: code is 10001
+    at Object.throw (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/context.js:93:11)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app9.js:48:12)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at next (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:43:18)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app9.js:29:11)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at /Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:34:12
+    at Application.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:150:12)
+    at Server.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:132:19)
+    at emitTwo (events.js:126:13) message: 'code is 10001', code: 10001 }
+[2018-04-06T00:11:48.897] [ERROR] default - { InternalServerError: code is 0
+    at Object.throw (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/context.js:93:11)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app9.js:48:12)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at next (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:43:18)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app9.js:29:11)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at /Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:34:12
+    at Application.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:150:12)
+    at Server.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:132:19)
+    at emitTwo (events.js:126:13) message: 'code is 0', code: 0 }
+[2018-04-06T00:11:53.313] [ERROR] default - { InternalServerError: code is 10003
+    at Object.throw (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/context.js:93:11)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app9.js:48:12)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at next (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:43:18)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app9.js:29:11)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at /Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:34:12
+    at Application.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:150:12)
+    at Server.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:132:19)
+    at emitTwo (events.js:126:13) message: 'code is 10003', code: 10003 }
+[2018-04-06T00:11:53.336] [ERROR] default - { InternalServerError: code is 0
+    at Object.throw (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/context.js:93:11)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app9.js:48:12)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at next (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:43:18)
+    at app.use (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/app9.js:29:11)
+    at dispatch (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:42:32)
+    at /Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa-compose/index.js:34:12
+    at Application.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:150:12)
+    at Server.handleRequest (/Volumes/chyingp-sd/git-code/git-blog/demo/2018.04.05-error-handle-in-koa/node_modules/koa/lib/application.js:132:19)
+    at emitTwo (events.js:126:13) message: 'code is 0', code: 0 }
