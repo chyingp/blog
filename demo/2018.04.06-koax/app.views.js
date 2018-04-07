@@ -10,3 +10,8 @@ app.use(async (ctx, next) => {
 });
 
 app.listen(3000);
+
+/*
+node app.views.js
+curl http://127.0.0.1:3000/page.html
+*/
