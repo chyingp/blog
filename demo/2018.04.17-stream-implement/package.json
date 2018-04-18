@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chance": "^1.0.13"
+    "chance": "^1.0.13",
+    "mkdirp": "^0.5.1"
   }
 }
