@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "chance": "^1.0.13",
+    "concat-stream": "^1.6.2",
     "from2-array": "0.0.4",
     "mkdirp": "^0.5.1",
     "request": "^2.85.0",

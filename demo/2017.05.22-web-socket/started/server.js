@@ -1,7 +1,9 @@
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
+var io = require('socket.io')(server, {
+  path: '/path'
+});
 var cookieParser = require('cookie-parser');
 // var compression = require('compression');
 
