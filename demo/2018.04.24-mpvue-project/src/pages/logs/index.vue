@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import wx from 'wx'
 import { formatTime } from '@/utils/index'
 import card from '@/components/card'
 

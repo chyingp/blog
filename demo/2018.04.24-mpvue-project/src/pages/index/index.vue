@@ -19,10 +19,12 @@
       <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
     </form>
     <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
+    <button @click="bindGoToVueExample">路由：通过button去往Vuex示例页面</button>
   </div>
 </template>
 
 <script>
+import wx from 'wx'
 import card from '@/components/card'
 
 export default {
@@ -40,6 +42,10 @@ export default {
   methods: {
     bindViewTap () {
       const url = '../logs/main'
+      wx.navigateTo({ url })
+    },
+    bindGoToVueExample () {
+      const url = '/pages/counter/main' // hello
       wx.navigateTo({ url })
     },
     getUserInfo () {

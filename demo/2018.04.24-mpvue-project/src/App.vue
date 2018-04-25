@@ -1,5 +1,8 @@
 <script>
+import wx from 'wx'
+
 export default {
+  el: '#app',
   created () {
     // 调用API从本地缓存中获取数据
     const logs = wx.getStorageSync('logs') || []

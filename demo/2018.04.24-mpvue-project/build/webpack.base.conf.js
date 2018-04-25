@@ -41,6 +41,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue': 'mpvue',
+      'wx': path.join(__dirname, '../src/utils/wx.js'),
       '@': resolve('src')
     },
     symlinks: false
