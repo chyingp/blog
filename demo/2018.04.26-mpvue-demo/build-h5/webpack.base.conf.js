@@ -22,7 +22,7 @@ const createLintingRule = () => ({
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: ['babel-polyfill', './src/main.js']
+    app: ['babel-polyfill', './src/h5.main.js']
   },
   output: {
     path: config.build.assetsRoot,
@@ -37,7 +37,7 @@ module.exports = {
       '@': resolve('src'),
       vue: 'vue/dist/vue.js',
       flyio: 'flyio/dist/npm/fly',
-      wx: resolve('src/utils/wx'),
+      wx: resolve('src/utils/h5.wx'),
     }
   },
   module: {
