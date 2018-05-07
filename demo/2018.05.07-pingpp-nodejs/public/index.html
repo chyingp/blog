@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,user-scalable=no,minimal-ui">
+  <meta charset="utf8">
+  <title>ping++ demo</title>
+  <style>
+    body { padding: 0; margin: 0; }
+    .app { box-sizing: content-box; padding: 20px; }
+    .pay-row { display: flex; margin-bottom: 15px; line-height: 26px; }
+    .pay-row label { flex: 1; line-height: 26px; }
+    .pay-row .pay-value { flex: 2; }
+    .pay-row .pay-value input { border: 1px solid #ccc; padding-left: 8px; padding-right: 8px; line-height: 26px; }
+    .pay-row .pay-value button { line-height: 26px; border: 1px solid #ccc; }
+
+  </style>
+</head>
+<body>
+
+<div id="app" class="app">
+  <div class="pay-row">
+    <label>金额：</label>
+    <div class="pay-value">
+      <input id="amount" type="text" value="100" />
+    </div>    
+  </div>
+  <div class="pay-row">
+    <label>商品主题：</label>
+    <div class="pay-value">
+      <input id="subject" type="text" value="小黄鸭" />
+    </div>    
+  </div>
+  <div class="pay-row">
+    <label>商品描述：</label>
+    <div class="pay-value">
+      <input id="body" type="text" value="小黄鸭描述" />
+    </div>      
+  </div>
+  <div class="pay-row">
+    <label></label>
+    <div class="pay-value">
+      <button id="pay">点击支付</button>
+    </div>    
+  </div>
+  <div>
+    <label for="">支付结果：</label>
+    <div id="pay_result" class="pay-value"></div>
+  </div>
+</div>  
+
+<script type="text/javascript" src="dist/pingpp.js"></script>
+<script type="text/javascript" src="dist/pingpp_ui.js"></script>
+<script type="text/javascript" src="./axios.js"></script>
+<script type="text/javascript">
+	
+function showPayUI () {
+  console.debug('[choose channel] 显示支付渠道显示UI');
+
+  let channels = ['alipay_wap','wx_pub','upacp_wap','yeepay_wap','jdpay_wap','bfb_wap'];
+  pingpp_ui.init({
+      // 页面上需要展示的渠道，数组，数组顺序即页面展示出的渠道的顺序
+      // upmp_wap 渠道在微信内部无法使用，若用户未安装银联手机支付控件，则无法调起支付
+      channel: channels
+  }, onChooseChannel);
+}
+
+function onChooseChannel (channel) {
+  // 用户选择的支付渠道
+  console.log(`[choose channel] 当前选择渠道：channel`);
+      
+  if (channel !== 'upacp_wap') {
+    alert('当前只支持银联网页支付');
+    return;
+  }
+
+  let amount = document.getElementById('amount').value - 0;
+  let subject = document.getElementById('subject').value || 'subject';
+  let body = document.getElementById('body').value || 'body';  
+
+  getCharge({
+    amount, subject, body,
+    onSuccess: pay,
+    onError: function () {}    
+  });
+}
+
+function getCharge ({amount, subject, body, onSuccess, onError}) {
+  console.debug('[get charge] 获取charge参数');
+
+  let payResult = document.getElementById('pay_result');
+
+  axios
+    .get(`/get_charge?amount=${amount}&subject=${subject}&body=${body}`, {
+      responseType: 'json'
+    })
+    .then(({data}) => {
+      // console.log(`response: ${JSON.stringify(response)}`);
+      if (data.ret_code === '0') {
+        console.debug('[get charge] 获取charge参数成功');
+        payResult.innerHTML = `获取charge成功: ${JSON.stringify(data, null, 2)}`;
+        onSuccess(data.data);
+      } else {
+        console.debug('[get charge] 获取charge参数失败');
+        payResult.innerHTML = `获取charge失败: ${JSON.stringify(data, null, 2)}`;
+        onError(data);
+      }      
+    })
+    .catch(error => {
+      // console.log(`error: ${error.message}`);
+      payResult.innerHTML = `[get charge] 获取charge失败: ${error.message}`;
+      onError(error);
+    });
+}
+
+function pay (object) {
+  console.debug('[pay] 提交支付');
+  // 在支付页调用支付：
+  pingpp_ui.createPayment(object, function(result, err){
+    // 可按需使用 alert 方法弹出 log
+      console.log(result);
+      console.log(err.msg);
+      console.log(err.extra);
+      if (result == "success") {
+        // 只有微信公众号 (wx_pub)、QQ 公众号 (qpay_pub)支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL
+      } else if (result == "fail") {
+          // Ping++ 对象不正确或者微信公众号 / QQ公众号支付失败时会在此处返回
+      } else if (result == "cancel") {
+          // 微信公众号支付取消支付
+      }
+  });
+}
+
+document.getElementById('pay').addEventListener('click', () => {
+  showPayUI();
+});
+
+</script>
+
+</body>
+</html>
