@@ -1,0 +1,29 @@
+clean:
+	touch hello.txt
+fuck:
+	rm hello.txt
+	touch world.txt
+result.txt: source.txt
+	cp source.txt result.txt
+source.txt:
+	echo "world" > source.txt
+test:
+	@# 测试
+	export nick=fuck; \
+	echo $$nick
+rr:
+	# 通配符
+	rm *.js
+nick = chyingp
+va:
+	#变量
+	@echo $(nick) # 变量用 $() 括起来
+	echo $$HOME # shell变量，需要加两个$
+a.txt:
+	touch $@
+	echo "a" > $@
+b.txt:
+	touch $@
+	echo "b" > $@
+c.txt: a.txt b.txt
+	cp $< $@
