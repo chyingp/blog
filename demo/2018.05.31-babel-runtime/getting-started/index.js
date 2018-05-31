@@ -1,0 +1,1 @@
+var promise = new Promise;
