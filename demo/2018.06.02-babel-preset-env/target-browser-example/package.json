@@ -1,10 +1,9 @@
 {
-  "name": "target-node-example",
+  "name": "target-browser-example",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
