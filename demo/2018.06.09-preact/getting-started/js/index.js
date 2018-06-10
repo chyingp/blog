@@ -1,8 +1,13 @@
-import { h, render } from 'preact';
+import { h, render, Component } from 'preact';
+
+class App extends Component {
+  render () {
+    return (
+      <div>hello</div>
+    );
+  }
+}
 
 render((
-    <div id="foo">
-        <span>Hello, world!</span>
-        <button onClick={ e => alert("hi!") }>Click Me</button>
-    </div>
+  <App />
 ), document.body);

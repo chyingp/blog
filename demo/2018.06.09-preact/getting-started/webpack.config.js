@@ -26,5 +26,6 @@ module.exports = {
     alias: {
       preact: path.resolve(__dirname, 'node_modules/preact/src/preact.js'),
     }
-  }
+  },
+  devtool: "source-map"
 };
