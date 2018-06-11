@@ -33,3 +33,22 @@ class ObservableTodoStore {
 
 
 const observableTodoStore = new ObservableTodoStore();
+
+observableTodoStore.addTodo("read MobX tutorial");
+observableTodoStore.addTodo("try MobX");
+observableTodoStore.todos[0].completed = true;
+observableTodoStore.todos[1].task = "try MobX in own project";
+observableTodoStore.todos[0].task = "grok MobX tutorial";
+
+/*
+一、命令
+npx babel observableTodoStore.js -o out.js
+node out.js
+
+二、输出
+<none>
+Next todo: "read MobX tutorial". Progress: 0/1
+Next todo: "read MobX tutorial". Progress: 0/2
+Next todo: "read MobX tutorial". Progress: 1/2
+Next todo: "grok MobX tutorial". Progress: 1/2
+*/
