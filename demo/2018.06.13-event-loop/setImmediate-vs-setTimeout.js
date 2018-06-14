@@ -1,6 +1,4 @@
-// 对比：setImmediate vs process.nextTick
-// setImmediate() is designed to execute a script once the current poll phase completes.
-// 
+// 与 setImmediate-vs-setTimeout-in-io-callback.js 进行对比
 
 console.log('begin');
 
