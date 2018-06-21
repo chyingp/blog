@@ -1,5 +1,11 @@
 #include <node_api.h>
 #include <stdio.h>
+#include <signal.h>
+#include <unistd.h>
+
+void sigint_handler (int signum) {
+  printf("OUCH \n");
+}
 
 void do_something_asynchronous (napi_env env, napi_deferred deferred) {
   napi_value undefined;
@@ -19,6 +25,8 @@ napi_value GetPromise(napi_env env, napi_callback_info info) {
   // Create the promise.
   status = napi_create_promise(env, &deferred, &promise);
   if (status != napi_ok) return NULL;
+
+  signal(SIGINT, sigint_handler);
 
   // Pass the deferred to a function that performs an asynchronous action.
   do_something_asynchronous(env, deferred);
