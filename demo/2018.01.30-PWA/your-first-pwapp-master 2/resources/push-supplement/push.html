@@ -1,0 +1,113 @@
+<!--
+ Copyright 2016 Google Inc.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+      http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GCM Push</title>
+  <link rel="stylesheet" type="text/css" href="styles/inline.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.2/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.1.2/material.min.js"></script>
+  <style>
+    .mdl-textfield {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <h1 class="header__title">GCM Push</h1>
+  </header>
+
+  <main class="main">
+    <div class="card">
+      <form action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="key">
+          <label class="mdl-textfield__label" for="key">API Key</label>
+        </div>
+        <br>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="endpoint">
+          <label class="mdl-textfield__label" for="endpoint">End Point</label>
+        </div>
+      </form>
+      <button id="butSend" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+        Send
+      </button>
+    </div>
+    <div class="card">
+      <h4>Result</h4>
+      <pre id="preResult">
+      </pre>
+    </div>
+  </main>
+
+  <div id="mdlSnackbar" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
+  </div>
+
+  <script type="text/javascript">
+    var inputApiKey = document.querySelector('#key');
+    var inputEndpoint = document.querySelector('#endpoint');
+    var buttonSend = document.querySelector('#butSend');
+    var preResult = document.querySelector('#preResult');
+
+    butSend.addEventListener('click', function() {
+      var key = inputApiKey.value;
+      var endpoint = inputEndpoint.value;
+      endpoint = endpoint.replace('https://android.googleapis.com/gcm/send/', '');
+      console.log('send', key, endpoint);
+      var gcmURL = 'https://android.googleapis.com/gcm/send';
+      var fetchHeaders = new Headers();
+      fetchHeaders.append('Content-Type', 'application/json');
+      fetchHeaders.append('Authorization', 'key=' + key);
+      var body = {
+        registration_ids: [endpoint]
+      };
+      body = JSON.stringify(body);
+      console.log(body);
+      var options = {
+        method: 'POST',
+        headers: fetchHeaders,
+        mode: 'cors',
+        body: body
+      };
+      fetch(gcmURL, options)
+        .then(function(response) {
+          if (response.json) {
+            return response.json();
+          } else {
+            return {};
+          }
+        })
+        .then(function(response) {
+          preResult.textContent = JSON.stringify(response, null, 2);
+        }).catch(function(error) {
+          console.log('e', error);
+          preResult.textContent = error;
+        });
+    });
+  </script>
+  
+</body>
+</html>
