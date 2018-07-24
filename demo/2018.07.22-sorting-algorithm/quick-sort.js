@@ -1,5 +1,5 @@
 // 快速排序
-// 时间复杂度：
+// 时间复杂度：平均 O(nlogn)，最坏 O(n^2)
 
 function swap (arr, left, right) {
   let temp = arr[left];

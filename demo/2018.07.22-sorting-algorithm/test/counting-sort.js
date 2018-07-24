@@ -1,5 +1,5 @@
 let assert = require('assert');
-let sort = require('../quick-sort').sort;
+let sort = require('../counting-sort').countingSort;
 
 describe('Array', function() {
   it('[1, 2, 3, 4] => [1, 2, 3, 4]', function() {    
