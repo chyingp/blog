@@ -22,9 +22,9 @@ function binarySearch (arr, element, leftIndex, rightIndex) {
 
 module.exports = binarySearch;
 
-let arr = [1, 2, 3, 4];
-console.log( binarySearch(arr, 5) ); // -1
-console.log( binarySearch(arr, 1) ); // 0
-console.log( binarySearch(arr, 2) ); // 1
-console.log( binarySearch(arr, 3) ); // 2
-console.log( binarySearch(arr, 4) ); // 3
+// let arr = [1, 2, 3, 4];
+// console.log( binarySearch(arr, 5) ); // -1
+// console.log( binarySearch(arr, 1) ); // 0
+// console.log( binarySearch(arr, 2) ); // 1
+// console.log( binarySearch(arr, 3) ); // 2
+// console.log( binarySearch(arr, 4) ); // 3
