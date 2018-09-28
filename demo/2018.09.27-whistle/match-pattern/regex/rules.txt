@@ -1,0 +1,11 @@
+# 匹配特定关键字
+# 测试例子：http://test.qq.com/specific-keyword/
+/specific-keyword/ file:///Volumes/mysd/git-code/git-blog/demo/2018.09.27-whistle/match-pattern/regex/specific-keyword.txt
+
+# 子请求
+# 测试例子：http://test.qq.com/submatch-example/submatch.txt
+/submatch-example\/(.+)/ file:///Volumes/mysd/git-code/git-blog/demo/2018.09.27-whistle/match-pattern/regex/$1
+
+# 匹配所有请求
+# 测试例子：http://test.qq.com/all.txt   http://test.qq.com/any.txt
+/./ file:///Volumes/mysd/git-code/git-blog/demo/2018.09.27-whistle/match-pattern/regex/all.txt
