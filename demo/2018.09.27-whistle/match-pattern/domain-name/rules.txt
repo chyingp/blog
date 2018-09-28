@@ -1,0 +1,11 @@
+# 匹配 域名 + 协议 + 端口
+https://www.qq.com:8080 file:///Volumes/mysd/git-code/git-blog/demo/2018.09.27-whistle/match-pattern/domain-name/protocol.name.port.txt
+
+# 匹配 域名 + 端口
+www.qq.com:8080 file:///Volumes/mysd/git-code/git-blog/demo/2018.09.27-whistle/match-pattern/domain-name/name.port.txt
+
+# 匹配 域名 + 协议
+https://www.qq.com file:///Volumes/mysd/git-code/git-blog/demo/2018.09.27-whistle/match-pattern/domain-name/protocol.name.txt
+
+# 匹配域名
+www.qq.com file:///Volumes/mysd/git-code/git-blog/demo/2018.09.27-whistle/match-pattern/domain-name/name.txt
