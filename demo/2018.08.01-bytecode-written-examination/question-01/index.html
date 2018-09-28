@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>CSS</title>
+    <style>
+      html, body { 
+        padding: 0; 
+        margin: 0;
+      }
+      .box { 
+        position: relative;
+        height: 200px;
+        margin-top: -100px;
+        top: 50%;
+        font-size: 20px;
+        /* line-height: 200px; */
+        background: green;
+
+        display: flex;
+        align-items: center;        /* 垂直居中 */
+        justify-content: center;    /* 水平居中 */
+      }    
+      .box span {
+        flex: 1;
+        text-align: center;
+      }      
+      
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <span>Hello</span>
+    </div>
+  </body>
+</html>
