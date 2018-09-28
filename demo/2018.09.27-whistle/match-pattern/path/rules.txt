@@ -1,0 +1,2 @@
+# 路径匹配
+http://now.qq.com/js/path.js file:///Volumes/mysd/git-code/git-blog/demo/2018.09.27-whistle/match-pattern/path/path.js
