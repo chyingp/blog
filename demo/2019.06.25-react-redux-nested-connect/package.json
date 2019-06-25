@@ -1,0 +1,31 @@
+{
+  "name": "2019.06.25-react-redux-nested-connect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
+    "react-redux": "4.0.1",
+    "redux": "4.0.1",
+    "redux-thunk": "2.3.0"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.3",
+    "babel-preset-env": "1.7.0",
+    "babel-preset-react": "6.24.1",
+    "babel-preset-stage-2": "6.24.1",
+    "babel-loader": "7.1.5",
+    "webpack": "4.35.0",
+    "webpack-cli": "3.3.5"
+  }
+}
