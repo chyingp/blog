@@ -8,4 +8,13 @@ function mapStateToProps(state) {
     };
 }
 
+// function mergeProps(stateProps, dispatchProps, ownProps) {
+//     // console.log('[ConnectedApp] mergeProps is called.');
+//     return {
+//        ...ownProps,
+//        ...stateProps,
+//        ...dispatchProps
+//     };
+// }
+
 export default connect(mapStateToProps)(App);

@@ -5,7 +5,9 @@ class UserInfo extends Component {
 		super(props);
 	}
 	componentDidMount () {
-		this.props.fetchUserInfo();	
+		setTimeout(() => {
+			this.props.fetchUserInfo();
+		}, 3000);		
 	}
 	render() {
 		const { nick } = this.props;
@@ -14,5 +16,7 @@ class UserInfo extends Component {
 		);
 	}
 }
+
+UserInfo.displayName = 'UserInfo';
 
 export default UserInfo;

@@ -15,5 +15,8 @@ module.exports = {
         use: [{ loader: 'babel-loader' }]
       }
     ]
+  },
+  resolve: {
+    modules: [path.resolve(__dirname, 'src/lib'), 'node_modules']
   }
 };

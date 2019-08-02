@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ConnectedUserInfo from './ConnectedUserInfo';
+import ConnectedProfile from './ConnectedProfile';
 
 class App extends Component {
 	render() {
@@ -8,9 +9,12 @@ class App extends Component {
 			<div>
 				<div>App: {nick}</div>
 				<ConnectedUserInfo />
+				<ConnectedProfile />
 			</div>
 		);
 	}
 }
+
+App.displayName = 'App';
 
 export default App;
