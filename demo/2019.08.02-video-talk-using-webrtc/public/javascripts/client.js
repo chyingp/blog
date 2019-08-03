@@ -21,15 +21,15 @@ function log(msg) {
 }
 
 socket.on('connect', function() {
-    log('[connect]');
+    log('ws connect.');
 });
 
 socket.on('connect_error', function() {
-    log('[connect_error]');
+    log('ws connect_error.');
 });
 
 socket.on('error', function(errorMessage) {
-    log('[error], ' + errorMessage);
+    log('ws error, ' + errorMessage);
 });
 
 socket.on('server_event', function(msg) {
@@ -71,7 +71,7 @@ async function handleReceiveOffer(msg) {
 
     // 本地音视频采集
     const localVideo = document.getElementById('local-video');
-    const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
     localVideo.srcObject = mediaStream;
     mediaStream.getTracks().forEach(track => {
         pc.addTrack(track, mediaStream);
@@ -131,7 +131,7 @@ async function startVideoTalk() {
     const localVideo = document.getElementById('local-video');
     const constraints = {
         video: true, 
-        audio: true
+        audio: false
     };
     
     const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -139,24 +139,32 @@ async function startVideoTalk() {
 
     // 创建 peerConnection
     createPeerConnection();
+    
+    pc.addStream(mediaStream);
 
-    mediaStream.getTracks().forEach(track => {
-        // pc.addTransceiver(track, { streams: [mediaStream]});
-        pc.addTrack(track, mediaStream);
-    });
+    // mediaStream.getTracks().forEach(track => {
+    //     // pc.addTransceiver(track, { streams: [mediaStream]});
+    //     pc.addTrack(track, mediaStream);
+    // });
 }
 
-function createPeerConnection() {
+function createPeerConnection(mediaStream) {
     const iceConfig = {"iceServers": [
         {url: 'stun:stun.ekiga.net'},
         {url: 'turn:turnserver.com', username: 'user', credential: 'pass'}
     ]};
     
-    pc = new RTCPeerConnection(iceConfig);        
+    pc = new RTCPeerConnection(iceConfig);
+    
+    // if (mediaStream) {
+    //     pc.addStream(mediaStream);
+    // }
 
     pc.onnegotiationneeded = onnegotiationneeded;
     pc.onicecandidate = onicecandidate;
+    pc.onicegatheringstatechange = onicegatheringstatechange;
     pc.oniceconnectionstatechange = oniceconnectionstatechange;
+    pc.onsignalingstatechange = onsignalingstatechange;
     pc.ontrack = ontrack;
     
     return pc;
@@ -193,30 +201,30 @@ function onicecandidate(evt) {
     }
 }
 
+function onicegatheringstatechange(evt) {
+    log(`onicegatheringstatechange, pc.iceGatheringState is ${pc.iceGatheringState}.`);
+}
+
 function oniceconnectionstatechange(evt) {
-    log(`oniceconnectionstatechange, iceConnectionState is ${pc.iceConnectionState}`);
-}
-
-function ontrack(evt) {
-    const remoteVideo = document.getElementById('remote-video');
-    remoteVideo.srcObject = evt.streams[0];
-}
-
-function onCreateOfferSucc(offer) {
-    pc.setLocalDescription(offer);
-}
-
-function onCreateOfferErr(error) {
-    console.error(error);
+    log(`oniceconnectionstatechange, pc.iceConnectionState is ${pc.iceConnectionState}.`);
 }
 
 function onsignalingstatechange(evt) {
-    // console.log(`pc.signalingStateChange is ${pc.signalingState}`);
-};
+    log(`onsignalingstatechange, pc.signalingstate is ${pc.signalingstate}.`);
+}
 
-function onicecandidate() {
-    // console.log(`pc.iceGatheringState is ${pc.iceGatheringState} for ${++iceCandidateTimes}`);
-};
+let times = 0;
+function ontrack(evt) {
+    // times++;
+    // if (times === 2) {
+    //     log(`ontrack.`);
+    //     const remoteVideo = document.getElementById('remote-video');
+    //     remoteVideo.srcObject = evt.streams[0];
+    // };
+    log(`ontrack.`);
+    const remoteVideo = document.getElementById('remote-video');
+    remoteVideo.srcObject = evt.streams[0];
+}
 
 // 点击用户列表
 async function handleUserClick(evt) {
