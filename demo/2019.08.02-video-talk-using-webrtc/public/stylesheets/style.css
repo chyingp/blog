@@ -10,7 +10,16 @@ a {
 
 /*.container { display: flex; flex-direction: row; }*/
 .login-container { margin-bottom: 20px; }
+
 .video-talk-container { display: flex; flex-direction: row; }
 .login-users-container { width: 200px; border: 1px solid #ccc; padding: 20px; }
-.video-container { position: relative; flex: 1; border: 1px solid #ccc; padding: 20px; }
-.video-container .local-video { position: absolute; width: 200px; top: 20px; right: 20px; }
+.login-users-container ul li { cursor: pointer; line-height: 28px; }
+.login-users-container ul li:hover { color: red; }
+
+.video-container { position: relative; display: flex; flex: 1; border: 1px solid #ccc; padding: 20px; }
+/* .video-container .local-video { position: absolute; width: 200px; top: 20px; right: 20px; } */
+.video-container .local-video-wrapper { position: relative; display: flex; flex: 1; }
+.video-container .remote-video-wrapper { position: relative; display: flex; flex: 1; }
+.video-container video { width: 100%; }
+
+.video-container .title { position: absolute; left: 0px; top: 0px; }
