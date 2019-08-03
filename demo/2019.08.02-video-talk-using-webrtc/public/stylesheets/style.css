@@ -12,4 +12,5 @@ a {
 .login-container { margin-bottom: 20px; }
 .video-talk-container { display: flex; flex-direction: row; }
 .login-users-container { width: 200px; border: 1px solid #ccc; padding: 20px; }
-.video-container { flex: 1; border: 1px solid #ccc; padding: 20px; }
+.video-container { position: relative; flex: 1; border: 1px solid #ccc; padding: 20px; }
+.video-container .local-video { position: absolute; width: 200px; top: 20px; right: 20px; }

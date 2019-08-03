@@ -3,7 +3,8 @@ const socket = io.connect('http://localhost:3000');
 const CLIENT_RTC_EVENT = 'CLIENT_RTC_EVENT';
 const CLIENT_USER_EVENT = 'CLIENT_USER_EVENT';
 
-const CLIENT_USER_EVENT_LOGIN = 'CLIENT_USER_EVENT_LOGIN';
+const CLIENT_USER_EVENT_LOGIN = 'CLIENT_USER_EVENT_LOGIN'; // 登录
+const CLIENT_USER_EVENT_START_TALK = 'CLIENT_USER_EVENT_START_TALK'; // 开启视频聊天
 const EVENT_UPDATE_USERS = 'EVENT_UPDATE_USERS';
 
 const SIGNALING_OFFER = 'SIGNALING_OFFER';
@@ -12,6 +13,7 @@ const SIGNALING_CANDIDATE = 'SIGNALING_CANDIDATE';
 
 const onlineUsers = [];
 let remoteUser = ''; // ...
+let localUser = ''; // ..
 
 function log(msg) {
     console.log(`[client] ${msg}`);
@@ -61,12 +63,14 @@ let pc = null;
 
 /**
  * 邀请用户加入视频聊天
- * @param {String} userName 用户名
+ *  步骤一：本地启动视频采集
+ *  步骤二：向远端用户发起邀请（通过信令服务器）
+ *  步骤三：远端用户接收邀请后，跟远端用户交换信令信息
+ * @param {String} remoteUser 远端用户名
  */
-async function invite(userName) {
-    // 发起邀请
-
-    // 开启本地视频
+async function startVideoTalk(remoteUser) {
+    
+    // 步骤一：开启本地视频
     const localVideo = document.getElementById('local-video');
     const constraints = {
         video: true, 
@@ -76,15 +80,27 @@ async function invite(userName) {
     const mediaStram = await navigator.mediaDevices.getUserMedia(constraints);
     localVideo.srcObject = mediaStram;
 
+    // mediaStream.getTracks().forEach(track => {
+    //     pc.addTransceiver(track);
+    // });
+    
+
+    // 步骤二：发起邀请
+    // sendRTCEvent({
+    //     type: CLIENT_USER_EVENT_START_TALK,
+    //     payload: {
+    //         target: remoteUser
+    //     }
+    // });
+}
+
+function createPeerConnection() {
     const iceConfig = {"iceServers": [
         {url: 'stun:stun.ekiga.net'},
         {"url": "turn:turnserver.com", "username": "user", "credential": "pass"}
     ]};
     
     pc = new RTCPeerConnection(iceConfig);        
-    mediaStream.getTracks().forEach(track => {
-        pc.addTransceiver(track);
-    });
 
     pc.onnegotiationneeded = onnegotiationneeded;
     pc.onicecandidate = onicecandidate;
@@ -135,13 +151,20 @@ function onicecandidate() {
     console.log(`pc.iceGatheringState is ${pc.iceGatheringState} for ${++iceCandidateTimes}`);
 };
 
-
 // 点击用户列表
-function handleUserClick(evt) {
+async function handleUserClick(evt) {
     const target = evt.target;
     const userName = target.getAttribute('data-name').trim();
+
+    if (userName === localUser) {
+        alert('不能跟自己进行视频会话');
+        return;
+    }
+
+    log(`online user selected: ${userName}`);
+
     remoteUser = userName;
-    log(`online user selected: ${userName}`);    
+    await startVideoTalk(remoteUser);
 }
 
 /**
@@ -169,6 +192,7 @@ function updateUserList(users) {
  * @param {String} loginName 用户名
  */
 function login(loginName) {
+    localUser = loginName;
     sendUserEvent({
         type: CLIENT_USER_EVENT_LOGIN,
         payload: {
