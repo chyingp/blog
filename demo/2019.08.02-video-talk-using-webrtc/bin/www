@@ -23,15 +23,16 @@ var server = http.createServer(app);
 
 // 添加ws服务
 const io = require('socket.io')(server);
-const users = [];
 let connectionList = [];
-const EVENT_UPDATE_USERS = 'EVENT_UPDATE_USERS';
 
 const CLIENT_RTC_EVENT = 'CLIENT_RTC_EVENT';
 const SERVER_RTC_EVENT = 'SERVER_RTC_EVENT';
+
 const CLIENT_USER_EVENT = 'CLIENT_USER_EVENT';
+const SERVER_USER_EVENT = 'SERVER_USER_EVENT';
 
 const CLIENT_USER_EVENT_LOGIN = 'CLIENT_USER_EVENT_LOGIN';
+const SERVER_USER_EVENT_UPDATE_USERS = 'SERVER_USER_EVENT_UPDATE_USERS';
 
 function getOnlineUser() {
   return connectionList
@@ -53,6 +54,10 @@ function setUserName(connection, userName) {
   });
 }
 
+function updateUsers(connection) {
+  connection.emit(SERVER_USER_EVENT, { type: SERVER_USER_EVENT_UPDATE_USERS, payload: getOnlineUser()});  
+}
+
 io.on('connection', function (connection) {
 
   connectionList.push({
@@ -61,7 +66,8 @@ io.on('connection', function (connection) {
   });
   
   // 连接上的用户，推送在线用户列表
-  connection.emit('server_event', { type: EVENT_UPDATE_USERS, payload: getOnlineUser()});
+  // connection.emit(SERVER_USER_EVENT, { type: SERVER_USER_EVENT_UPDATE_USERS, payload: getOnlineUser()});
+  updateUsers(connection);
 
   connection.on(CLIENT_USER_EVENT, function(jsonString) {
     const msg = JSON.parse(jsonString);
@@ -70,10 +76,9 @@ io.on('connection', function (connection) {
     if (type === CLIENT_USER_EVENT_LOGIN) {
       setUserName(connection, payload.loginName);
       connectionList.forEach(item => {
-        item.connection.emit('server_event', { type: EVENT_UPDATE_USERS, payload: getOnlineUser()});
+        // item.connection.emit(SERVER_USER_EVENT, { type: SERVER_USER_EVENT_UPDATE_USERS, payload: getOnlineUser()});
+        updateUsers(item.connection);
       });
-    } else {
-
     }
   });
 
@@ -95,7 +100,8 @@ io.on('connection', function (connection) {
       return item.connection.id !== connection.id;
     });
     connectionList.forEach(item => {
-      item.connection.emit('server_event', { type: EVENT_UPDATE_USERS, payload: getOnlineUser()});
+      // item.connection.emit(SERVER_USER_EVENT, { type: SERVER_USER_EVENT_UPDATE_USERS, payload: getOnlineUser()});
+      updateUsers(item.connection);
     });    
   });
 });

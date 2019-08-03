@@ -2,11 +2,14 @@ const socket = io.connect('http://localhost:3000');
 
 const CLIENT_RTC_EVENT = 'CLIENT_RTC_EVENT';
 const SERVER_RTC_EVENT = 'SERVER_RTC_EVENT';
+
 const CLIENT_USER_EVENT = 'CLIENT_USER_EVENT';
+const SERVER_USER_EVENT = 'SERVER_USER_EVENT';
 
 const CLIENT_USER_EVENT_LOGIN = 'CLIENT_USER_EVENT_LOGIN'; // 登录
-const CLIENT_USER_EVENT_START_TALK = 'CLIENT_USER_EVENT_START_TALK'; // 开启视频聊天
-const EVENT_UPDATE_USERS = 'EVENT_UPDATE_USERS';
+// const CLIENT_USER_EVENT_START_TALK = 'CLIENT_USER_EVENT_START_TALK'; // 开启视频聊天
+
+const SERVER_USER_EVENT_UPDATE_USERS = 'SERVER_USER_EVENT_UPDATE_USERS';
 
 const SIGNALING_OFFER = 'SIGNALING_OFFER';
 const SIGNALING_ANSWER = 'SIGNALING_ANSWER';
@@ -32,16 +35,16 @@ socket.on('error', function(errorMessage) {
     log('ws error, ' + errorMessage);
 });
 
-socket.on('server_event', function(msg) {
+socket.on(SERVER_USER_EVENT, function(msg) {
     const type = msg.type;
     const payload = msg.payload;
 
     switch(type) {
-        case EVENT_UPDATE_USERS:
+        case SERVER_USER_EVENT_UPDATE_USERS:
             updateUserList(payload);
             break;
     }
-    log(`server_event, ${JSON.stringify(msg)}`);
+    log(`[${SERVER_USER_EVENT}] [${type}], ${JSON.stringify(msg)}`);
 });
 
 socket.on(SERVER_RTC_EVENT, function(msg) {
@@ -104,17 +107,17 @@ async function handleReceiveCandidate(msg){
 }
 
 /**
- * 发送消息给信令服务器
- * @param {Object} msg 信令服务器 { type: 'xx', payload: {} }
+ * 发送用户相关消息给服务器
+ * @param {Object} msg 格式如 { type: 'xx', payload: {} }
  */
-function sendToSignalingServer(msg) {
-    socket.emit('client_event', JSON.stringify(msg));
-}
-
 function sendUserEvent(msg) {
     socket.emit(CLIENT_USER_EVENT, JSON.stringify(msg));
 }
 
+/**
+ * 发送RTC相关消息给服务器
+ * @param {Object} msg 格式如{ type: 'xx', payload: {} }
+ */
 function sendRTCEvent(msg) {
     socket.emit(CLIENT_RTC_EVENT, JSON.stringify(msg));
 }
@@ -141,11 +144,6 @@ async function startVideoTalk() {
     createPeerConnection();
     
     pc.addStream(mediaStream);
-
-    // mediaStream.getTracks().forEach(track => {
-    //     // pc.addTransceiver(track, { streams: [mediaStream]});
-    //     pc.addTrack(track, mediaStream);
-    // });
 }
 
 function createPeerConnection(mediaStream) {
