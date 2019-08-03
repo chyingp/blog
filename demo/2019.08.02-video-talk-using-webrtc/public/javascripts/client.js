@@ -1,6 +1,7 @@
 const socket = io.connect('http://localhost:3000');
 
 const CLIENT_RTC_EVENT = 'CLIENT_RTC_EVENT';
+const SERVER_RTC_EVENT = 'SERVER_RTC_EVENT';
 const CLIENT_USER_EVENT = 'CLIENT_USER_EVENT';
 
 const CLIENT_USER_EVENT_LOGIN = 'CLIENT_USER_EVENT_LOGIN'; // 登录
@@ -19,7 +20,7 @@ function log(msg) {
     console.log(`[client] ${msg}`);
 }
 
-socket.on('connect', function(){
+socket.on('connect', function() {
     log('[connect]');
 });
 
@@ -43,6 +44,65 @@ socket.on('server_event', function(msg) {
     log(`server_event, ${JSON.stringify(msg)}`);
 });
 
+socket.on(SERVER_RTC_EVENT, function(msg) {
+    const {type, payload} = msg;
+
+    switch(type) {
+        case SIGNALING_OFFER:
+            handleReceiveOffer(msg);
+            break;
+        case SIGNALING_ANSWER:
+            handleReceiveAnswer(msg);
+            break;
+        case SIGNALING_CANDIDATE:
+            handleReceiveCandidate(msg);
+            break;
+    }
+});
+
+async function handleReceiveOffer(msg) {
+    log(`receive remote description from ${msg.payload.from}`);
+    
+    // 设置远端描述
+    const remoteDescription = new RTCSessionDescription(msg.payload.sdp);
+    remoteUser = msg.payload.from;
+    createPeerConnection();
+    await pc.setRemoteDescription(remoteDescription); // TODO 错误处理
+
+    // 本地音视频采集
+    const localVideo = document.getElementById('local-video');
+    const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    localVideo.srcObject = mediaStream;
+    mediaStream.getTracks().forEach(track => {
+        pc.addTrack(track, mediaStream);
+    });
+
+    const answer = await pc.createAnswer(); // TODO 错误处理
+    await pc.setLocalDescription(answer);
+    sendRTCEvent({
+        type: SIGNALING_ANSWER,
+        payload: {
+            sdp: answer,
+            from: localUser,
+            target: remoteUser
+        }
+    });
+}
+
+async function handleReceiveAnswer(msg) {
+    log(`receive remote answer from ${msg.payload.from}`);
+    
+    const remoteDescription = new RTCSessionDescription(msg.payload.sdp);
+    remoteUser = msg.payload.from;
+
+    await pc.setRemoteDescription(remoteDescription); // TODO 错误处理
+}
+
+async function handleReceiveCandidate(msg){
+    log(`receive candidate from ${msg.payload.from}`);
+    await pc.addIceCandidate(msg.payload.candidate); // TODO 错误处理
+}
+
 /**
  * 发送消息给信令服务器
  * @param {Object} msg 信令服务器 { type: 'xx', payload: {} }
@@ -55,7 +115,7 @@ function sendUserEvent(msg) {
     socket.emit(CLIENT_USER_EVENT, JSON.stringify(msg));
 }
 
-function sendRTCEvent(msg){
+function sendRTCEvent(msg) {
     socket.emit(CLIENT_RTC_EVENT, JSON.stringify(msg));
 }
 
@@ -63,48 +123,59 @@ let pc = null;
 
 /**
  * 邀请用户加入视频聊天
- *  步骤一：本地启动视频采集
- *  步骤二：向远端用户发起邀请（通过信令服务器）
- *  步骤三：远端用户接收邀请后，跟远端用户交换信令信息
- * @param {String} remoteUser 远端用户名
+ *  1、本地启动视频采集
+ *  2、交换信令
  */
-async function startVideoTalk(remoteUser) {
-    
-    // 步骤一：开启本地视频
+async function startVideoTalk() {
+    // 开启本地视频
     const localVideo = document.getElementById('local-video');
     const constraints = {
         video: true, 
         audio: true
     };
     
-    const mediaStram = await navigator.mediaDevices.getUserMedia(constraints);
-    localVideo.srcObject = mediaStram;
+    const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+    localVideo.srcObject = mediaStream;
 
-    // mediaStream.getTracks().forEach(track => {
-    //     pc.addTransceiver(track);
-    // });
-    
+    // 创建 peerConnection
+    createPeerConnection();
 
-    // 步骤二：发起邀请
-    // sendRTCEvent({
-    //     type: CLIENT_USER_EVENT_START_TALK,
-    //     payload: {
-    //         target: remoteUser
-    //     }
-    // });
+    mediaStream.getTracks().forEach(track => {
+        // pc.addTransceiver(track, { streams: [mediaStream]});
+        pc.addTrack(track, mediaStream);
+    });
 }
 
 function createPeerConnection() {
     const iceConfig = {"iceServers": [
         {url: 'stun:stun.ekiga.net'},
-        {"url": "turn:turnserver.com", "username": "user", "credential": "pass"}
+        {url: 'turn:turnserver.com', username: 'user', credential: 'pass'}
     ]};
     
     pc = new RTCPeerConnection(iceConfig);        
 
     pc.onnegotiationneeded = onnegotiationneeded;
     pc.onicecandidate = onicecandidate;
+    pc.oniceconnectionstatechange = oniceconnectionstatechange;
     pc.ontrack = ontrack;
+    
+    return pc;
+}
+
+async function onnegotiationneeded() {
+    log(`onnegotiationneeded.`);
+
+    const offer = await pc.createOffer();
+    await pc.setLocalDescription(offer); // TODO 错误处理
+
+    sendRTCEvent({
+        type: SIGNALING_OFFER,
+        payload: {
+            from: localUser,
+            target: remoteUser,
+            sdp: pc.localDescription // TODO 直接用offer？
+        }
+    });
 }
 
 function onicecandidate(evt) {
@@ -114,6 +185,7 @@ function onicecandidate(evt) {
         sendRTCEvent({
             type: SIGNALING_CANDIDATE,            
             payload: {
+                from: localUser,
                 target: remoteUser,
                 candidate: evt.candidate
             }
@@ -121,18 +193,13 @@ function onicecandidate(evt) {
     }
 }
 
-function ontrack() {}
+function oniceconnectionstatechange(evt) {
+    log(`oniceconnectionstatechange, iceConnectionState is ${pc.iceConnectionState}`);
+}
 
-async function onnegotiationneeded() {
-    log(`onnegotiationneeded.`);
-
-    const offer = await pc.createOffer();
-    await pc.setLocalDescription(offer); // TODO 错误处理
-
-    socket.emit({
-        type: SIGNALING_OFFER,
-        payload: offer
-    });
+function ontrack(evt) {
+    const remoteVideo = document.getElementById('remote-video');
+    remoteVideo.srcObject = evt.streams[0];
 }
 
 function onCreateOfferSucc(offer) {
@@ -144,11 +211,11 @@ function onCreateOfferErr(error) {
 }
 
 function onsignalingstatechange(evt) {
-    console.log(`pc.signalingStateChange is ${pc.signalingState}`);
+    // console.log(`pc.signalingStateChange is ${pc.signalingState}`);
 };
 
 function onicecandidate() {
-    console.log(`pc.iceGatheringState is ${pc.iceGatheringState} for ${++iceCandidateTimes}`);
+    // console.log(`pc.iceGatheringState is ${pc.iceGatheringState} for ${++iceCandidateTimes}`);
 };
 
 // 点击用户列表
