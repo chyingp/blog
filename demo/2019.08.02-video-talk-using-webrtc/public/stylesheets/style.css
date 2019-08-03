@@ -1,8 +1,15 @@
 body {
   padding: 50px;
+  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
+
+/*.container { display: flex; flex-direction: row; }*/
+.login-container { margin-bottom: 20px; }
+.video-talk-container { display: flex; flex-direction: row; }
+.login-users-container { width: 200px; border: 1px solid #ccc; padding: 20px; }
+.video-container { flex: 1; border: 1px solid #ccc; padding: 20px; }

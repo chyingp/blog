@@ -11,19 +11,23 @@
 		<input type="text" placeholder="输入登录名" class="login-name" id="login-name" />
 		<button class="login-btn" id="login-btn">登录</button>
 	</div>
-
-	<div class="login-users-container">
-		<ul id="login-users"></ul>
-	</div>
-
-	<div class="video-container">
-		<div class="local-video-wrapper">
-			<video id="local-video"></video>
+	
+	<div class="video-talk-container">
+		<div class="login-users-container">
+			<ul id="login-users"></ul>
 		</div>
-		<div class="remote-video-wrapper">
-			<video></video>
+
+		<div class="video-container">
+			<div class="local-video-wrapper">
+				<video id="local-video"></video>
+			</div>
+			<div class="remote-video-wrapper">
+				<video></video>
+			</div>
 		</div>
 	</div>
-
+	
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/javascripts/client.js"></script>
 </body>
 </html>

@@ -21,6 +21,28 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+// 添加ws服务
+const io = require('socket.io')(server);
+const users = [];
+const EVENT_UPDATE_USERS = 'EVENT_UPDATE_USERS';
+
+io.on('connection', function (connection) {
+  connection.emit('server_event', { type: EVENT_UPDATE_USERS, payload: users});
+
+  connection.on('client_event', function (jsonString) {
+    const msg = JSON.parse(jsonString);
+    const {type, payload} = msg;
+
+    if (type === 'EVENT_LOGIN') {
+      users.push({name: payload.name});
+      connection.emit('server_event', { type: EVENT_UPDATE_USERS, payload: users});
+    } else {
+
+    }
+  });
+});
+
+
 /**
  * Listen on provided port, on all network interfaces.
  */
