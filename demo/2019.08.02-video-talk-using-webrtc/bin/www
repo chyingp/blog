@@ -24,24 +24,68 @@ var server = http.createServer(app);
 // 添加ws服务
 const io = require('socket.io')(server);
 const users = [];
+const connectionList = [];
 const EVENT_UPDATE_USERS = 'EVENT_UPDATE_USERS';
 
-io.on('connection', function (connection) {
-  connection.emit('server_event', { type: EVENT_UPDATE_USERS, payload: users});
+const CLIENT_RTC_EVENT = 'CLIENT_RTC_EVENT';
+const CLIENT_USER_EVENT = 'CLIENT_USER_EVENT';
+const CLIENT_USER_EVENT_LOGIN = 'CLIENT_USER_EVENT_LOGIN';
 
-  connection.on('client_event', function (jsonString) {
+function getOnlineUser() {
+  return connectionList
+  .filter(item => {
+    return item.userName !== '';
+  })
+  .map(item => {
+    return {
+      userName: item.userName
+    };
+  });
+}
+
+function setUserName(connection, userName) {
+  connectionList.forEach(item => {
+    if (item.connection.id === connection.id) {
+      item.userName = userName;
+    }
+  });
+}
+
+io.on('connection', function (connection) {
+
+  connectionList.push({
+    connection: connection,
+    userName: ''
+  });
+  
+  // 连接上的用户，推送在线用户列表
+  connection.emit('server_event', { type: EVENT_UPDATE_USERS, payload: getOnlineUser()});
+
+  connection.on(CLIENT_USER_EVENT, function(jsonString) {
     const msg = JSON.parse(jsonString);
     const {type, payload} = msg;
 
-    if (type === 'EVENT_LOGIN') {
-      users.push({name: payload.name});
-      connection.emit('server_event', { type: EVENT_UPDATE_USERS, payload: users});
+    if (type === CLIENT_USER_EVENT_LOGIN) {
+      setUserName(connection, payload.loginName);
+      connection.emit('server_event', { type: EVENT_UPDATE_USERS, payload: getOnlineUser()});
     } else {
 
     }
   });
-});
 
+  connection.on(CLIENT_RTC_EVENT, function(jsonString) {
+    const msg = JSON.parse(jsonString);
+    const {type, payload} = msg;
+    const target = payload.target;
+
+    const targetConn = connectionList.filter(item => {
+      return item.userName === target;
+    });
+    if (targetConn) {
+      targetConn.send(msg);
+    }
+  });
+});
 
 /**
  * Listen on provided port, on all network interfaces.
