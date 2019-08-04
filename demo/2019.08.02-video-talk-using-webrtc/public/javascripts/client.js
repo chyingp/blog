@@ -7,7 +7,6 @@ const CLIENT_USER_EVENT = 'CLIENT_USER_EVENT';
 const SERVER_USER_EVENT = 'SERVER_USER_EVENT';
 
 const CLIENT_USER_EVENT_LOGIN = 'CLIENT_USER_EVENT_LOGIN'; // 登录
-// const CLIENT_USER_EVENT_START_TALK = 'CLIENT_USER_EVENT_START_TALK'; // 开启视频聊天
 
 const SERVER_USER_EVENT_UPDATE_USERS = 'SERVER_USER_EVENT_UPDATE_USERS';
 
@@ -15,9 +14,8 @@ const SIGNALING_OFFER = 'SIGNALING_OFFER';
 const SIGNALING_ANSWER = 'SIGNALING_ANSWER';
 const SIGNALING_CANDIDATE = 'SIGNALING_CANDIDATE';
 
-const onlineUsers = [];
-let remoteUser = ''; // ...
-let localUser = ''; // ..
+let remoteUser = ''; // 远端用户
+let localUser = ''; // 本地登录用户
 
 function log(msg) {
     console.log(`[client] ${msg}`);
@@ -48,7 +46,7 @@ socket.on(SERVER_USER_EVENT, function(msg) {
 });
 
 socket.on(SERVER_RTC_EVENT, function(msg) {
-    const {type, payload} = msg;
+    const {type} = msg;
 
     switch(type) {
         case SIGNALING_OFFER:
@@ -74,11 +72,13 @@ async function handleReceiveOffer(msg) {
 
     // 本地音视频采集
     const localVideo = document.getElementById('local-video');
-    const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+    const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
     localVideo.srcObject = mediaStream;
     mediaStream.getTracks().forEach(track => {
         pc.addTrack(track, mediaStream);
+        // pc.addTransceiver(track, {streams: [mediaStream]}); // 这个也可以
     });
+    // pc.addStream(mediaStream); // 目前这个也可以，不过接口后续会废弃
 
     const answer = await pc.createAnswer(); // TODO 错误处理
     await pc.setLocalDescription(answer);
@@ -132,31 +132,30 @@ let pc = null;
 async function startVideoTalk() {
     // 开启本地视频
     const localVideo = document.getElementById('local-video');
-    const constraints = {
+    const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: true, 
-        audio: false
-    };
-    
-    const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+        audio: true
+    });
     localVideo.srcObject = mediaStream;
 
     // 创建 peerConnection
     createPeerConnection();
-    
-    pc.addStream(mediaStream);
+
+    // 将媒体流添加到webrtc的音视频收发器
+    mediaStream.getTracks().forEach(track => {
+        pc.addTrack(track, mediaStream);
+        // pc.addTransceiver(track, {streams: [mediaStream]});
+    });
+    // pc.addStream(mediaStream); // 目前这个也可以，不过接口后续会废弃
 }
 
-function createPeerConnection(mediaStream) {
+function createPeerConnection() {
     const iceConfig = {"iceServers": [
         {url: 'stun:stun.ekiga.net'},
         {url: 'turn:turnserver.com', username: 'user', credential: 'pass'}
     ]};
     
     pc = new RTCPeerConnection(iceConfig);
-    
-    // if (mediaStream) {
-    //     pc.addStream(mediaStream);
-    // }
 
     pc.onnegotiationneeded = onnegotiationneeded;
     pc.onicecandidate = onicecandidate;
@@ -211,14 +210,16 @@ function onsignalingstatechange(evt) {
     log(`onsignalingstatechange, pc.signalingstate is ${pc.signalingstate}.`);
 }
 
-let times = 0;
+// 调用 pc.addTrack(track, mediaStream)，remote peer的 onTrack 会触发两次
+// 实际上两次触发时，evt.streams[0] 指向同一个mediaStream引用
+// 这个行为有点奇怪，github issue 也有提到 https://github.com/meetecho/janus-gateway/issues/1313
+let stream;
 function ontrack(evt) {
-    // times++;
-    // if (times === 2) {
-    //     log(`ontrack.`);
-    //     const remoteVideo = document.getElementById('remote-video');
-    //     remoteVideo.srcObject = evt.streams[0];
-    // };
+    // if (!stream) {
+    //     stream = evt.streams[0];
+    // } else {
+    //     console.log(`${stream === evt.streams[0]}`); // 这里为true
+    // }
     log(`ontrack.`);
     const remoteVideo = document.getElementById('remote-video');
     remoteVideo.srcObject = evt.streams[0];
