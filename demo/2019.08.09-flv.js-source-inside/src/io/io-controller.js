@@ -92,8 +92,8 @@ class IOController {
         this._onRecoveredEarlyEof = null;
 
         this._selectSeekHandler();
-        this._selectLoader();
-        this._createLoader();
+        this._selectLoader(); // 选择具体的loader，比如 fetch-loader
+        this._createLoader(); // 创建loader实例
     }
 
     destroy() {
@@ -254,27 +254,37 @@ class IOController {
 
     _createLoader() {
         this._loader = new this._loaderClass(this._seekHandler, this._config);
-        if (this._loader.needStashBuffer === false) {
+        if (this._loader.needStashBuffer === false) { // 默认是true
             this._enableStash = false;
         }
         this._loader.onContentLengthKnown = this._onContentLengthKnown.bind(this);
         this._loader.onURLRedirect = this._onURLRedirect.bind(this);
-        this._loader.onDataArrival = this._onLoaderChunkArrival.bind(this);
+        this._loader.onDataArrival = this._onLoaderChunkArrival.bind(this); // 重点关注这行
         this._loader.onComplete = this._onLoaderComplete.bind(this);
         this._loader.onError = this._onLoaderError.bind(this);
     }
 
     open(optionalFrom) {
-        this._currentRange = {from: 0, to: -1};
-        if (optionalFrom) {
+        this._currentRange = {from: 0, to: -1}; // 初始化时，默认是 {from: 0, to: -1}
+        if (optionalFrom) { // undefined
             this._currentRange.from = optionalFrom;
         }
 
         this._speedSampler.reset();
         if (!optionalFrom) {
-            this._fullRequestFlag = true;
+            this._fullRequestFlag = true; // 运行到这里
         }
 
+        // this._dataSource => 
+        // {
+        //     cors: true
+        //     duration: undefined
+        //     filesize: undefined
+        //     timestampBase: 0
+        //     url: "https://6721.liveplay.now.qq.com/live/6721_d2597421b1ce1e1570bbae4b47a5f680.flv?txSecret=a23eb2f6d0b772bf1f7b285f1b7b50e4&txTime=5D4D8FE8"
+        //     withCredentials: false
+        // }
+        // this._currentRange => {from: 0, to: -1}
         this._loader.open(this._dataSource, Object.assign({}, this._currentRange));
     }
 

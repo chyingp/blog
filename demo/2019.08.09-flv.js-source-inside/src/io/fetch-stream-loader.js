@@ -80,7 +80,7 @@ class FetchStreamLoader extends BaseLoader {
         this._range = range;
 
         let sourceURL = dataSource.url;
-        if (this._config.reuseRedirectedURL && dataSource.redirectedURL != undefined) {
+        if (this._config.reuseRedirectedURL && dataSource.redirectedURL != undefined) { // 判断为false
             sourceURL = dataSource.redirectedURL;
         }
 
@@ -93,6 +93,7 @@ class FetchStreamLoader extends BaseLoader {
         // {}
         let headers = new self.Headers();
 
+        // 整段可以跳过
         if (typeof seekConfig.headers === 'object') {
             let configHeaders = seekConfig.headers;
             for (let key in configHeaders) {
@@ -112,6 +113,7 @@ class FetchStreamLoader extends BaseLoader {
             referrerPolicy: 'no-referrer-when-downgrade'
         };
 
+        // 整段可以跳过
         // add additional headers
         if (typeof this._config.headers === 'object') {
             for (let key in this._config.headers) {
@@ -119,17 +121,20 @@ class FetchStreamLoader extends BaseLoader {
             }
         }
 
+        // dataSource.cors => true
         // cors is enabled by default
         if (dataSource.cors === false) {
             // no-cors means 'disregard cors policy', which can only be used in ServiceWorker
             params.mode = 'same-origin';
         }
 
+        // dataSource.withCredentials => false
         // withCredentials is disabled by default
         if (dataSource.withCredentials) {
             params.credentials = 'include';
         }
 
+        // dataSource.referrerPolicy => undefined
         // referrerPolicy from config
         if (dataSource.referrerPolicy) {
             params.referrerPolicy = dataSource.referrerPolicy;
@@ -144,12 +149,25 @@ class FetchStreamLoader extends BaseLoader {
         //     "referrerPolicy": "no-referrer-when-downgrade"
         // }
         self.fetch(seekConfig.url, params).then((res) => {
+            // 跳过
             if (this._requestAbort) {
                 this._requestAbort = false;
                 this._status = LoaderStatus.kIdle;
                 return;
             }
-            if (res.ok && (res.status >= 200 && res.status <= 299)) {
+
+            // res =>
+            //  body: ReadableStream
+            //  bodyUsed: false
+            //  headers: Headers {}
+            //  ok: true
+            //  redirected: false
+            //  status: 200
+            //  statusText: "OK"
+            //  type: "cors"
+            //  url: "https://6721.liveplay.now.qq.com/live/6721_5abbc4bfd21679e67d3e131e1a3b81dc.flv?txSecret=59af3a6f7e13d4d064823d955603ef5c&txTime=5CD15A5E"
+            if (res.ok && (res.status >= 200 && res.status <= 299)) { // 判断为true
+                // false，跳过
                 if (res.url !== seekConfig.url) {
                     if (this._onURLRedirect) {
                         let redirectedURL = this._seekHandler.removeURLParameters(res.url);
@@ -157,7 +175,9 @@ class FetchStreamLoader extends BaseLoader {
                     }
                 }
 
-                let lengthHeader = res.headers.get('Content-Length'); // casper: 直播时，lengthHeader为null
+                // 直播时，lengthHeader为null
+                let lengthHeader = res.headers.get('Content-Length'); 
+                // 跳过
                 if (lengthHeader != null) {
                     this._contentLength = parseInt(lengthHeader);
                     if (this._contentLength !== 0) {
@@ -196,6 +216,7 @@ class FetchStreamLoader extends BaseLoader {
     */
     _pump(reader) {  // ReadableStreamReader
         return reader.read().then((result) => {
+            // 直播中时，result.done 为false，这里先跳过
             if (result.done) {
                 // First check received length
                 if (this._contentLength !== null && this._receivedLength < this._contentLength) {
@@ -215,19 +236,29 @@ class FetchStreamLoader extends BaseLoader {
                         this._onComplete(this._range.from, this._range.from + this._receivedLength - 1);
                     }
                 }
-            } else {
+            } else { // 进入这个分支
+                // this._requestAbort => false，跳过
                 if (this._requestAbort === true) {
                     this._requestAbort = false;
                     this._status = LoaderStatus.kComplete;
                     return reader.cancel();
                 }
 
+                // 修改加载状态为 LoaderStatus.kBuffering 
                 this._status = LoaderStatus.kBuffering;
 
+                // result.value 为 Uint8Array 类型，即字节数组，比如 Uint8Array(524288)
+                // result.value.buffer 返回实际的内存数据
                 let chunk = result.value.buffer;
+                
+                // this._range.from 初始值为0
+                // this._receivedLength 初始值为0，为总共收到的字节数（累加）
                 let byteStart = this._range.from + this._receivedLength;
+                
+                // 将收到的字节数累加
                 this._receivedLength += chunk.byteLength;
 
+                // 对应 io-controller.js 中的 _onLoaderChunkArrival(chunk, byteStart, receivedLength)  方法
                 if (this._onDataArrival) {
                     this._onDataArrival(chunk, byteStart, this._receivedLength);
                 }
