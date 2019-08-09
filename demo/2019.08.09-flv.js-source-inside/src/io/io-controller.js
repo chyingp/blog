@@ -466,15 +466,18 @@ class IOController {
     /*
         chunk: ArrayBufer，read() 读取到的二进制数据
         byteStart: Number，起始字节的序号，一开始是0
-        receivedLength：当前收到的总的字节数（累计值）    
+        receivedLength：当前收到的总的字节数（累计值）
     */
     _onLoaderChunkArrival(chunk, byteStart, receivedLength) {
+        // 跳过
         if (!this._onDataArrival) {
             throw new IllegalStateException('IOController: No existing consumer (onDataArrival) callback!');
         }
+        // 跳过
         if (this._paused) {
             return;
         }
+        // 跳过
         if (this._isEarlyEofReconnecting) {
             // Auto-reconnect for EarlyEof succeed, notify to upper-layer by callback
             this._isEarlyEofReconnecting = false;
@@ -483,8 +486,10 @@ class IOController {
             }
         }
 
+        // 测速相关，先跳过
         this._speedSampler.addBytes(chunk.byteLength);
 
+        // 根据下载速度，动态调整 stash buffer 的大小
         // adjust stash buffer size according to network speed dynamically
         let KBps = this._speedSampler.lastSecondKBps;
         if (KBps !== 0) {
@@ -495,7 +500,7 @@ class IOController {
             }
         }
 
-        // casper: 这个分支
+        // this._enableStash 设置为false，走这里（如果 enableStashBuffer 设置为true，则走其他分支）
         if (!this._enableStash) {  // disable stash
             if (this._stashUsed === 0) {
                 // dispatch chunk directly to consumer;

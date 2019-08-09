@@ -246,7 +246,7 @@ class TransmuxingController {
             this._demuxer.timestampBase = this._mediaDataSource.segments[this._currentSegmentIndex].timestampBase;
 
             consumed = this._demuxer.parseChunks(data, byteStart);
-        } else if ((probeData = FLVDemuxer.probe(data)).match) { // 首个字节
+        } else if ((probeData = FLVDemuxer.probe(data)).match) { // 首个字节，此时 byteStart => 0
             /*            
                 probeData => 
                 {
