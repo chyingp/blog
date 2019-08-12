@@ -107,6 +107,7 @@ class FLVDemuxer {
         this._videoTrack = {type: 'video', id: 1, sequenceNumber: 0, samples: [], length: 0};
         this._audioTrack = {type: 'audio', id: 2, sequenceNumber: 0, samples: [], length: 0};
 
+        // TODO 似乎没有判断的必要？
         this._littleEndian = (function () {
             let buf = new ArrayBuffer(2);
             (new DataView(buf)).setInt16(0, 256, true);  // little-endian write
