@@ -1,0 +1,11 @@
+.container {
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: #F5FCFF;
+    margin: 10 5;
+    border-bottom-width: hairline-width;
+    -ios-shadow-opacity: 4;
+    -ios-shadow-offset: 2 4;
+    -android-elevation: 1;
+  }
