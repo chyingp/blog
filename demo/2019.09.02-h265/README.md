@@ -57,7 +57,7 @@ function parseFLV(chunk) {
                 console.log(`SCRIPT_TAG found.`);
                 break;
             default:
-                console.log('= =b');
+                // doing nothing
                 break;
         }
         offset += 11 + tagDataSize + 4;
