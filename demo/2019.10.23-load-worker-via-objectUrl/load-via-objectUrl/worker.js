@@ -6,4 +6,4 @@ self.addEventListener('message', function (evt) {
     self.postMessage({result: result});
 }, false);
 
-console.log(`[worker] Worker is initialized.`);
+console.log('[worker] Worker is initialized.');

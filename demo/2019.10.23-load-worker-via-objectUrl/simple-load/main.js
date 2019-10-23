@@ -6,4 +6,4 @@ worker.addEventListener('message', function(evt) {
 
 worker.postMessage({num1: 20, num2: 10});
 
-console.log(`[main] Main is initialized.`);
+console.log('[main] Main is initialized.');
