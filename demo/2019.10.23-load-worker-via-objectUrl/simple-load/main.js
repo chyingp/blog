@@ -1,9 +1,9 @@
 const worker = new Worker('worker.js');
 
 worker.addEventListener('message', function(evt) {
-    console.log(`[main] Got result from worker thread: ${evt.data.result}.`);
+    console.log(`[main] result is: ${evt.data.result}.`);
 }, false);
 
-worker.postMessage({num: 2});
+worker.postMessage({num1: 20, num2: 10});
 
 console.log(`[main] Main is initialized.`);
