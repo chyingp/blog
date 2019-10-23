@@ -1,5 +1,5 @@
 const workerFileContent = `./worker.js`;
-const workerBlob = new Blob(workerFileContent, { type:'text/javascript' });
+const workerBlob = new Blob([workerFileContent], { type:'text/javascript' });
 const workerUrl = URL.createObjectURL(workerBlob);
 const worker = new Worker(workerUrl);
 
