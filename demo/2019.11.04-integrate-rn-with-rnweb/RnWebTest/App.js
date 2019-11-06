@@ -24,7 +24,7 @@ import {
 //   ReloadInstructions,
 // } from 'react-native/Libraries/NewAppScreen';
 
-const colors = {
+const Colors = {
   primary: '#1292B4',
   white: '#FFF',
   lighter: '#F3F3F3',
