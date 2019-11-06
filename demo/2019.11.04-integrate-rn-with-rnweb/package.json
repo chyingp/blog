@@ -1,12 +1,15 @@
 {
   "name": "2019.11.04-integrate-rn-with-rnweb",
   "version": "1.0.0",
-  "description": "",
+  "description": "环境说明：",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "react-native": "^0.61.3"
+  }
 }
