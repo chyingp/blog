@@ -26,5 +26,11 @@ module.exports = {
     	alias: {
     		'react-native$': 'react-native-web'
     	}
-  	}
+	  },
+	  
+	devServer: {
+		contentBase: path.join(__dirname, '.'),
+		// compress: true,
+		port: 9000
+	}
 }
