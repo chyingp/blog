@@ -1,3 +1,3 @@
 import styles from './styles.css';
- 
-<Container style={styles.container} />
+
+<div style={styles.container}></div>

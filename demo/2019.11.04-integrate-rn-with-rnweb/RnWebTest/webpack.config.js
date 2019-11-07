@@ -7,7 +7,7 @@ module.exports = {
 		path: path.resolve(__dirname, 'build'),
 	},
 	mode: 'development',
-    module: {
+	module: {
 		rules: [
 			{
 				test: /\.js$/,
@@ -18,16 +18,16 @@ module.exports = {
 					// 	presets: ['@babel/preset-env']
 					// }
 				}
-			}			
+			}
 		]
 	},
 
-  	resolve: {
-    	alias: {
-    		'react-native$': 'react-native-web'
-    	}
-	  },
-	  
+	resolve: {
+		alias: {
+			'react-native$': 'react-native-web'
+		}
+	},
+
 	devServer: {
 		contentBase: path.join(__dirname, '.'),
 		// compress: true,

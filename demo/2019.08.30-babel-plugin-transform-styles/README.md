@@ -16,20 +16,41 @@ npm install --save-dev babel-core@6.26.3 babel-cli@6.26.0 babel-plugin-transform
 
 ## 代码转换
 
-方式一：命令行转换
+### 方式一：命令行转换
 
 ```bash
 npx babel index.js
 ```
 
-方式2：通过代码调用转换
+### 方式2：通过代码调用转换
 
 ```javascript
-require('babel-core').transform('code', {
-    plugins: [['transform-styles', {
-                extensions: ['css'],
-              }]]
+const fs = require('fs');
+
+const result = require('babel-core').transformFileSync('./index.js', {
+    babelrc: false,
+    presets: ['react-native'],
+    plugins: [
+        ['transform-styles', {extensions: ['css']}]
+    ]
 });
+console.log(result.code);
+```
+
+注意，下面写法有会报错
+
+```javascript
+const fs = require('fs');
+const code = fs.readFileSync('./index.js');
+
+const result = require('babel-core').transformFileSync(code, {
+    babelrc: false,
+    presets: ['react-native'],
+    plugins: [
+        ['transform-styles', {extensions: ['css']}]
+    ]
+});
+console.log(result.code);
 ```
 
 ## 转换结果

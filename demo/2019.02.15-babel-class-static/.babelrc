@@ -1,0 +1,6 @@
+{
+  "plugins": [ 
+    "transform-proto-to-assign"
+  ],
+  "presets": [ "env" ]
+}

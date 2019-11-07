@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {View, Text, StyleSheet} from 'react-native';
+import styles from './App.css';
 
 // function App() {
 //   return (
@@ -25,24 +26,24 @@ import {View, Text, StyleSheet} from 'react-native';
 //   );
 // }
 
-const styles = StyleSheet.create({
-  heading: {
-    color: 'red',
-    fontSize: '2rem'
-  },
-  myText: {
-    color: 'red',
-    marginTop: '1rem',
-    // margin: 10
-  }
-});
+// const styles = StyleSheet.create({
+//   heading: {
+//     color: 'red',
+//     fontSize: '2rem'
+//   },
+//   myText: {
+//     color: 'red',
+//     marginTop: '1rem',
+//     // margin: 10
+//   }
+// });
 
 function App() {
   return (
-    <View style={styles.heading}>
-      {/* <Text style={styles.text}>hello world</Text> */}
-      <Text style={styles.myText}>hello</Text>
-      <Text style={styles.myText}>world</Text>
+    <View className={styles.heading}>
+      {/* <Text className={styles.text}>hello world</Text> */}
+      <Text className={styles.myText}>hello</Text>
+      <Text className={styles.myText}>world</Text>
     </View>
   );
 }
