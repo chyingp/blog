@@ -1,0 +1,6 @@
+framework module RCTActionSheet {
+  umbrella header "React-RCTActionSheet-umbrella.h"
+
+  export *
+  module * { export * }
+}
