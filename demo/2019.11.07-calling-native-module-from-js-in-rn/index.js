@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 
 import {NativeModules} from 'react-native';
+
+const TodoList = NativeModules.TodoList;
 const CalendarManager = NativeModules.CalendarManager;
 const calendarManagerEmitter = new NativeEventEmitter(CalendarManager);
 
@@ -20,26 +22,37 @@ class RNTest extends React.Component {
     };
   }
   componentDidMount() {
-    
-    CalendarManager.addEvent('Birthday Party', '4 Privet Drive, Surrey');
-
-    CalendarManager.findEvents((error, msg) => {
-      this.setState({msg});
+    TodoList.create();
+    TodoList.add('起床');
+    TodoList.addWithCallback('吃早餐', (error, list) => {
+      if (error === null) {
+        console.log(`[addWithCallback] list.length == ${list.length}`);
+      }      
     });
 
-    // 监听事件，事件移除 略
-    calendarManagerEmitter.addListener('MyEvent', (msg) => {
-      console.log(`[MyEvent] received: ${msg}`);
-    });
-
-    // 抛出事件
-    CalendarManager.triggerEvents('程序猿小卡');
-
-    const resolver = msg => console.log(`[resolved] ${msg}`);
-    const rejecter = error => console.log(`[rejected] ${error.message}`);
+    // TodoList.getAll((list) => {
+    //   // console.log(list.length);
+    // });
     
-    CalendarManager.getPromise(true).then(resolver).catch(rejecter);
-    CalendarManager.getPromise(false).then(resolver).catch(rejecter);
+    // CalendarManager.addEvent('Birthday Party', '4 Privet Drive, Surrey');
+
+    // CalendarManager.findEvents((error, msg) => {
+    //   this.setState({msg});
+    // });
+
+    // // 监听事件，事件移除 略
+    // calendarManagerEmitter.addListener('MyEvent', (msg) => {
+    //   console.log(`[MyEvent] received: ${msg}`);
+    // });
+
+    // // 抛出事件
+    // CalendarManager.triggerEvents('程序猿小卡');
+
+    // const resolver = msg => console.log(`[resolved] ${msg}`);
+    // const rejecter = error => console.log(`[rejected] ${error.message}`);
+    
+    // CalendarManager.getPromise(true).then(resolver).catch(rejecter);
+    // CalendarManager.getPromise(false).then(resolver).catch(rejecter);
   }
   render() {
     return (
