@@ -32,9 +32,24 @@ RCT_EXPORT_METHOD(findEvents:(RCTResponseSenderBlock)callback)
 
 RCT_EXPORT_METHOD(triggerEvents:(NSString *)msg)
 {
-//    NSString *eventName = notification.userInfo[@"name"];
-//    [self sendEventWithName:@"EventReminder" body:@{@"name": eventName}];
     [self sendEventWithName:@"MyEvent" body:msg];
+}
+
+RCT_REMAP_METHOD(getPromise,
+                 ifResolved:(int) ifResolved
+                 findEventsWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    if (ifResolved) {
+        resolve(@"success");
+    } else {
+        NSString *domain = @"com.chyingp.www";
+        NSDictionary *userInfo = @{ @"desc": @"nonsense" };
+        NSInteger code = -1;
+        NSError *error =[NSError errorWithDomain:domain code:code userInfo:userInfo];
+        
+        reject(@"ErrorFromNativeModule", @"Error occurred.", error);
+    }
 }
 
 @end

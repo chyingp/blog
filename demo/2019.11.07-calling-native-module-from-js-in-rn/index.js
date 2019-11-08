@@ -31,9 +31,15 @@ class RNTest extends React.Component {
     calendarManagerEmitter.addListener('MyEvent', (msg) => {
       console.log(`[MyEvent] received: ${msg}`);
     });
-    
+
     // 抛出事件
     CalendarManager.triggerEvents('程序猿小卡');
+
+    const resolver = msg => console.log(`[resolved] ${msg}`);
+    const rejecter = error => console.log(`[rejected] ${error.message}`);
+    
+    CalendarManager.getPromise(true).then(resolver).catch(rejecter);
+    CalendarManager.getPromise(false).then(resolver).catch(rejecter);
   }
   render() {
     return (
