@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF064AEC23756BEF0035FE9D /* CalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF064AEB23756BEF0035FE9D /* CalendarManager.m */; };
 		AF064AEF23758DE30035FE9D /* TodoList.m in Sources */ = {isa = PBXBuildFile; fileRef = AF064AEE23758DE30035FE9D /* TodoList.m */; };
 		AF47AE622374605C00E9FBB9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF47AE612374605C00E9FBB9 /* AppDelegate.m */; };
 		AF47AE652374605C00E9FBB9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF47AE642374605C00E9FBB9 /* ViewController.m */; };
@@ -21,8 +20,6 @@
 /* Begin PBXFileReference section */
 		206B6B06177543D3EE0C6248 /* Pods-RNTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNTest.release.xcconfig"; path = "Target Support Files/Pods-RNTest/Pods-RNTest.release.xcconfig"; sourceTree = "<group>"; };
 		98588645441A0FCF75EF37A1 /* libPods-RNTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AF064AE723753C250035FE9D /* CalendarManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarManager.h; sourceTree = "<group>"; };
-		AF064AEB23756BEF0035FE9D /* CalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarManager.m; sourceTree = "<group>"; };
 		AF064AED23758DD00035FE9D /* TodoList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodoList.h; sourceTree = "<group>"; };
 		AF064AEE23758DE30035FE9D /* TodoList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodoList.m; sourceTree = "<group>"; };
 		AF47AE5D2374605C00E9FBB9 /* RNTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,8 +94,6 @@
 				AF47AE6B2374605D00E9FBB9 /* LaunchScreen.storyboard */,
 				AF47AE6E2374605D00E9FBB9 /* Info.plist */,
 				AF47AE6F2374605D00E9FBB9 /* main.m */,
-				AF064AE723753C250035FE9D /* CalendarManager.h */,
-				AF064AEB23756BEF0035FE9D /* CalendarManager.m */,
 				AF064AED23758DD00035FE9D /* TodoList.h */,
 				AF064AEE23758DE30035FE9D /* TodoList.m */,
 			);
@@ -201,7 +196,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF064AEC23756BEF0035FE9D /* CalendarManager.m in Sources */,
 				AF47AE652374605C00E9FBB9 /* ViewController.m in Sources */,
 				AF47AE702374605D00E9FBB9 /* main.m in Sources */,
 				AF47AE622374605C00E9FBB9 /* AppDelegate.m in Sources */,
