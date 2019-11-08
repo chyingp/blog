@@ -7,14 +7,16 @@ target 'RNTest' do
 
   # Pods for RNTest
   pod 'React', :path => '../node_modules/react-native/'
-  # 依赖有问题：替换掉
-  pod 'React-Core', :path => '../node_modules/react-native/React'
+  
+  # React-Core 依赖有问题，修改路径
   # pod 'React-Core', :path => '../node_modules/react-native/'
-  # React-DevSupport 有问题，修改
+  pod 'React-Core', :path => '../node_modules/react-native/React'
+  
   pod 'React-DevSupport', :path => '../node_modules/react-native/React'
-  # pod 'React-Core/React-DevSupport', :path => '../node_modules/react-native/'
-  # React-fishhook 不再需要，直接删掉
+  
+  # React-fishhook 不需要，先删掉
   # pod 'React-fishhook', :path => '../node_modules/react-native/Libraries/fishhook'
+  
   pod 'React-RCTActionSheet', :path => '../node_modules/react-native/Libraries/ActionSheetIOS'
   pod 'React-RCTAnimation', :path => '../node_modules/react-native/Libraries/NativeAnimation'
   pod 'React-RCTBlob', :path => '../node_modules/react-native/Libraries/Blob'
@@ -24,25 +26,21 @@ target 'RNTest' do
   pod 'React-RCTSettings', :path => '../node_modules/react-native/Libraries/Settings'
   pod 'React-RCTText', :path => '../node_modules/react-native/Libraries/Text'
   pod 'React-RCTVibration', :path => '../node_modules/react-native/Libraries/Vibration'
-  # 依赖有问题
-  pod 'React-RCTWebSocket', :path => '../node_modules/react-native/Libraries/WebSocket'
+  
+  # RCTWebSocket 依赖有问题，修改路径
   # pod 'React-Core/RCTWebSocket', :path => '../node_modules/react-native/'
+  pod 'React-RCTWebSocket', :path => '../node_modules/react-native/Libraries/WebSocket'
+  
 
   pod 'React-cxxreact', :path => '../node_modules/react-native/ReactCommon/cxxreact'
   pod 'React-jsi', :path => '../node_modules/react-native/ReactCommon/jsi'
   pod 'React-jsiexecutor', :path => '../node_modules/react-native/ReactCommon/jsiexecutor'
   pod 'React-jsinspector', :path => '../node_modules/react-native/ReactCommon/jsinspector'
-  # Yoga 名字有问题
+  
+  # 在新版本里，yoga 被重命名为Yoga，需要注意
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
-  # pod 'Yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
 
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
-  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-
-  # pod 'React-CoreModules', :path => '../node_modules/react-native/React/CoreModules'
-  # pod 'React-DevSupport', :path => '../node_modules/react-native/React'
-  # pod 'React-RCTActionSheet', :path => '../node_modules/react-native/Libraries/ActionSheetIOS'
-  # pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
-  # pod 'RCTTypeSafety', :path => "../node_modules/react-native/Libraries/TypeSafety"  
+  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec' 
 end

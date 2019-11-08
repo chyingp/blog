@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import <React/RCTRootView.h>
+#import <React/RCTRootView.h> // 新增的依赖
 
 @interface ViewController ()
 
@@ -23,18 +23,7 @@
     [[RCTRootView alloc] initWithBundleURL: jsCodeLocation
                                 moduleName: @"RNTest"
                          initialProperties:
-     @{
-       //       @"scores" : @[
-       //               @{
-       //                   @"name" : @"Alex",
-       //                   @"value": @"42"
-       //                   },
-       //               @{
-       //                   @"name" : @"Joel",
-       //                   @"value": @"10"
-       //                   }
-       //               ]
-       }
+     @{}
                              launchOptions: nil];
     UIViewController *vc = [[UIViewController alloc] init];
     vc.view = rootView;

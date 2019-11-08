@@ -18,9 +18,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="df2-4k-eiU">
-                                <rect key="frame" x="145" y="285" width="85" height="30"/>
+                                <rect key="frame" x="147" y="285" width="82" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="打开RNView"/>
+                                <state key="normal" title="加载RN视图"/>
                                 <connections>
                                     <action selector="rnTestButtonPressed:" destination="dkx-z0-nzr" eventType="touchUpInside" id="Bzj-7L-82w"/>
                                 </connections>
