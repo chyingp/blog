@@ -14,8 +14,6 @@
 
 @interface TodoList : RCTEventEmitter <RCTBridgeModule>
 
-//@property NSArray *list;
-
 @end
 
 #endif /* TodoList_h */
