@@ -20,12 +20,14 @@ RCT_EXPORT_METHOD(create)
     list = [[NSMutableArray alloc] init];
 }
 
+// 暴露方法
 RCT_EXPORT_METHOD(add:(NSString *)item)
 {
     NSLog(@"add: %@", item);
     [list addObject:@{ @"desc":item, @"done": @0 }];
 }
 
+// 暴露方法，支持回调
 RCT_EXPORT_METHOD(addWithCallback:(NSString *)item callback:(RCTResponseSenderBlock)callback)
 {
     NSLog(@"addWithCallback: %@", item);
@@ -34,21 +36,19 @@ RCT_EXPORT_METHOD(addWithCallback:(NSString *)item callback:(RCTResponseSenderBl
     callback(@[[NSNull null], list]);
 }
 
-
-RCT_EXPORT_METHOD(findEvents:(RCTResponseSenderBlock)callback)
-{
-    callback(@[[NSNull null], @"Event from Native Module."]);
-}
-
 // 返回的数组为支持的事件名列表
 - (NSArray<NSString *> *)supportedEvents
 {
-    return @[@"MyEvent"];
+    return @[@"ItemAdded"];
 }
 
-RCT_EXPORT_METHOD(triggerEvents:(NSString *)msg)
+// 触发事件
+RCT_EXPORT_METHOD(addAndTriggerEvent:(NSString *)item)
 {
-    [self sendEventWithName:@"MyEvent" body:msg];
+    NSLog(@"addAndTriggerEvent: %@", item);
+    
+    [list addObject:@{ @"desc":item, @"done": @0 }];
+    [self sendEventWithName:@"ItemAdded" body:list];
 }
 
 RCT_REMAP_METHOD(getPromise,

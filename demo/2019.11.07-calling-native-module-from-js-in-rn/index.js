@@ -11,6 +11,21 @@ import {
 import {NativeModules} from 'react-native';
 
 const TodoList = NativeModules.TodoList;
+const todoListEmitter = new NativeEventEmitter(TodoList);
+
+TodoList.create();
+TodoList.add('起床');
+TodoList.addWithCallback('吃早餐', (error, list) => {
+  if (error === null) {
+    console.log(`[addWithCallback] list.length == ${list.length}`);
+  }
+});
+
+todoListEmitter.addListener('ItemAdded', list => {
+  console.log(`[ItemAdded] list.length == ${list.length}`);
+});
+TodoList.addAndTriggerEvent('上班');
+
 const CalendarManager = NativeModules.CalendarManager;
 const calendarManagerEmitter = new NativeEventEmitter(CalendarManager);
 
@@ -22,13 +37,8 @@ class RNTest extends React.Component {
     };
   }
   componentDidMount() {
-    TodoList.create();
-    TodoList.add('起床');
-    TodoList.addWithCallback('吃早餐', (error, list) => {
-      if (error === null) {
-        console.log(`[addWithCallback] list.length == ${list.length}`);
-      }      
-    });
+
+
 
     // TodoList.getAll((list) => {
     //   // console.log(list.length);
