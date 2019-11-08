@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF064AEC23756BEF0035FE9D /* CalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF064AEB23756BEF0035FE9D /* CalendarManager.m */; };
 		AF47AE622374605C00E9FBB9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF47AE612374605C00E9FBB9 /* AppDelegate.m */; };
 		AF47AE652374605C00E9FBB9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF47AE642374605C00E9FBB9 /* ViewController.m */; };
 		AF47AE682374605C00E9FBB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF47AE662374605C00E9FBB9 /* Main.storyboard */; };
@@ -19,6 +20,8 @@
 /* Begin PBXFileReference section */
 		206B6B06177543D3EE0C6248 /* Pods-RNTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNTest.release.xcconfig"; path = "Target Support Files/Pods-RNTest/Pods-RNTest.release.xcconfig"; sourceTree = "<group>"; };
 		98588645441A0FCF75EF37A1 /* libPods-RNTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF064AE723753C250035FE9D /* CalendarManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarManager.h; sourceTree = "<group>"; };
+		AF064AEB23756BEF0035FE9D /* CalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarManager.m; sourceTree = "<group>"; };
 		AF47AE5D2374605C00E9FBB9 /* RNTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF47AE602374605C00E9FBB9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AF47AE612374605C00E9FBB9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -50,7 +53,6 @@
 				EDDDB47542B5FA1883D8A275 /* Pods-RNTest.debug.xcconfig */,
 				206B6B06177543D3EE0C6248 /* Pods-RNTest.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -92,6 +94,8 @@
 				AF47AE6B2374605D00E9FBB9 /* LaunchScreen.storyboard */,
 				AF47AE6E2374605D00E9FBB9 /* Info.plist */,
 				AF47AE6F2374605D00E9FBB9 /* main.m */,
+				AF064AE723753C250035FE9D /* CalendarManager.h */,
+				AF064AEB23756BEF0035FE9D /* CalendarManager.m */,
 			);
 			path = RNTest;
 			sourceTree = "<group>";
@@ -192,6 +196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF064AEC23756BEF0035FE9D /* CalendarManager.m in Sources */,
 				AF47AE652374605C00E9FBB9 /* ViewController.m in Sources */,
 				AF47AE702374605D00E9FBB9 /* main.m in Sources */,
 				AF47AE622374605C00E9FBB9 /* AppDelegate.m in Sources */,

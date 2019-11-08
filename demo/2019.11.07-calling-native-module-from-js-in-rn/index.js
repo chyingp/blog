@@ -1,7 +1,13 @@
 import React from 'react';
-import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View, Image, } from 'react-native';
+
+import {NativeModules} from 'react-native';
 
 class RNTest extends React.Component {
+  componentDidMount() {
+    var CalendarManager = NativeModules.CalendarManager;
+    CalendarManager.addEvent('Birthday Party', '4 Privet Drive, Surrey');
+  }
   render() {
     return (
       <View style={styles.container}>
