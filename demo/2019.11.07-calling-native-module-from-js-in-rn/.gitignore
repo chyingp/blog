@@ -1,0 +1,4 @@
+node_modules/
+Pods/
+build/
+.DS_Store
