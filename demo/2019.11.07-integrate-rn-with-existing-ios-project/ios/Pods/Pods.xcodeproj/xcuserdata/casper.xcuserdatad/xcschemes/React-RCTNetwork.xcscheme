@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "651511D7DA7F07F9FC9AA40A2E86270D"
-               BuildableName = "React-RCTNetwork.framework"
+               BuildableName = "libReact-RCTNetwork.a"
                BlueprintName = "React-RCTNetwork"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

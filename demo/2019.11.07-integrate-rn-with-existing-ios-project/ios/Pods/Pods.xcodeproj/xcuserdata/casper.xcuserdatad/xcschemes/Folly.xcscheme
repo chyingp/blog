@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A4F685BE3CAC127BDCE4E0DBBD88D191"
-               BuildableName = "Folly.framework"
+               BuildableName = "libFolly.a"
                BlueprintName = "Folly"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA0709CAAD589C6E7963495210438021"
-               BuildableName = "React-jsiexecutor.framework"
+               BuildableName = "libReact-jsiexecutor.a"
                BlueprintName = "React-jsiexecutor"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

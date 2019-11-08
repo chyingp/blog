@@ -10,6 +10,7 @@
 
 @interface ViewController : UIViewController
 
+- (IBAction) rnTestButtonPressed:(id)sender;
 
 @end
 

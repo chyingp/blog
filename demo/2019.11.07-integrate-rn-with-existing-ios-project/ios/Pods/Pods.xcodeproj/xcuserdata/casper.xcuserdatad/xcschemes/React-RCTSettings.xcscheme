@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "680299219D3A48D42A648AF6706275A9"
-               BuildableName = "React-RCTSettings.framework"
+               BuildableName = "libReact-RCTSettings.a"
                BlueprintName = "React-RCTSettings"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

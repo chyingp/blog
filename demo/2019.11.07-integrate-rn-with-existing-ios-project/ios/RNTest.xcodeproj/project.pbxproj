@@ -7,17 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		276A3F502E51C68CEDE9542E /* Pods_RNTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF23938CF98A5A741FCB0F9 /* Pods_RNTest.framework */; };
 		AF47AE622374605C00E9FBB9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF47AE612374605C00E9FBB9 /* AppDelegate.m */; };
 		AF47AE652374605C00E9FBB9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF47AE642374605C00E9FBB9 /* ViewController.m */; };
 		AF47AE682374605C00E9FBB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF47AE662374605C00E9FBB9 /* Main.storyboard */; };
 		AF47AE6A2374605D00E9FBB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF47AE692374605D00E9FBB9 /* Assets.xcassets */; };
 		AF47AE6D2374605D00E9FBB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF47AE6B2374605D00E9FBB9 /* LaunchScreen.storyboard */; };
 		AF47AE702374605D00E9FBB9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF47AE6F2374605D00E9FBB9 /* main.m */; };
+		D5B4DB78CE33E804C1931926 /* libPods-RNTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98588645441A0FCF75EF37A1 /* libPods-RNTest.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		206B6B06177543D3EE0C6248 /* Pods-RNTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNTest.release.xcconfig"; path = "Target Support Files/Pods-RNTest/Pods-RNTest.release.xcconfig"; sourceTree = "<group>"; };
+		98588645441A0FCF75EF37A1 /* libPods-RNTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF47AE5D2374605C00E9FBB9 /* RNTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF47AE602374605C00E9FBB9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AF47AE612374605C00E9FBB9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -28,7 +29,6 @@
 		AF47AE6C2374605D00E9FBB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF47AE6E2374605D00E9FBB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF47AE6F2374605D00E9FBB9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DFF23938CF98A5A741FCB0F9 /* Pods_RNTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RNTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDDDB47542B5FA1883D8A275 /* Pods-RNTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNTest.debug.xcconfig"; path = "Target Support Files/Pods-RNTest/Pods-RNTest.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -37,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				276A3F502E51C68CEDE9542E /* Pods_RNTest.framework in Frameworks */,
+				D5B4DB78CE33E804C1931926 /* libPods-RNTest.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,7 +57,7 @@
 		9FBF6EF8EAE4F8EF0426B66C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DFF23938CF98A5A741FCB0F9 /* Pods_RNTest.framework */,
+				98588645441A0FCF75EF37A1 /* libPods-RNTest.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,7 +107,6 @@
 				AF47AE592374605C00E9FBB9 /* Sources */,
 				AF47AE5A2374605C00E9FBB9 /* Frameworks */,
 				AF47AE5B2374605C00E9FBB9 /* Resources */,
-				4302282F3FED5903713EC673 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -164,23 +163,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4302282F3FED5903713EC673 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNTest/Pods-RNTest-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNTest/Pods-RNTest-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNTest/Pods-RNTest-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		83EBCF3702C34AF179C1C6EC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

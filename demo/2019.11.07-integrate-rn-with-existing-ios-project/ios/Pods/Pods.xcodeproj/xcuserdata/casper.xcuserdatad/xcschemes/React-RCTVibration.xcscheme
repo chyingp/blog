@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "53D121F9F9BB0F8AC1C94A12C5A8572F"
-               BuildableName = "React-RCTVibration.framework"
+               BuildableName = "libReact-RCTVibration.a"
                BlueprintName = "React-RCTVibration"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

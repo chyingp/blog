@@ -1,8 +1,12 @@
 {
-    "name": "rn-test",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-      "start": "yarn react-native start"
-    }
+  "name": "rn-test",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-native start"
+  },
+  "dependencies": {
+    "react": "^16.8.0",
+    "react-native": "^0.60.5"
   }
+}
