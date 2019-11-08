@@ -1,12 +1,39 @@
 import React from 'react';
-import {AppRegistry, StyleSheet, Text, View, Image, } from 'react-native';
+import {
+  AppRegistry, 
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  NativeEventEmitter
+} from 'react-native';
 
 import {NativeModules} from 'react-native';
+const CalendarManager = NativeModules.CalendarManager;
+const calendarManagerEmitter = new NativeEventEmitter(CalendarManager);
 
 class RNTest extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      msg: ''
+    };
+  }
   componentDidMount() {
-    var CalendarManager = NativeModules.CalendarManager;
+    
     CalendarManager.addEvent('Birthday Party', '4 Privet Drive, Surrey');
+
+    CalendarManager.findEvents((error, msg) => {
+      this.setState({msg});
+    });
+
+    // 监听事件，事件移除 略
+    calendarManagerEmitter.addListener('MyEvent', (msg) => {
+      console.log(`[MyEvent] received: ${msg}`);
+    });
+    
+    // 抛出事件
+    CalendarManager.triggerEvents('程序猿小卡');
   }
   render() {
     return (
@@ -16,6 +43,7 @@ class RNTest extends React.Component {
           style={styles.avatar}
           source={{uri: 'https://avatars3.githubusercontent.com/u/2383346?s=460&v=4'}}
         />
+        <Text>{this.state.msg}</Text>
       </View>
     );
   }
