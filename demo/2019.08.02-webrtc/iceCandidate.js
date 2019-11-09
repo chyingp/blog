@@ -33,7 +33,7 @@ var gotStreamSucc = function(stream) {
     pc.onnegotiationneeded = onnegotiationneeded;
     pc.createOffer()
         .then(onCreateOfferSucc)
-        .catch(onCreateOfferErr);             
+        .catch(onCreateOfferErr);
 };
 
 var gotStreamErr = function(error) {
