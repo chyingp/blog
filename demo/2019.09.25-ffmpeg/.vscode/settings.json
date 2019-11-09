@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "swscale.h": "c",
+        "h264_sei.h": "c",
+        "zlib.h": "c",
+        "lame.h": "c",
+        "opus.h": "c",
+        "opus_multistream.h": "c",
+        "theoraenc.h": "c",
+        "vorbisenc.h": "c",
+        "x264.h": "c",
+        "xvid.h": "c",
+        "vda.h": "c"
+    }
+}

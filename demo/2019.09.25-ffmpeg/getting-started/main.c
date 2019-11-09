@@ -11,9 +11,10 @@ void main()
 {
 
     //获取输入输出文件名
-    const char *input = "../video.h264";
+    // const char *input = "../video.h264.flv";
+    const char *input = "./h265.flv";
     const char *output = "test.yuv";
-/*
+
     //1.注册所有组件
     av_register_all();
 
@@ -34,6 +35,8 @@ void main()
         return;
     }
 
+    // printf("streams.length is %d", pFormatCtx->nb_streams);
+
     //获取视频流的索引位置
     //遍历所有类型的流（音频流、视频流、字幕流），找到视频流
     int v_stream_idx = -1;
@@ -48,6 +51,7 @@ void main()
             break;
         }
     }
+
 
     if (v_stream_idx == -1)
     {
@@ -78,7 +82,7 @@ void main()
     printf("视频时长：%lld", (pFormatCtx->duration));
     printf("视频的宽高：%d,%d",pCodecCtx->width,pCodecCtx->height);
     printf("解码器的名称：%s",pCodec->name);
-
+/*
     //准备读取
     //AVPacket用于存储一帧一帧的压缩数据（H264）
     //缓冲区，开辟空间
