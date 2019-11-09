@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>getting-started</title>
+</head>
+<body>
+    <div>
+        <button>按钮</button>
+    </div>
+
+    <script src="./rxjs.umd.js"></script>
+    <script>
+const { fromEvent } = rxjs;
+const { throttleTime, map, scan } = rxjs.operators;
+
+const button = document.querySelector('button');
+fromEvent(button, 'click').pipe(
+  throttleTime(1000),
+  map(event => event.clientX),
+  scan((count, clientX) => count + clientX, 0)
+)
+.subscribe(count => console.log(count));     
+    </script>
+</body>
+</html>
