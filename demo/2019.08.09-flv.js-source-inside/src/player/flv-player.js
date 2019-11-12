@@ -30,6 +30,8 @@ import {InvalidArgumentException, IllegalStateException} from '../utils/exceptio
 
 class FlvPlayer {
 
+    // mediaDataSource：流媒体相关设置
+    // config：播放器相关设置
     constructor(mediaDataSource, config) {
         this.TAG = 'FlvPlayer';
         this._type = 'FlvPlayer';
@@ -56,6 +58,7 @@ class FlvPlayer {
             onvProgress: this._onvProgress.bind(this)
         };
 
+        // this._now => 当前时刻
         if (self.performance && self.performance.now) {
             this._now = self.performance.now.bind(self.performance);
         } else {
@@ -67,7 +70,7 @@ class FlvPlayer {
         this._seekpointRecord = null;
         this._progressChecker = null;
 
-        this._mediaDataSource = mediaDataSource;
+        this._mediaDataSource = mediaDataSource; // 媒体配置
         this._mediaElement = null;
         this._msectl = null;
         this._transmuxer = null;
@@ -79,11 +82,16 @@ class FlvPlayer {
         this._mediaInfo = null;
         this._statisticsInfo = null;
 
+        // 是否需要进行IDR修复，需符合条件
+        // 1、chrome浏览器
+        // 2、主版本 < 50，或者 主版本 === 50，build板本 < 2661
         let chromeNeedIDRFix = (Browser.chrome &&
                                (Browser.version.major < 50 ||
                                (Browser.version.major === 50 && Browser.version.build < 2661)));
+        // 是否一直寻找关键帧：需要修复IDR的chrome版本 or Edge浏览器 or IE浏览器
         this._alwaysSeekKeyframe = (chromeNeedIDRFix || Browser.msedge || Browser.msie) ? true : false;
 
+        // 如果 this._alwaysSeekKeyframe === true，则强制将 _alwaysSeekKeyframe 设为false
         if (this._alwaysSeekKeyframe) {
             this._config.accurateSeek = false;
         }

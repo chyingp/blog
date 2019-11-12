@@ -17,11 +17,11 @@
  */
 
 export const defaultConfig = {
-    enableWorker: false,
-    enableStashBuffer: true,
-    stashInitialSize: undefined,
+    enableWorker: false, // 启用web worker
+    enableStashBuffer: true, // 启用内部缓冲区，避免出现网络抖动
+    stashInitialSize: undefined, // 内部缓冲区大小，默认 384KB
 
-    isLive: false,
+    isLive: false, // 是否直播流，默认为false
 
     lazyLoad: true,
     lazyLoadMaxDuration: 3 * 60,
