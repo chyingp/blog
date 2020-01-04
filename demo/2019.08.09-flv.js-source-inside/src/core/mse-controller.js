@@ -170,6 +170,7 @@ class MSEController {
         }
     }
 
+    // deferred 默认调用是 undefined
     appendInitSegment(initSegment, deferred) {
         // this.index++;
         // if (this.index <= 2) {
@@ -247,6 +248,7 @@ class MSEController {
             this._mimeTypes[is.type] = mimeType;
         }
 
+        // deferred 默认是undefined，因此 !deferred === true
         if (!deferred) {
             // deferred means this InitSegment has been pushed to pendingSegments queue
             this._pendingSegments[is.type].push(is);
