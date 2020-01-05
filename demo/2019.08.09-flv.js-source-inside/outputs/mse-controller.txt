@@ -1,0 +1,229 @@
+appendInitSegment: {"type":"video","data":{},"codec":"avc1.64001f","container":"video/mp4","mediaDuration":0,"isInitSegment":true}
+[MSEController] > Received Initialization Segment, mimeType: video/mp4;codecs=avc1.64001f
+appendMediaSegment: {"type":"video","data":{},"sampleCount":3,"info":{"beginDts":0,"endDts":214,"beginPts":0,"endPts":214,"originalBeginDts":0,"originalEndDts":214,"syncPoints":[{"dts":0,"pts":0,"duration":70,"originalDts":818058,"isSyncPoint":true,"fileposition":365}],"firstSample":{"dts":0,"pts":0,"duration":70,"originalDts":0,"isSyncPoint":true,"fileposition":null},"lastSample":{"dts":142,"pts":142,"duration":72,"originalDts":142,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":214,"endDts":357,"beginPts":214,"endPts":357,"originalBeginDts":214,"originalEndDts":357,"syncPoints":[],"firstSample":{"dts":214,"pts":214,"duration":73,"originalDts":214,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":287,"pts":287,"duration":70,"originalDts":287,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":357,"endDts":502,"beginPts":357,"endPts":502,"originalBeginDts":357,"originalEndDts":502,"syncPoints":[],"firstSample":{"dts":357,"pts":357,"duration":72,"originalDts":357,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":429,"pts":429,"duration":73,"originalDts":429,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":3,"info":{"beginDts":502,"endDts":718,"beginPts":502,"endPts":718,"originalBeginDts":502,"originalEndDts":718,"syncPoints":[],"firstSample":{"dts":502,"pts":502,"duration":71,"originalDts":502,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":645,"pts":645,"duration":73,"originalDts":645,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":718,"endDts":857,"beginPts":718,"endPts":857,"originalBeginDts":718,"originalEndDts":857,"syncPoints":[],"firstSample":{"dts":718,"pts":718,"duration":69,"originalDts":718,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":787,"pts":787,"duration":70,"originalDts":787,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":857,"endDts":1000,"beginPts":857,"endPts":1000,"originalBeginDts":857,"originalEndDts":1000,"syncPoints":[],"firstSample":{"dts":857,"pts":857,"duration":72,"originalDts":857,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":929,"pts":929,"duration":71,"originalDts":929,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":1000,"endDts":1142,"beginPts":1000,"endPts":1142,"originalBeginDts":1000,"originalEndDts":1142,"syncPoints":[],"firstSample":{"dts":1000,"pts":1000,"duration":71,"originalDts":1000,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":1071,"pts":1071,"duration":71,"originalDts":1071,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":1142,"endDts":1287,"beginPts":1142,"endPts":1287,"originalBeginDts":1142,"originalEndDts":1287,"syncPoints":[],"firstSample":{"dts":1142,"pts":1142,"duration":71,"originalDts":1142,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":1213,"pts":1213,"duration":74,"originalDts":1213,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":1287,"endDts":1430,"beginPts":1287,"endPts":1430,"originalBeginDts":1287,"originalEndDts":1430,"syncPoints":[],"firstSample":{"dts":1287,"pts":1287,"duration":71,"originalDts":1287,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":1358,"pts":1358,"duration":72,"originalDts":1358,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":1430,"endDts":1572,"beginPts":1430,"endPts":1572,"originalBeginDts":1430,"originalEndDts":1572,"syncPoints":[],"firstSample":{"dts":1430,"pts":1430,"duration":72,"originalDts":1430,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":1502,"pts":1502,"duration":70,"originalDts":1502,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":1572,"endDts":1714,"beginPts":1572,"endPts":1714,"originalBeginDts":1572,"originalEndDts":1714,"syncPoints":[],"firstSample":{"dts":1572,"pts":1572,"duration":70,"originalDts":1572,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":1642,"pts":1642,"duration":72,"originalDts":1642,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":1714,"endDts":1858,"beginPts":1714,"endPts":1858,"originalBeginDts":1714,"originalEndDts":1858,"syncPoints":[],"firstSample":{"dts":1714,"pts":1714,"duration":74,"originalDts":1714,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":1788,"pts":1788,"duration":70,"originalDts":1788,"isSyncPoint":false,"fileposition":null}}}
+
+
+
+[FLVDemuxer] > Parsed AVCDecoderConfigurationRecord
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":33459,"endDts":33595,"beginPts":33459,"endPts":33595,"originalBeginDts":33459,"originalEndDts":33595,"syncPoints":[],"firstSample":{"dts":33459,"pts":33459,"duration":67,"originalDts":33459,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":33526,"pts":33526,"duration":69,"originalDts":33526,"isSyncPoint":false,"fileposition":null}}}
+appendInitSegment: {"type":"video","data":{},"codec":"avc1.4d4016","container":"video/mp4","mediaDuration":0,"isInitSegment":true}
+[MSEController] > Received Initialization Segment, mimeType: video/mp4;codecs=avc1.4d4016
+[MSEController] > Notice: video mimeType changed, origin: video/mp4;codecs=avc1.64001f, target: video/mp4;codecs=avc1.4d4016
+appendMediaSegment: {"type":"video","data":{},"sampleCount":4,"info":{"beginDts":33595,"endDts":34256,"beginPts":33595,"endPts":34256,"originalBeginDts":33595,"originalEndDts":34256,"syncPoints":[{"dts":34122,"pts":34122,"duration":67,"originalDts":852180,"isSyncPoint":true,"fileposition":6196646}],"firstSample":{"dts":33595,"pts":33595,"duration":527,"originalDts":33595,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":34190,"pts":34190,"duration":66,"originalDts":34190,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":3,"info":{"beginDts":34256,"endDts":34390,"beginPts":34256,"endPts":34390,"originalBeginDts":34256,"originalEndDts":34390,"syncPoints":[],"firstSample":{"dts":34256,"pts":34256,"duration":67,"originalDts":34256,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":34389,"pts":34389,"duration":1,"originalDts":34389,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":34390,"endDts":34521,"beginPts":34390,"endPts":34521,"originalBeginDts":34390,"originalEndDts":34521,"syncPoints":[],"firstSample":{"dts":34390,"pts":34390,"duration":66,"originalDts":34390,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":34456,"pts":34456,"duration":65,"originalDts":34456,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":34521,"endDts":34655,"beginPts":34521,"endPts":34655,"originalBeginDts":34521,"originalEndDts":34655,"syncPoints":[],"firstSample":{"dts":34521,"pts":34521,"duration":69,"originalDts":34521,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":34590,"pts":34590,"duration":65,"originalDts":34590,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":3,"info":{"beginDts":34655,"endDts":34788,"beginPts":34655,"endPts":34788,"originalBeginDts":34655,"originalEndDts":34788,"syncPoints":[],"firstSample":{"dts":34655,"pts":34655,"duration":66,"originalDts":34655,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":34787,"pts":34787,"duration":1,"originalDts":34787,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":3,"info":{"beginDts":34788,"endDts":34922,"beginPts":34788,"endPts":34922,"originalBeginDts":34788,"originalEndDts":34922,"syncPoints":[],"firstSample":{"dts":34788,"pts":34788,"duration":19,"originalDts":34788,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":34854,"pts":34854,"duration":68,"originalDts":34854,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":12,"info":{"beginDts":34922,"endDts":35588,"beginPts":34922,"endPts":35588,"originalBeginDts":34922,"originalEndDts":35588,"syncPoints":[],"firstSample":{"dts":34922,"pts":34922,"duration":65,"originalDts":34922,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":35521,"pts":35521,"duration":67,"originalDts":35521,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":3,"info":{"beginDts":35588,"endDts":35658,"beginPts":35588,"endPts":35658,"originalBeginDts":35588,"originalEndDts":35658,"syncPoints":[],"firstSample":{"dts":35588,"pts":35588,"duration":1,"originalDts":35588,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":35608,"pts":35608,"duration":50,"originalDts":35608,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":2,"info":{"beginDts":35658,"endDts":35789,"beginPts":35658,"endPts":35789,"originalBeginDts":35658,"originalEndDts":35789,"syncPoints":[],"firstSample":{"dts":35658,"pts":35658,"duration":64,"originalDts":35658,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":35722,"pts":35722,"duration":67,"originalDts":35722,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":3,"info":{"beginDts":35789,"endDts":35925,"beginPts":35789,"endPts":35925,"originalBeginDts":35789,"originalEndDts":35925,"syncPoints":[],"firstSample":{"dts":35789,"pts":35789,"duration":67,"originalDts":35789,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":35857,"pts":35857,"duration":68,"originalDts":35857,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":3,"info":{"beginDts":35925,"endDts":36059,"beginPts":35925,"endPts":36059,"originalBeginDts":35925,"originalEndDts":36059,"syncPoints":[],"firstSample":{"dts":35925,"pts":35925,"duration":66,"originalDts":35925,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":35992,"pts":35992,"duration":67,"originalDts":35992,"isSyncPoint":false,"fileposition":null}}}
+appendMediaSegment: {"type":"video","data":{},"sampleCount":4,"info":{"beginDts":36059,"endDts":36259,"beginPts":36059,"endPts":36259,"originalBeginDts":36059,"originalEndDts":36259,"syncPoints":[],"firstSample":{"dts":36059,"pts":36059,"duration":67,"originalDts":36059,"isSyncPoint":false,"fileposition":null},"lastSample":{"dts":36258,"pts":36258,"duration":1,"originalDts":36258,"isSyncPoint":false,"fileposition":null}}}
+
+
+{
+	"type": "video",
+	"data": {},
+	"sampleCount": 3,
+	"info": {
+		"beginDts": 0,
+		"endDts": 214,
+		"beginPts": 0,
+		"endPts": 214,
+		"originalBeginDts": 0,
+		"originalEndDts": 214,
+		"syncPoints": [{
+			"dts": 0,
+			"pts": 0,
+			"duration": 70,
+			"originalDts": 818058,
+			"isSyncPoint": true,
+			"fileposition": 365
+		}],
+		"firstSample": {
+			"dts": 0,
+			"pts": 0,
+			"duration": 70,
+			"originalDts": 0,
+			"isSyncPoint": true,
+			"fileposition": null
+		},
+		"lastSample": {
+			"dts": 142,
+			"pts": 142,
+			"duration": 72,
+			"originalDts": 142,
+			"isSyncPoint": false,
+			"fileposition": null
+		}
+	}
+}
+{
+	"type": "video",
+	"data": {},
+	"sampleCount": 2,
+	"info": {
+		"beginDts": 214,
+		"endDts": 357,
+		"beginPts": 214,
+		"endPts": 357,
+		"originalBeginDts": 214,
+		"originalEndDts": 357,
+		"syncPoints": [],
+		"firstSample": {
+			"dts": 214,
+			"pts": 214,
+			"duration": 73,
+			"originalDts": 214,
+			"isSyncPoint": false,
+			"fileposition": null
+		},
+		"lastSample": {
+			"dts": 287,
+			"pts": 287,
+			"duration": 70,
+			"originalDts": 287,
+			"isSyncPoint": false,
+			"fileposition": null
+		}
+	}
+}
+{
+	"type": "video",
+	"data": {},
+	"sampleCount": 2,
+	"info": {
+		"beginDts": 357,
+		"endDts": 502,
+		"beginPts": 357,
+		"endPts": 502,
+		"originalBeginDts": 357,
+		"originalEndDts": 502,
+		"syncPoints": [],
+		"firstSample": {
+			"dts": 357,
+			"pts": 357,
+			"duration": 72,
+			"originalDts": 357,
+			"isSyncPoint": false,
+			"fileposition": null
+		},
+		"lastSample": {
+			"dts": 429,
+			"pts": 429,
+			"duration": 73,
+			"originalDts": 429,
+			"isSyncPoint": false,
+			"fileposition": null
+		}
+	}
+}
+
+==== 
+收到新的 initSegment 前的最后一个 mediaSegment
+{
+	"type": "video",
+	"data": {},
+	"sampleCount": 2,
+	"info": {
+		"beginDts": 33459,
+		"endDts": 33595,
+		"beginPts": 33459,
+		"endPts": 33595,
+		"originalBeginDts": 33459,
+		"originalEndDts": 33595,
+		"syncPoints": [],
+		"firstSample": {
+			"dts": 33459,
+			"pts": 33459,
+			"duration": 67,
+			"originalDts": 33459,
+			"isSyncPoint": false,
+			"fileposition": null
+		},
+		"lastSample": {
+			"dts": 33526,
+			"pts": 33526,
+			"duration": 69,
+			"originalDts": 33526,
+			"isSyncPoint": false,
+			"fileposition": null
+		}
+	}
+}
+
+===
+收到新的 initSegment 后的第一个 mediaSegment
+{
+	"type": "video",
+	"data": {},
+	"sampleCount": 2,
+	"info": {
+		"beginDts": 33459,
+		"endDts": 33595,
+		"beginPts": 33459,
+		"endPts": 33595,
+		"originalBeginDts": 33459,
+		"originalEndDts": 33595,
+		"syncPoints": [],
+		"firstSample": {
+			"dts": 33459,
+			"pts": 33459,
+			"duration": 67,
+			"originalDts": 33459,
+			"isSyncPoint": false,
+			"fileposition": null
+		},
+		"lastSample": {
+			"dts": 33526,
+			"pts": 33526,
+			"duration": 69,
+			"originalDts": 33526,
+			"isSyncPoint": false,
+			"fileposition": null
+		}
+	}
+}
+{
+	"type": "video",
+	"data": {},
+	"sampleCount": 3,
+	"info": {
+		"beginDts": 34256,
+		"endDts": 34390,
+		"beginPts": 34256,
+		"endPts": 34390,
+		"originalBeginDts": 34256,
+		"originalEndDts": 34390,
+		"syncPoints": [],
+		"firstSample": {
+			"dts": 34256,
+			"pts": 34256,
+			"duration": 67,
+			"originalDts": 34256,
+			"isSyncPoint": false,
+			"fileposition": null
+		},
+		"lastSample": {
+			"dts": 34389,
+			"pts": 34389,
+			"duration": 1,
+			"originalDts": 34389,
+			"isSyncPoint": false,
+			"fileposition": null
+		}
+	}
+}
