@@ -171,6 +171,8 @@ class MSEController {
     }
 
     // deferred 默认调用是 undefined
+    // initSegment：{"type":"video","data": ArrayBuffer(640) {} ,"codec":"avc1.64001f","container":"video/mp4","mediaDuration":0}
+
     appendInitSegment(initSegment, deferred) {
         // this.index++;
         // if (this.index <= 2) {
@@ -271,6 +273,96 @@ class MSEController {
         }
     }
 
+    // {"type":"video","data":{},"sampleCount":34,"info":{"beginDts":0,"endDts":2428,"beginPts":0,"endPts":2428,"originalBeginDts":0,"originalEndDts":2428,"syncPoints":[{"dts":0,"pts":0,"duration":73,"originalDts":199998,"isSyncPoint":true,"fileposition":365},{"dts":2000,"pts":2000,"duration":71,"originalDts":201998,"isSyncPoint":true,"fileposition":426894}],"firstSample":{"dts":0,"pts":0,"duration":73,"originalDts":0,"isSyncPoint":true,"fileposition":null},"lastSample":{"dts":2357,"pts":2357,"duration":71,"originalDts":2357,"isSyncPoint":false,"fileposition":null}}}
+    /*
+        {
+            "type": "video",
+            "data": {},
+            "sampleCount": 34,
+            "info": {
+                "beginDts": 0,
+                "endDts": 2428,
+                "beginPts": 0,
+                "endPts": 2428,
+                "originalBeginDts": 0,
+                "originalEndDts": 2428,
+                "syncPoints": [
+                    {
+                        "dts": 0,
+                        "pts": 0,
+                        "duration": 73,
+                        "originalDts": 199998,
+                        "isSyncPoint": true,
+                        "fileposition": 365
+                    },
+                    {
+                        "dts": 2000,
+                        "pts": 2000,
+                        "duration": 71,
+                        "originalDts": 201998,
+                        "isSyncPoint": true,
+                        "fileposition": 426894
+                    }
+                ],
+                "firstSample": {
+                    "dts": 0,
+                    "pts": 0,
+                    "duration": 73,
+                    "originalDts": 0,
+                    "isSyncPoint": true,
+                    "fileposition": null
+                },
+                "lastSample": {
+                    "dts": 2357,
+                    "pts": 2357,
+                    "duration": 71,
+                    "originalDts": 2357,
+                    "isSyncPoint": false,
+                    "fileposition": null
+                }
+            }
+        }   
+        
+        {
+            "type": "video",
+            "data": {},
+            "sampleCount": 34,
+            "info": {
+                "beginDts": 2428,
+                "endDts": 4857,
+                "beginPts": 2428,
+                "endPts": 4857,
+                "originalBeginDts": 2428,
+                "originalEndDts": 4857,
+                "syncPoints": [
+                    {
+                        "dts": 4000,
+                        "pts": 4000,
+                        "duration": 72,
+                        "originalDts": 203998,
+                        "isSyncPoint": true,
+                        "fileposition": 854942
+                    }
+                ],
+                "firstSample": {
+                    "dts": 2428,
+                    "pts": 2428,
+                    "duration": 72,
+                    "originalDts": 2428,
+                    "isSyncPoint": false,
+                    "fileposition": null
+                },
+                "lastSample": {
+                    "dts": 4787,
+                    "pts": 4787,
+                    "duration": 70,
+                    "originalDts": 4787,
+                    "isSyncPoint": false,
+                    "fileposition": null
+                }
+            }
+        }
+    */    
     appendMediaSegment(mediaSegment) {
         // if (this.index <= 2) {
         //     return;

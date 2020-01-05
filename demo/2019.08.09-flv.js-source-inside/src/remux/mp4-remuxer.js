@@ -160,25 +160,25 @@ class MP4Remuxer {
             }
         } else if (type === 'video') {
             /*
-                {
-                    avcc: Uint8Array(25) [1, 100, 0, 22, 255, 225, 0, 10, 39, 100, 0, 22, 172, 86, 129, 112, 81, 144, 1, 0, 4, 40, 238, 60, 176]
+                type =>  "video"
+                metadata => {
+                    id: 1
+                    timescale: 1000
+                    duration: 0
+                    codecWidth: 720
+                    codecHeight: 1280
+                    presentWidth: 720
+                    presentHeight: 1280
+                    profile: "High"
+                    level: "3.1"
                     bitDepth: 8
                     chromaFormat: 420
-                    codec: "avc1.640016"
-                    codecHeight: 640
-                    codecWidth: 368
-                    duration: 0
-                    frameRate: {fixed: true, fps: 23.976, fps_num: 23976, fps_den: 1000}
-                    id: 1
-                    level: "2.2"
-                    presentHeight: 640
-                    presentWidth: 368
-                    profile: "High"
-                    refSampleDuration: 41.70837504170837
                     sarRatio: {width: 1, height: 1}
-                    timescale: 1000
-                    type: "video"
-                }                
+                    frameRate: {fixed: true, fps: 23.976, fps_num: 23976, fps_den: 1000}
+                    refSampleDuration: 41.70837504170837
+                    codec: "avc1.64001f"
+                    avcc: Uint8Array(25) [1, 100, 0, 31, 255, 225, 0, 10, 39, 100, 0, 31, 172, 86, 128, 180, 10, 25, 1, 0, 4, 40, 238, 60, 176]
+                }               
             */
             this._videoMeta = metadata;
             metabox = MP4.generateInitSegment(metadata);
