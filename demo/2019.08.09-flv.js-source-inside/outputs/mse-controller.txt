@@ -170,28 +170,35 @@ appendMediaSegment: {"type":"video","data":{},"sampleCount":4,"info":{"beginDts"
 {
 	"type": "video",
 	"data": {},
-	"sampleCount": 2,
+	"sampleCount": 4,
 	"info": {
-		"beginDts": 33459,
-		"endDts": 33595,
-		"beginPts": 33459,
-		"endPts": 33595,
-		"originalBeginDts": 33459,
-		"originalEndDts": 33595,
-		"syncPoints": [],
-		"firstSample": {
-			"dts": 33459,
-			"pts": 33459,
+		"beginDts": 33595,
+		"endDts": 34256,
+		"beginPts": 33595,
+		"endPts": 34256,
+		"originalBeginDts": 33595,
+		"originalEndDts": 34256,
+		"syncPoints": [{
+			"dts": 34122,
+			"pts": 34122,
 			"duration": 67,
-			"originalDts": 33459,
+			"originalDts": 852180,
+			"isSyncPoint": true,
+			"fileposition": 6196646
+		}],
+		"firstSample": {
+			"dts": 33595,
+			"pts": 33595,
+			"duration": 527,
+			"originalDts": 33595,
 			"isSyncPoint": false,
 			"fileposition": null
 		},
 		"lastSample": {
-			"dts": 33526,
-			"pts": 33526,
-			"duration": 69,
-			"originalDts": 33526,
+			"dts": 34190,
+			"pts": 34190,
+			"duration": 66,
+			"originalDts": 34190,
 			"isSyncPoint": false,
 			"fileposition": null
 		}
@@ -222,6 +229,36 @@ appendMediaSegment: {"type":"video","data":{},"sampleCount":4,"info":{"beginDts"
 			"pts": 34389,
 			"duration": 1,
 			"originalDts": 34389,
+			"isSyncPoint": false,
+			"fileposition": null
+		}
+	}
+}
+{
+	"type": "video",
+	"data": {},
+	"sampleCount": 2,
+	"info": {
+		"beginDts": 34390,
+		"endDts": 34521,
+		"beginPts": 34390,
+		"endPts": 34521,
+		"originalBeginDts": 34390,
+		"originalEndDts": 34521,
+		"syncPoints": [],
+		"firstSample": {
+			"dts": 34390,
+			"pts": 34390,
+			"duration": 66,
+			"originalDts": 34390,
+			"isSyncPoint": false,
+			"fileposition": null
+		},
+		"lastSample": {
+			"dts": 34456,
+			"pts": 34456,
+			"duration": 65,
+			"originalDts": 34456,
 			"isSyncPoint": false,
 			"fileposition": null
 		}
