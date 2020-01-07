@@ -1,0 +1,131 @@
+/* 没有连麦前，audio、video dts 差距在 100 以内，比如 */
+
+// 01：839647 - 839565 => 82
+mp4-remuxer.js:279 [_remuxVideo][video][false] sample.dts = 839505
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839523
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839544
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839565
+
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 839505
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 839577
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 839647
+
+// 02：839720 - 839715 => 5
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839587
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839608
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839609
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839651
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839672
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839694
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839715
+
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 839720
+
+// 03：839790 - 839779 => 11
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839737
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839758
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839779
+
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 839720
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 839790
+
+// 04：839934 - 839843 => 91
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839800
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839822
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839843
+
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 839863
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 839934
+
+// 05：840006 - 839992 => 14
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839865
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839886
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839907
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839928
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839929
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839971
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 839992
+
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 840006
+
+// 0x：中间太长，忽略。。。
+
+/* 快要连麦之前，看下 audio、video 的dts 的差距 */
+
+// 11：854487 - 854391 => 96
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 854370
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 854391
+
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 854421
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 854487 
+
+// 12：854624 - 854541 => 83
+// 连麦前最后被送去 remux 的 audio samples
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 854413
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 854434
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 854455
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 854476
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 854498
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 854519
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 854541 |=> 连麦前最后被送去 remux 的 audio samples
+
+// 连麦混流，这里收到新的 init segment
+[FLVDemuxer] > Found another AudioSpecificConfig!
+[FLVDemuxer] > Parsed AudioSpecificConfig
+
+// 从这里可以看到，此时 audio samples 有 7 个，video samples 有 2 个
+[audioTrack] 854562, 854563, 854605, 854626, 854647, 854668, 855133
+[videoTrack] 854556, 854624
+
+// 正常来说，应该跟前面的那波 audio samples 一起被送去 remux
+// 但是因为连麦混流 init segment 的到来，跟着原本应该下一波才送去混流的 audio 一起去remux了，导致 audio 快于 video（声音比画面快）
+mp4-remuxer.js:583 [_remuxVideo][video][true] sample.dts = 854556
+mp4-remuxer.js:583 [_remuxVideo][video][true] sample.dts = 854624 |=> 正常来说，应该跟前面的那波 audio samples 一起被送去 remux
+
+// 13：854624 - 855133 => -509 （问题出现了，audio 跟 audio 的 dst 差距 500+，出现音画不同步）
+// 分析：正常来说
+mp4-remuxer.js:279 [_remuxAudio][audio][true] sample.dts = 854562
+mp4-remuxer.js:279 [_remuxAudio][audio][true] sample.dts = 854563
+mp4-remuxer.js:279 [_remuxAudio][audio][true] sample.dts = 854605
+mp4-remuxer.js:279 [_remuxAudio][audio][true] sample.dts = 854626
+mp4-remuxer.js:279 [_remuxAudio][audio][true] sample.dts = 854647
+mp4-remuxer.js:279 [_remuxAudio][audio][true] sample.dts = 854668
+mp4-remuxer.js:279 [_remuxAudio][audio][true] sample.dts = 855133
+
+mp4-remuxer.js:583 [_remuxVideo][video][true] sample.dts = 854624
+
+// 14：
+mp4-remuxer.js:279 [_remuxAudio][audio][true] sample.dts = 855133
+
+logger.js:82 [FLVDemuxer] > Found another AVCDecoderConfigurationRecord!
+
+[FLVDemuxer] > Parsed AVCDecoderConfigurationRecord
+logger.js:123 [MSEController] > Received Initialization Segment, mimeType: audio/mp4;codecs=mp4a.40.5
+logger.js:123 [MSEController] > Received Initialization Segment, mimeType: video/mp4;codecs=avc1.4d4016
+logger.js:123 [MSEController] > Notice: video mimeType changed, origin: video/mp4;codecs=avc1.64001f, target: video/mp4;codecs=avc1.4d4016
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 855155
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855155
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855176
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855197
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855218
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 855155
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 855223
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 855288
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 855354
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 855422
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 855423
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 855489
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 855490
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 855509
+mp4-remuxer.js:583 [_remuxVideo][video][false] sample.dts = 855557
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855239
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855261
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855282
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855283
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855325
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855346
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855367
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855388
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855410
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855431
+mp4-remuxer.js:279 [_remuxAudio][audio][false] sample.dts = 855453
