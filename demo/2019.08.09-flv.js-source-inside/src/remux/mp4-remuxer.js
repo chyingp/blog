@@ -199,6 +199,11 @@ class MP4Remuxer {
         });
     }
 
+    /**
+     * 返回 audioTrack、videoTrack 所有 samples 中，最小的 dts
+     * @param {Array} audioTrack 略
+     * @param {Array} videoTrack 略
+     */
     _calculateDtsBase(audioTrack, videoTrack) {
         if (this._dtsBaseInited) {
             return;
@@ -565,7 +570,7 @@ class MP4Remuxer {
         let track = videoTrack;
         let samples = track.samples;
         let dtsCorrection = undefined;
-        let firstDts = -1, lastDts = -1;
+        let firstDts = -1, lastDts = -1; // firstDts：第一个 sample 的 dts（是个相对值）
         let firstPts = -1, lastPts = -1;
 
         if (!samples || samples.length === 0) {
@@ -603,7 +608,7 @@ class MP4Remuxer {
             this._videoStashedLastSample = lastSample;
         }
 
-
+        // 第一个 sample 的 dts 跟 第一个sample 的 dts 的差值
         let firstSampleOriginalDts = samples[0].dts - this._dtsBase;
 
         // calculate dtsCorrection
@@ -611,6 +616,7 @@ class MP4Remuxer {
             dtsCorrection = firstSampleOriginalDts - this._videoNextDts;
         } else {  // this._videoNextDts == undefined
             if (this._videoSegmentInfoList.isEmpty()) {
+                // 视频播放开始的第一个 video sample，进入这个分支，dtsCorrection 为 0
                 dtsCorrection = 0;
             } else {
                 let lastSample = this._videoSegmentInfoList.getLastSampleBefore(firstSampleOriginalDts);
@@ -644,7 +650,7 @@ class MP4Remuxer {
                 firstPts = pts;
             }
 
-            let sampleDuration = 0;
+            let sampleDuration = 0; // 当前 sample 的时长，计算方式是，下一个sample - 当前sample 的 dts
 
             if (i !== samples.length - 1) {
                 let nextDts = samples[i + 1].dts - this._dtsBase - dtsCorrection;
@@ -704,10 +710,10 @@ class MP4Remuxer {
             }
         }
 
-        let latest = mp4Samples[mp4Samples.length - 1];
+        let latest = mp4Samples[mp4Samples.length - 1]; // 最后一个sample
         lastDts = latest.dts + latest.duration;
         lastPts = latest.pts + latest.duration;
-        this._videoNextDts = lastDts;
+        this._videoNextDts = lastDts; // 下一次解码的第一个sample的dts，计算公式：当前最后一个sample的dts + 当前最后一个sample的duration
 
         // fill media segment info & add to info list
         info.beginDts = firstDts;
