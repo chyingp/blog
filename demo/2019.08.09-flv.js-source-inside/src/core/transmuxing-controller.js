@@ -357,9 +357,7 @@ class TransmuxingController {
                     3、onDataAvailable、onTrackMetadata 分别在 xx 时刻触发
 
             */
-            this._remuxer.bindDataSource(this._demuxer
-                         .bindDataSource(this._ioctl
-            ));
+            this._remuxer.bindDataSource( this._demuxer.bindDataSource(this._ioctl) );
 
             this._remuxer.onInitSegment = this._onRemuxerInitSegmentArrival.bind(this);
             this._remuxer.onMediaSegment = this._onRemuxerMediaSegmentArrival.bind(this);
