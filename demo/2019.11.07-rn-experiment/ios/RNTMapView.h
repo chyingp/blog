@@ -1,13 +1,19 @@
-//
-//  RNTMapView.h
-//  RNTest
-//
-//  Created by casperchen on 2019/11/9.
-//  Copyright © 2019年 casper. All rights reserved.
-//
+// RNTMapView.h
 
-#ifndef RNTMapView_h
-#define RNTMapView_h
+#import <MapKit/MapKit.h>
 
+#import <React/RCTComponent.h>
 
-#endif /* RNTMapView_h */
+@interface RNTMapView: MKMapView
+
+@property (nonatomic, copy) RCTBubblingEventBlock onRegionChange;
+
+@end
+
+// RNTMapView.m
+
+#import "RNTMapView.h"
+
+@implementation RNTMapView
+
+@end

@@ -11,14 +11,14 @@
 #import <CoreLocation/CoreLocation.h>
 #import <React/RCTConvert+CoreLocation.h>
 
-@interface RCTConvert (Mapkit)
+@interface RCTConvert (Hello)
 
 + (MKCoordinateSpan)MKCoordinateSpan:(id)json;
 + (MKCoordinateRegion)MKCoordinateRegion:(id)json;
 
 @end
 
-@implementation RCTConvert(MapKit)
+@implementation RCTConvert(Hello)
 
 + (MKCoordinateSpan)MKCoordinateSpan:(id)json
 {
