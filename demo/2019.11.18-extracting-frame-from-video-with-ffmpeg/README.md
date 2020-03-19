@@ -36,3 +36,9 @@ mkdir outputs-keyframe
 ffmpeg -i h265.flv -vf "select=eq(pict_type\,I)" -vsync vfr ./outputs-keyframe/%04d.jpg -hide_banner
 ```
 
+提取h264裸数据
+
+```bash
+ffmpeg -i h265.flv -vcodec copy -an -bsf:v h264_mp4toannexb raw.h264
+```
+
