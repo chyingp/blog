@@ -22,7 +22,7 @@
 		98588645441A0FCF75EF37A1 /* libPods-RNTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF064AED23758DD00035FE9D /* TodoList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodoList.h; sourceTree = "<group>"; };
 		AF064AEE23758DE30035FE9D /* TodoList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodoList.m; sourceTree = "<group>"; };
-		AF47AE5D2374605C00E9FBB9 /* RNTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF47AE5D2374605C00E9FBB9 /* RNExp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNExp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF47AE602374605C00E9FBB9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AF47AE612374605C00E9FBB9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		AF47AE632374605C00E9FBB9 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -77,7 +77,7 @@
 		AF47AE5E2374605C00E9FBB9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AF47AE5D2374605C00E9FBB9 /* RNTest.app */,
+				AF47AE5D2374605C00E9FBB9 /* RNExp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,9 +103,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AF47AE5C2374605C00E9FBB9 /* RNTest */ = {
+		AF47AE5C2374605C00E9FBB9 /* RNExp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AF47AE732374605D00E9FBB9 /* Build configuration list for PBXNativeTarget "RNTest" */;
+			buildConfigurationList = AF47AE732374605D00E9FBB9 /* Build configuration list for PBXNativeTarget "RNExp" */;
 			buildPhases = (
 				83EBCF3702C34AF179C1C6EC /* [CP] Check Pods Manifest.lock */,
 				AF47AE592374605C00E9FBB9 /* Sources */,
@@ -116,9 +116,9 @@
 			);
 			dependencies = (
 			);
-			name = RNTest;
+			name = RNExp;
 			productName = RNTest;
-			productReference = AF47AE5D2374605C00E9FBB9 /* RNTest.app */;
+			productReference = AF47AE5D2374605C00E9FBB9 /* RNExp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -135,7 +135,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AF47AE582374605B00E9FBB9 /* Build configuration list for PBXProject "RNTest" */;
+			buildConfigurationList = AF47AE582374605B00E9FBB9 /* Build configuration list for PBXProject "RNExp" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -148,7 +148,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AF47AE5C2374605C00E9FBB9 /* RNTest */,
+				AF47AE5C2374605C00E9FBB9 /* RNExp */,
 			);
 		};
 /* End PBXProject section */
@@ -376,7 +376,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AF47AE582374605B00E9FBB9 /* Build configuration list for PBXProject "RNTest" */ = {
+		AF47AE582374605B00E9FBB9 /* Build configuration list for PBXProject "RNExp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AF47AE712374605D00E9FBB9 /* Debug */,
@@ -385,7 +385,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AF47AE732374605D00E9FBB9 /* Build configuration list for PBXNativeTarget "RNTest" */ = {
+		AF47AE732374605D00E9FBB9 /* Build configuration list for PBXNativeTarget "RNExp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AF47AE742374605D00E9FBB9 /* Debug */,

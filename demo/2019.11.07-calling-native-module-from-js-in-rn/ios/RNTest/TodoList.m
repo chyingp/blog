@@ -25,7 +25,7 @@ RCT_EXPORT_METHOD(add:(NSString *)item)
 {
     NSLog(@"add: %@", item);
     [list addObject:@{ @"desc":item, @"done": @0 }];
-}
+}  
 
 // 例子：方法导出，支持回调
 RCT_EXPORT_METHOD(addWithCallback:(NSString *)item callback:(RCTResponseSenderBlock)callback)

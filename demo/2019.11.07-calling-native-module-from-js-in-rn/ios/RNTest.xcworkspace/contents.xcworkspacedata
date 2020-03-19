@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:RNTest.xcodeproj">
+      location = "group:/Users/casperchen/Documents/develop/github/blog/demo/2019.11.07-calling-native-module-from-js-in-rn/ios/RNExp.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
