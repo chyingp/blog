@@ -651,7 +651,11 @@ class SampleTableBox extends Box {
 	}
 
 	stsz(buffer) {
-		return 'TODO stsz';
+		return new SampleSizeBox('stsz', buffer);
+	}
+
+	stz2(buffer) {
+		return new SampleSizeBox('stz2', buffer);
 	}
 
 	stts(buffer) {
@@ -772,4 +776,77 @@ class SampleToChunkBox extends FullBox {
 	}
 }
 
+/*
+
+	// 例子：video track
+	SampleSizeBox {
+		type: 'stsz',
+		size: 620,
+		headerSize: 12,
+		boxes: [],
+		version: 0,
+		flags: 0,
+		sample_size: 0,
+		sample_count: 150,
+		entry_sizes: [ 58070,21324,6598,4720,4316,19998,3844,1749,1232,1615, ... ]		
+	}
+
+	// 例子：sound track
+	SampleSizeBox {
+		type: 'stsz',
+		size: 968,
+		headerSize: 12,
+		boxes: [],
+		version: 0,
+		flags: 0,
+		sample_size: 0,
+		sample_count: 237,
+		entry_sizes: [ 683,682,683,683,682,683,683,682, ... ]
+	}
+
+	aligned(8) class SampleSizeBox extends FullBox(‘stsz’, version = 0, 0) {
+		unsigned int(32) sample_size;
+		unsigned int(32) sample_count;
+		if (sample_size==0) {
+			for (i=1; i u sample_count; i++) {
+	    		unsigned int(32)  entry_size;
+			}
+		}
+	}
+
+	aligned(8) class CompactSampleSizeBox extends FullBox(‘stz2’, version = 0, 0) {
+		unsigned int(24) reserved = 0;
+		unisgned int(8) field_size;
+		unsigned int(32) sample_count;
+		for (i=1; i u sample_count; i++) {
+			unsigned int(field_size) entry_size;
+		}
+	}
+*/
+class SampleSizeBox extends FullBox {
+	constructor(boxType = 'stsz', buffer) {
+		super(boxType, buffer);
+
+		this.version = 0;
+		this.flags = 0;
+
+		let offset = this.headerSize;
+
+		this.sample_size = buffer.readUInt32BE(offset); // 4个字节，每个sample的size（如果不为0，则所有sample的size相等）
+		this.sample_count = buffer.readUInt32BE(offset + 4); // 4个字节，sample的数目
+
+		this.entry_sizes = [];
+
+		offset += 8;
+
+		if (this.sample_size === 0) {
+			for (let i = 0; i < this.sample_count; i++) {
+				const entry_size = buffer.readUInt32BE(offset + i * 4); // 4个字节，sample的size
+				this.entry_sizes.push(entry_size);
+			}
+		}		
+
+		// console.log(this);
+	}
+}
 
