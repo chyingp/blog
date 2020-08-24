@@ -659,7 +659,7 @@ class SampleTableBox extends Box {
 	}
 
 	stts(buffer) {
-		return 'TODO stts';
+		return new TimeToSampleBox(buffer);
 	}
 
 	stss(buffer) {
@@ -850,3 +850,67 @@ class SampleSizeBox extends FullBox {
 	}
 }
 
+/*
+
+	// 例子：video track
+	TimeToSampleBox {
+		type: 'stts',
+		size: 24,
+		headerSize: 12,
+		boxes: [],
+		version: 0,
+		flags: 0,
+		entry_count: 1,
+		entries: [
+			{ sample_count: 150, sample_delta: 1001 } 
+		]
+	}
+
+	// 例子：audio track
+	TimeToSampleBox {
+		type: 'stts',
+		size: 24,
+		headerSize: 12,
+		boxes: [],
+		version: 0,
+		flags: 0,
+		entry_count: 1,
+		entries: [
+			{ sample_count: 237, sample_delta: 1024 }
+		]
+	}
+	
+	aligned(8) class TimeToSampleBox extends FullBox(’stts’, version = 0, 0) {
+		unsigned int(32)  entry_count;
+	    int i;
+		for (i=0; i < entry_count; i++) {
+			unsigned int(32)  sample_count;
+			unsigned int(32)  sample_delta;
+	   }
+	}
+*/
+class TimeToSampleBox extends FullBox {
+	constructor(buffer) {
+		super('stts', buffer);
+
+		this.version = 0;
+		this.flags = 0;
+
+		let offset = this.headerSize;
+
+		this.entry_count = buffer.readUInt32BE(offset); // 4个字节，entry条目数
+		this.entries = [
+			// { sample_count: 1, sample_delta: 30 }
+		];
+
+		offset += 4;
+
+		for (let i = 0; i < this.entry_count; i++) {
+			const sample_count = buffer.readUInt32BE(offset + i * 8);
+			const sample_delta = buffer.readUInt32BE(offset + i * 8 + 4);
+			this.entries.push({ sample_count, sample_delta });
+		}		
+
+		// console.log(this);
+	}
+}
