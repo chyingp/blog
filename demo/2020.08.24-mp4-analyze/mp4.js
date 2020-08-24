@@ -14,26 +14,32 @@ fs.read(fd, buff, 0, BYTES_READ_PER_TIME, 0, function (err, bytesRead, buffer) {
 });
 
 function getBoxes(buffer) {
-	let size = buffer.readUInt32BE(0); // 4个字节
-	let type = buffer.slice(4, 8).toString(); // 4个字节
+	let offset = 0;
+	let totalByteLen = buffer.byteLength;
 
-	if (type === 'ftyp') {
-		const ftyp = new FileTypeBox(buffer);
-		console.log(ftyp);
-	}
+	do {
+		let size = buffer.readUInt32BE(offset); // 4个字节
+		let type = buffer.slice(offset + 4, offset + 8).toString(); // 4个字节
 
-	// const uuidType = 'uuid';
-	// let version = 0;
-	// let flags = [];
+		console.log(`size: ${size}, type: ${type}`);
 
-	// if (size === 0) {
-	// 	size = buffer.readUIntBE(8, 8); // 8个字节，largeSize
-	// } else if (size === 1) {
-	// 	// last box
-	// }
+		if (size === 0) {
+			size = buffer.readUIntBE(offset + 8, 8); // 8个字节，largeSize
+		} else if (size === 1) {
+			// last box
+		}
 
-	// console.log(`size: ${size}`);
-	// console.log(`type: ${type.toString()}`);
+		let boxBuffer = buffer.slice(offset, offset + size);
+
+		switch (type) {
+			case 'ftyp':
+				const ftyp = new FileTypeBox(boxBuffer);
+				console.log(ftyp);
+				break;
+		}
+
+		offset += size;
+	} while(offset < totalByteLen);
 }
 
 function getBox(buffer) {
@@ -125,6 +131,5 @@ class FileTypeBox extends Box {
 			const compatibleBrand = buffer.slice(i, i + 4).toString();
 			this.compatibleBrands.push(compatibleBrand);
 		}
-		console.log('hello');
 	}
 }
