@@ -647,7 +647,7 @@ class SampleTableBox extends Box {
 	}
 
 	stsc(buffer) {
-		return 'TODO stsc';
+		return new SampleToChunkBox(buffer);
 	}
 
 	stsz(buffer) {
@@ -696,15 +696,80 @@ class ChunkOffsetBox extends FullBox {
 
 		const offset = this.headerSize;
 
-		this.entry_count = buffer.readUInt32BE(offset); // 4个字节，entry条目
+		this.entry_count = buffer.readUInt32BE(offset); // 4个字节，entry条目数
 
 		this.chunk_offsets = [];
 
 		for(let i = 1; i <= this.entry_count; i++) {
-			const chunk_offset = buffer.readUInt32BE(offset + i * 4);
+			const chunk_offset = buffer.readUInt32BE(offset + i * 4); // 4个字节，chunk相对于文件的偏移量
 			this.chunk_offsets.push(chunk_offset);
 		}
 
 		// console.log(this);
 	}
 }
+
+/*
+	// 例子：视轨
+	SampleToChunkBox {
+		type: 'stsc',
+		size: 28,
+		headerSize: 12,
+		boxes: [],
+		version: 0,
+		flags: 0,
+		entry_count: 1,
+		entries: [
+			{ first_chunk: 1, samples_per_chunk: 15, sample_description_index: 1 } 
+		]
+	}
+
+	// 例子：音轨
+	SampleToChunkBox {
+		type: 'stsc',
+		size: 40,
+		headerSize: 12,
+		boxes: [],
+		version: 0,
+		flags: 0,
+		entry_count: 2,
+		entries: [
+			{ first_chunk: 1,  samples_per_chunk: 24, sample_description_index: 1  },
+		 	{ first_chunk: 10, samples_per_chunk: 21, sample_description_index: 1 }
+		 ]
+	}
+
+	aligned(8) class SampleToChunkBox extends FullBox(‘stsc’, version = 0, 0) {
+		unsigned int(32) entry_count;
+		for (i=1; i u entry_count; i++) {
+			unsigned int(32) first_chunk;
+			unsigned int(32) samples_per_chunk;
+			unsigned int(32) sample_description_index;
+		}
+	}	
+*/
+class SampleToChunkBox extends FullBox {
+	constructor(buffer) {
+		super('stsc', buffer);
+
+		this.version = 0;
+		this.flags = 0;
+
+		const offset = this.headerSize;
+
+		this.entry_count = buffer.readUInt32BE(offset); // 4个字节，entry条目数
+
+		this.entries = [];
+
+		for(let i = 0; i < this.entry_count; i++) {
+			const first_chunk = buffer.readUInt32BE(offset + 4 + 12 * i); // 4个字节，具有相同sample数的第一个chunk的序号，从1开始
+			const samples_per_chunk = buffer.readUInt32BE(offset + 4 +  12 * i + 4); // 4个字节，每个chunk里的sample数
+			const sample_description_index = buffer.readUInt32BE(offset + 4 + 12 * i + 8); // 4个字节，条目的序号
+			this.entries.push({ first_chunk, samples_per_chunk, sample_description_index});
+		}
+
+		// console.log(this);
+	}
+}
+
+
