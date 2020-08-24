@@ -95,11 +95,14 @@ class Box {
 		}
 	}
 
-	setInnerBoxes(buffer) {
-		const innerBoxes = getInnerBoxes(buffer.slice(this.headerSize, this.headerSize + this.size));
+	setInnerBoxes(buffer, offset = 0) {
+		const innerBoxes = getInnerBoxes(buffer.slice(this.headerSize + offset, this.size));
 
 		innerBoxes.forEach(item => {
-			const { type, buffer } = item;
+			let { type, buffer } = item;
+
+			type = type.trim(); // 备注，有些box类型不一定四个字母，比如 url、urn
+
 			if (this[type]) {
 				const box = this[type](buffer);
 				this.boxes.push(box);					
@@ -107,11 +110,6 @@ class Box {
 				// console.log(`unknowed type: ${type}`);
 			}
 		});
-	}
-
-
-	set(buffer) {
-		// ...
 	}
 }
 
@@ -547,7 +545,7 @@ class MediaInformationBox extends Box {
 	}
 
 	dinf(buffer) {
-		return 'TODO dinf';
+		return new DataInformationBox(buffer);
 	}
 
 	stbl(buffer) {
@@ -1010,5 +1008,86 @@ class CompositionOffsetBox extends FullBox {
 			this.entries.push({ sample_count, sample_offset });
 		}
 		// console.log(this);
+	}
+}
+
+/*
+	The data information box contains objects that declare the location of the media information in a track.
+
+	aligned(8) class DataInformationBox extends Box(‘dinf’) { }
+*/
+class DataInformationBox extends Box {
+	constructor(buffer) {
+		super('dinf', '', buffer);
+		this.setInnerBoxes(buffer);
+	}
+
+	dref(buffer) {
+		return new DataReferenceBox(buffer);
+	}
+}
+
+/*
+	aligned(8) class DataEntryUrlBox (bit(24) flags) extends FullBox(‘url ’, version = 0, flags) { 
+		string location;
+	}
+	
+	aligned(8) class DataEntryUrnBox (bit(24) flags) extends FullBox(‘urn ’, version = 0, flags) { 
+		string name;
+		string location;
+	}
+	aligned(8) class DataReferenceBox extends FullBox(‘dref’, version = 0, 0) {
+		unsigned int(32) entry_count;
+		for (i=1; i < entry_count; i++) {
+			DataEntryBox(entry_version, entry_flags) data_entry;
+		}
+	}
+*/
+class DataEntryUrlBox extends FullBox {
+	constructor(buffer) {
+		super('url', buffer);
+		if (this.flags !== 1) { // flag 为 1，表示媒体数据包含在了当前movie文件里
+			this.location = '';
+		} else {
+			this.location = buffer.slice(this.headerSize).toString();
+		}
+		// console.log(this.flags);
+	}
+}
+
+class DataEntryUrnBox extends FullBox {
+	constructor(buffer) {
+		super('urn', buffer);
+		if (this.flags !== 1) { // flag 为 1，表示媒体数据包含在了当前movie文件里
+			this.name = '';
+			this.location = '';	
+		} else {
+			const nullIndex = buffer.slice(this.headerSize).indexOf(0x00);
+			this.name = buffer.slice(this.headerSize, nullIndex);
+			this.location = buffer.slice(nullIndex + 1);
+		}
+		// console.log(this.flags);
+	}
+}
+
+class DataReferenceBox extends FullBox {
+	constructor(buffer) {
+		super('dref', buffer);
+
+		let offset = this.headerSize;
+
+		this.entry_count = buffer.readUInt32BE(offset); // 4个字节，entry条目数
+
+		this.setInnerBoxes(buffer, 4);
+
+		// console.log(this);
+	}
+
+	url(buffer) {
+		return new DataEntryUrlBox(buffer);
+	}
+
+	urn(buffer) {
+		return new DataEntryUrnBox(buffer);
 	}
 }
