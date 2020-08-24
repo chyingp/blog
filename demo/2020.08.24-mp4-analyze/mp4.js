@@ -531,7 +531,7 @@ class MediaInformationBox extends Box {
 		super('minf', '', buffer);
 		this.setInnerBoxes(buffer);
 		
-		console.log(this.boxes);
+		// console.log(this.boxes);
 	}
 
 	vmhd(buffer) {
@@ -551,7 +551,7 @@ class MediaInformationBox extends Box {
 	}
 
 	stbl(buffer) {
-		return 'TODO stbl';
+		return new SampleTableBox(buffer);
 	}
 }
 
@@ -623,5 +623,88 @@ class SoundMediaHeaderBox extends FullBox {
 
 		// 预留，2个字节
 		// const unsigned int(16)  reserved = 0;
+	}
+}
+
+/*
+	sample table box, container for the time/space map
+
+	aligned(8) class SampleTableBox extends Box(‘stbl’) { }
+*/
+class SampleTableBox extends Box {
+	constructor(buffer) {
+		super('stbl', '', buffer);
+		this.setInnerBoxes(buffer);
+		// console.log(this);
+	}
+
+	stsd(buffer) {
+		return 'TODO stsd';
+	}	
+
+	stco(buffer) {
+		return new ChunkOffsetBox(buffer);
+	}
+
+	stsc(buffer) {
+		return 'TODO stsc';
+	}
+
+	stsz(buffer) {
+		return 'TODO stsz';
+	}
+
+	stts(buffer) {
+		return 'TODO stts';
+	}
+
+	stss(buffer) {
+		return 'TODO stss';
+	}
+
+	ctts(buffer) {
+		return 'TODO ctts';	
+	}
+}
+
+/*
+	aligned(8) class ChunkOffsetBox extends FullBox(‘stco’, version = 0, 0) { 
+		unsigned int(32) entry_count;
+		for (i=1; i u entry_count; i++) {
+		    unsigned int(32)  chunk_offset;
+		}
+	}
+	
+	// 例子
+	ChunkOffsetBox {
+		type: 'stco',
+		size: 56,
+		headerSize: 12,
+		boxes: [],
+		version: 0,
+		flags: 0,
+		entry_count: 10,
+		chunk_offsets: [ 4286, 192256, 282028, 389838, 488519, 592669, 689195, 841434, 939661, 1047160 ]
+	}	
+*/
+class ChunkOffsetBox extends FullBox {
+	constructor(buffer) {
+		super('stco', buffer);
+
+		this.version = 0;
+		this.flags = 0;
+
+		const offset = this.headerSize;
+
+		this.entry_count = buffer.readUInt32BE(offset); // 4个字节，entry条目
+
+		this.chunk_offsets = [];
+
+		for(let i = 1; i <= this.entry_count; i++) {
+			const chunk_offset = buffer.readUInt32BE(offset + i * 4);
+			this.chunk_offsets.push(chunk_offset);
+		}
+
+		// console.log(this);
 	}
 }
