@@ -304,7 +304,7 @@ class TrackBox extends Box {
 	}
 
 	mdia(buffer) {
-		return 'TODO mdia';
+		return new MediaBox(buffer);
 	}
 }
 
@@ -380,6 +380,90 @@ class TrackHeaderBox extends FullBox {
 			buffer.readInt32BE(offset + 32)
 		];
 		this.width = buffer.readUInt32BE(offset + 36); // 4个字节
-		this.height = buffer.readUInt32BE(offset + 40); // 4个字节
+		this.height = buffer.readUInt32BE(offset + 40); // 4个字节		
+	}
+}
+
+/*
+	aligned(8) class MediaBox extends Box(‘mdia’) { }
+*/
+class MediaBox extends Box {
+	constructor(buffer) {
+		super('mdia', '', buffer);
+		this.setInnerBoxes(buffer);
+		// console.log(this.boxes);	
+	}
+
+	mdhd(buffer) {
+		return new MediaHeaderBox(buffer);
+	}
+
+	hdlr(buffer) {
+		return 'TODO hdlr';
+	}
+
+	minf(buffer) {
+		return 'TODO minf';
+	}
+}
+
+
+/*
+	aligned(8) class MediaHeaderBox extends FullBox(‘mdhd’, version, 0) {
+		if (version==1) {
+		    unsigned int(64)  creation_time;
+		    unsigned int(64)  modification_time;
+		    unsigned int(32)  timescale;
+		    unsigned int(64)  duration;
+		} else { // version==0
+			unsigned int(32)  creation_time;
+			unsigned int(32)  modification_time;
+			unsigned int(32)  timescale;
+			unsigned int(32)  duration;
+		}
+		bit(1) pad=0;
+		unsigned int(5)[3] language; // ISO-639-2/T language code unsigned 
+		int(16) pre_defined = 0;
+	}
+*/
+class MediaHeaderBox extends FullBox {
+	constructor(buffer) {
+		super('mdhd', buffer);
+
+		const headerSize = this.headerSize;
+		let offset = 0;
+
+		if (this.version === 1) {
+			this.creation_time = buffer.readUIntBE(headerSize, 8); // 8个字节，单位是秒
+			this.modification_time = buffer.readUIntBE(headerSize + 8, 8); // 8个字节，单位是秒
+			this.timescale = buffer.readUInt32BE(headerSize + 16); // 4个字节，每秒包含的时间单位（time units），比如1000
+			this.duration = buffer.readUIntBE(headerSize + 20, 8); // 8个字节，duration/timescale 得到实际的时长（秒）
+			offset = headerSize + 28;
+		} else {
+			this.creation_time = buffer.readUInt32BE(headerSize); // 8个字节
+			this.modification_time = buffer.readUInt32BE(headerSize + 4); // 8个字节
+			this.timescale = buffer.readUInt32BE(headerSize + 8);		
+			this.duration = buffer.readUInt32BE(headerSize + 12); // 4个字节
+			offset = headerSize + 16;
+		}
+		
+		this.pad = 0; // 1 bit
+
+		const codeDifferences = [ // 15 bits，3个元素，每个元素 5 bits，ISO-639-2/T language code unsigned 
+			buffer.readUInt8(offset) >> 2,
+			buffer.readUInt16BE(offset) >> 5 & 0b0000000000011111,
+			buffer.readUInt8(offset + 1) & 0b00011111,
+		];
+
+		// Each character is packed as the difference between its ASCII value and 0x60. 
+		// 举例，codeDifferences 为 [21, 14, 4]，则 language 为 ['u', 'n', 'd']
+		this.language = codeDifferences.map(code => {
+			return String.fromCharCode(code + 0x60);
+		});
+
+		// pad + language 共2个字节
+		this.pre_defined = buffer.readUInt16BE(offset + 2); // 2个字节，预留
+
+		// console.log(this);
 	}
 }
