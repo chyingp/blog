@@ -399,11 +399,11 @@ class MediaBox extends Box {
 	}
 
 	hdlr(buffer) {
-		return 'TODO hdlr';
+		return new HandlerBox(buffer);
 	}
 
 	minf(buffer) {
-		return 'TODO minf';
+		return new MediaInformationBox(buffer);
 	}
 }
 
@@ -465,5 +465,163 @@ class MediaHeaderBox extends FullBox {
 		this.pre_defined = buffer.readUInt16BE(offset + 2); // 2个字节，预留
 
 		// console.log(this);
+	}
+}
+
+/*
+	aligned(8) class HandlerBox extends FullBox(‘hdlr’, version = 0, 0) {
+		unsigned int(32) pre_defined = 0;
+		unsigned int(32) handler_type;
+		const unsigned int(32)[3] reserved = 0;
+	   	string name;
+	}
+
+	// 视频轨道
+	HandlerBox {
+		type: 'hdlr',
+		size: 54,
+		headerSize: 12,
+		boxes: [],
+		version: 0,
+		flags: 0,
+		pre_defined: 0,
+		handler_type: 'vide',
+		name: 'L-SMASH Video Handler\u0000' }
+	
+	// 音频轨道
+	HandlerBox {
+		type: 'hdlr',
+		size: 54,
+		headerSize: 12,
+		boxes: [],
+		version: 0,
+		flags: 0,
+		pre_defined: 0,
+		handler_type: 'soun',
+		name: 'L-SMASH Audio Handler\u0000' }	
+*/
+class HandlerBox extends FullBox {
+	constructor(buffer) {
+		super('hdlr', buffer);
+
+		let offset = this.headerSize;
+
+		this.pre_defined = buffer.readUInt32BE(offset); // 4个字节，预留
+		
+		// vide（video track），soun（audio track），hint（hint track）
+		// 4个字节，表明是 video track、audio track 还是 hint track
+		this.handler_type = buffer.slice(offset + 4, offset + 8).toString(); 
+
+		// 12个字节，预留
+		// const unsigned int(32)[3] reserved = 0;
+
+		this.name = buffer.slice(offset + 20).toString();
+
+		// console.log(this);
+	}
+}
+
+/*
+	aligned(8) class MediaInformationBox extends Box(‘minf’) { }
+
+	video media header, overall information (video track only)
+*/
+class MediaInformationBox extends Box {
+	constructor(buffer) {
+		super('minf', '', buffer);
+		this.setInnerBoxes(buffer);
+		
+		console.log(this.boxes);
+	}
+
+	vmhd(buffer) {
+		return new VideoMediaHeaderBox(buffer);
+	}
+
+	smhd(buffer) {
+		return new SoundMediaHeaderBox(buffer);
+	}
+
+	hmhd(buffer) {
+		return 'TODO hmhd';
+	}
+
+	dinf(buffer) {
+		return 'TODO dinf';
+	}
+
+	stbl(buffer) {
+		return 'TODO stbl';
+	}
+}
+
+/*
+	aligned(8) class VideoMediaHeaderBox extends FullBox(‘vmhd’, version = 0, 1) {
+		template unsigned int(16) graphicsmode = 0; // copy, see below template 
+		unsigned int(16)[3] opcolor = {0, 0, 0};
+	}
+
+	// 例子
+	VideoMediaHeaderBox {
+	    type: 'vmhd',
+	    size: 20,
+	    headerSize: 12,
+	    boxes: [],
+	    version: 0,
+	    flags: 1,
+	    graphicsmode: 0,
+	    opcolor: [ 0, 0, 0 ] },	
+*/
+class VideoMediaHeaderBox extends FullBox {
+	constructor(buffer) {		
+		super('vmhd', buffer);
+
+		this.version = 0;
+		this.flags = 1;
+
+		const offset = this.headerSize;
+
+		this.graphicsmode = buffer.readUInt16BE(offset); // 2个字节，是枚举的值，目前只有0，表示直接对图像进行拷贝（相当于不做处理）
+
+		this.opcolor = [ // 6个字节，TODO 这个字段干嘛的？
+			buffer.readUInt16BE(offset + 2),
+			buffer.readUInt16BE(offset + 4),
+			buffer.readUInt16BE(offset + 6)
+		];
+	}
+}
+
+
+/*
+	aligned(8) class SoundMediaHeaderBox extends FullBox(‘smhd’, version = 0, 0) {
+	   template int(16) balance = 0;
+	   const unsigned int(16)  reserved = 0;
+	}
+
+	// 例子：
+	SoundMediaHeaderBox {
+	    type: 'smhd',
+	    size: 16,
+	    headerSize: 12,
+	    boxes: [],
+	    version: 0,
+	    flags: 0,
+	    balance: 0 }
+*/
+class SoundMediaHeaderBox extends FullBox {
+	constructor(buffer) {		
+		super('smhd', buffer);
+
+		this.version = 0;
+		this.flags = 0;
+
+		const offset = this.headerSize;
+
+		// is a fixed-point 8.8 number that places mono audio tracks in a stereo space; 
+		// 0 is center (thenormal value); full left is -1.0 and full right is 1.0.
+		this.balance = buffer.readInt8(offset) + buffer.readInt8(offset + 1) / 10; // 2个字节
+
+		// 预留，2个字节
+		// const unsigned int(16)  reserved = 0;
 	}
 }
