@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const filepath = './flower.mp4';
-const BYTES_READ_PER_TIME = 1024; // 每次读取的字节数
+const BYTES_READ_PER_TIME = 1024 * 1024; // 每次读取的字节数
 const OPEN_FLAGS = 'r';
 
 const fd = fs.openSync(filepath, OPEN_FLAGS);
@@ -33,9 +33,14 @@ function getBoxes(buffer) {
 
 		switch (type) {
 			case 'ftyp':
-				const ftyp = new FileTypeBox(boxBuffer);
-				console.log(ftyp);
+				const ftyp = new FileTypeBox(boxBuffer);				
 				break;
+			case 'moov':
+				const moov = new MovieBox(boxBuffer);
+				break;
+			// case 'mvhd':
+			// 	const moov = new MovieBox(boxBuffer);
+			// 	break;
 		}
 
 		offset += size;
@@ -103,10 +108,15 @@ class Box {
 	}
 */
 class FullBox extends Box {
-	constructor(boxType, version, flags, buffer) {
-		super(boxType);
-		this.version = version; // 必选，1个字节
-		this.flags = flags; // 必选，3个字节
+	constructor(boxType, buffer) {
+		super(boxType, '', buffer);
+
+		const headerSize = this.headerSize;
+
+		this.version = buffer.readUInt8(headerSize); // 必选，1个字节
+		this.flags = buffer.readUIntBE(headerSize + 1, 3); // 必选，3个字节
+
+		this.headerSize = headerSize + 4;
 	}
 }
 
@@ -131,5 +141,88 @@ class FileTypeBox extends Box {
 			const compatibleBrand = buffer.slice(i, i + 4).toString();
 			this.compatibleBrands.push(compatibleBrand);
 		}
+	}
+}
+
+/*
+	aligned(8) class MovieBox extends Box(‘moov’){ }
+*/
+class MovieBox extends Box {
+	constructor(buffer) {
+		super('moov', '', buffer);
+
+		const headerSize = this.headerSize;
+		this.mvhd = new MovieHeaderBox(buffer.slice(headerSize));
+
+		console.log(this.mvhd);
+	}
+}
+
+/*
+
+	aligned(8) class MovieHeaderBox extends FullBox(‘mvhd’, version, 0) { 
+		if (version==1) {
+			unsigned int(64)  creation_time;
+			unsigned int(64)  modification_time;
+			unsigned int(32)  timescale;
+			unsigned int(64)  duration;
+		} else { // version==0
+			unsigned int(32)  creation_time;
+			unsigned int(32)  modification_time;
+			unsigned int(32)  timescale;
+			unsigned int(32)  duration;
+		}
+		template int(32) rate = 0x00010000; // typically 1.0
+		template int(16) volume = 0x0100; // typically, full volume const bit(16) reserved = 0;
+		const unsigned int(32)[2] reserved = 0;
+		template int(32)[9] matrix = { 0x00010000,0,0,0,0x00010000,0,0,0,0x40000000 }; // Unity matrix
+		bit(32)[6]  pre_defined = 0;
+		unsigned int(32)  next_track_ID;
+	}
+*/
+class MovieHeaderBox extends FullBox {
+	constructor(buffer) {
+		super('mvhd', buffer);
+
+		const headerSize = this.headerSize;
+		let offset = 0;
+
+		if (this.version === 1) {
+			this.creation_time = buffer.readUIntBE(headerSize, 8);
+			this.modification_time = buffer.readUIntBE(headerSize + 8, 8);
+			this.timescale = buffer.readUInt32BE(headerSize + 16, 4);
+			this.duration = buffer.readUIntBE(headerSize + 20, 8);
+			offset = headerSize + 28;
+		} else {
+			this.creation_time = buffer.readUInt32BE(headerSize);
+			this.modification_time = buffer.readUInt32BE(headerSize + 4);
+			this.timescale = buffer.readUInt32BE(headerSize + 8);
+			this.duration = buffer.readUInt32BE(headerSize + 12);
+			offset = headerSize + 16;
+		}
+
+		this.rate = buffer.readUInt16BE(offset) + buffer.readUInt16BE(offset + 2)/10; // 4个字节，按照 16.16 来解析，默认 0x00010000
+		this.volume = buffer.readUInt8(offset + 4) + buffer.readUInt8(offset + 5); // 2个字节，按照 8.8 来解析，默认0x0100
+		
+		// 接下来6个字节是保留用途
+		// const bit(16) reserved = 0;
+		// const unsigned int(32)[2] reserved = 0;
+		
+		this.matrix = [
+			// buffer.readUInt32BE(offset + 12),
+			buffer.readUInt32BE(offset + 16),
+			buffer.readUInt32BE(offset + 20),
+			buffer.readUInt32BE(offset + 24),
+			buffer.readUInt32BE(offset + 28),
+			buffer.readUInt32BE(offset + 32),
+			buffer.readUInt32BE(offset + 36),
+			buffer.readUInt32BE(offset + 40),
+			buffer.readUInt32BE(offset + 44),
+			buffer.readUInt32BE(offset + 48),
+		];
+
+		const preDefinedBytes = 32 * 6 / 8;
+		this.pre_defined = buffer.slice(offset + 52, offset + 52 + preDefinedBytes); // 
+		this.next_track_ID = buffer.readUInt32BE(offset + 52 + preDefinedBytes);
 	}
 }
