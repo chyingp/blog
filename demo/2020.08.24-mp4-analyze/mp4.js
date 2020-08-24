@@ -667,7 +667,7 @@ class SampleTableBox extends Box {
 	}
 
 	ctts(buffer) {
-		return 'TODO ctts';	
+		return new CompositionOffsetBox(buffer);
 	}
 }
 
@@ -958,6 +958,57 @@ class SyncSampleBox extends FullBox {
 			this.sample_numbers.push(sample_number);
 		}		
 
+		// console.log(this);
+	}
+}
+
+/*
+	// 例子：video track
+	CompositionOffsetBox {
+		type: 'ctts',
+		size: 1128,
+		headerSize: 12,
+		boxes: [],
+		version: 0,
+		flags: 0,
+		entry_count: 139,
+		entries: [
+			{ sample_count: 1, sample_offset: 2002 },
+			{ sample_count: 1, sample_offset: 5005 },
+			{ sample_count: 1, sample_offset: 2002 },
+			{ sample_count: 1, sample_offset: 0 },
+			{ sample_count: 1, sample_offset: 1001 },
+			...
+		]
+
+	aligned(8) class CompositionOffsetBox extends FullBox(‘ctts’, version = 0, 0) {
+		unsigned int(32) entry_count;
+		int i;
+		for (i=0; i < entry_count; i++) {
+			unsigned int(32)  sample_count;
+			unsigned int(32)  sample_offset;
+		}
+	}
+*/
+class CompositionOffsetBox extends FullBox {
+	constructor(buffer) {
+		super('ctts', buffer);
+
+		this.version = 0;
+		this.flags = 0;
+
+		let offset = this.headerSize;
+
+		this.entry_count = buffer.readUInt32BE(offset); // 4个字节，entry条目数
+		this.entries = [];
+
+		offset += 4;
+
+		for (let i = 0; i < this.entry_count; i++) {
+			const sample_count = buffer.readUInt32BE(offset + i * 8); // 4个字节，连续有多少个sample产生了偏移（dts、pts 之间）
+			const sample_offset = buffer.readUInt32BE(offset + i * 8 + 4); // 4个字节，偏移量
+			this.entries.push({ sample_count, sample_offset });
+		}
 		// console.log(this);
 	}
 }
