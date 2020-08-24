@@ -663,7 +663,7 @@ class SampleTableBox extends Box {
 	}
 
 	stss(buffer) {
-		return 'TODO stss';
+		return new SyncSampleBox(buffer);
 	}
 
 	ctts(buffer) {
@@ -909,6 +909,53 @@ class TimeToSampleBox extends FullBox {
 			const sample_count = buffer.readUInt32BE(offset + i * 8);
 			const sample_delta = buffer.readUInt32BE(offset + i * 8 + 4);
 			this.entries.push({ sample_count, sample_delta });
+		}		
+
+		// console.log(this);
+	}
+}
+
+
+/*
+
+// 
+	例子：video track
+	SyncSampleBox {
+		type: 'stss',
+		size: 24,
+		headerSize: 12,
+		boxes: [],
+		version: 0,
+		flags: 0,
+		entry_count: 2,
+		sample_numbers: [ 1, 91 ] 
+	}
+
+	aligned(8) class SyncSampleBox extends FullBox(‘stss’, version = 0, 0) {
+		unsigned int(32)  entry_count;
+		int i;
+		for (i=0; i < entry_count; i++) {
+			unsigned int(32)  sample_number;
+		}
+	}
+*/
+class SyncSampleBox extends FullBox {
+	constructor(buffer) {
+		super('stss', buffer);
+
+		this.version = 0;
+		this.flags = 0;
+
+		let offset = this.headerSize;
+
+		this.entry_count = buffer.readUInt32BE(offset); // 4个字节，entry条目数
+		this.sample_numbers = [];
+
+		offset += 4;
+
+		for (let i = 0; i < this.entry_count; i++) {
+			const sample_number = buffer.readUInt32BE(offset + i * 4); // 4个字节，sample序号，从1开始		
+			this.sample_numbers.push(sample_number);
 		}		
 
 		// console.log(this);
