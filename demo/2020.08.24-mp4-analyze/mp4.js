@@ -1,54 +1,52 @@
 const fs = require('fs');
 
 const filepath = './flower.mp4';
-const BYTES_READ_PER_TIME = 1024 * 1024; // 每次读取的字节数
+const BYTES_READ_PER_TIME = 1024 * 1024 * 2; // 每次读取的字节数
 const OPEN_FLAGS = 'r';
 
 const fd = fs.openSync(filepath, OPEN_FLAGS);
 const buff = Buffer.alloc(BYTES_READ_PER_TIME);
 
 fs.read(fd, buff, 0, BYTES_READ_PER_TIME, 0, function (err, bytesRead, buffer) {
-	// console.log(`bytesRead is ${bytesRead}`);
+	// console.log(`bytesRead is ${bytesRead}, buffer.byteLength == ${buffer.byteLength}`);
 	// console.log(buffer.toString());
-	getBoxes(buffer);
+	// getBoxes(buffer);
+	// new Movie(buffer);
+	// console.log(buffer.readUInt32BE(0));
+	const movie = new Movie( buffer.slice(0, bytesRead) );
+	// console.log(movie);
 });
 
-function getBoxes(buffer) {
+function getInnerBoxes(buffer) {
+	let boxes = [];
 	let offset = 0;
 	let totalByteLen = buffer.byteLength;
 
 	do {
 		let size = buffer.readUInt32BE(offset); // 4个字节
-		let type = buffer.slice(offset + 4, offset + 8).toString(); // 4个字节
+		let type = buffer.slice(offset + 4, offset + 8).toString(); // 4个字节		
 
-		console.log(`size: ${size}, type: ${type}`);
-
-		if (size === 0) {
+		if (size === 1) {
 			size = buffer.readUIntBE(offset + 8, 8); // 8个字节，largeSize
-		} else if (size === 1) {
+		} else if (size === 0) {
 			// last box
 		}
 
 		let boxBuffer = buffer.slice(offset, offset + size);
 
-		switch (type) {
-			case 'ftyp':
-				const ftyp = new FileTypeBox(boxBuffer);				
-				break;
-			case 'moov':
-				const moov = new MovieBox(boxBuffer);
-				break;
-			// case 'mvhd':
-			// 	const moov = new MovieBox(boxBuffer);
-			// 	break;
-		}
+		boxes.push({
+			type: type,
+			size: size,
+			buffer: boxBuffer
+		});
 
 		offset += size;
+		
+		// console.log(`size: ${size}, type: ${type}, offset: ${offset}, totalByteLen: ${totalByteLen}`);
+
 	} while(offset < totalByteLen);
-}
 
-function getBox(buffer) {
-
+	return boxes;
 }
 
 /*
@@ -70,6 +68,7 @@ class Box {
 		this.type = boxType; // 必选，字符串，4个字节，box类型
 		this.size = 0; // 必选，整数，4个字节，box的大小，单位是字节
 		this.headerSize = 8; // 
+		this.boxes = [];
 
 		// this.largeSize = 0; // 可选，8个字节
 		// this.extendedType = extendedType || boxType; // 可选，16个字节
@@ -82,7 +81,7 @@ class Box {
 
 		let offset = 8;
 
-		if (this.size === 0) {
+		if (this.size === 1) {
 			this.size = buffer.readUIntBE(8, 8); // 8个字节，largeSize
 			this.headerSize += 8;
 			offset = 16;
@@ -94,7 +93,22 @@ class Box {
 			this.type = buffer.slice(offset, 16); // 16个字节
 			this.headerSize += 16;
 		}
-	}	
+	}
+
+	setInnerBoxes(buffer) {
+		const innerBoxes = getInnerBoxes(buffer.slice(this.headerSize, this.headerSize + this.size));
+
+		innerBoxes.forEach(item => {
+			const { type, buffer } = item;
+			if (this[type]) {
+				const box = this[type](buffer);
+				this.boxes.push(box);					
+			} else {
+				// console.log(`unknowed type: ${type}`);
+			}
+		});
+	}
+
 
 	set(buffer) {
 		// ...
@@ -120,6 +134,43 @@ class FullBox extends Box {
 	}
 }
 
+class Movie {
+	constructor(buffer) {
+
+		this.boxes = [];
+
+		const innerBoxes = getInnerBoxes(buffer);
+
+		innerBoxes.forEach(item => {
+			const { type, buffer } = item;
+			if (this[type]) {
+				const box = this[type](buffer);
+				this.boxes.push(box);
+			} else {
+				// console.log(`unknowed type: ${type}`);
+			}
+		});
+
+		// console.log(this.boxes);
+	}
+
+	ftyp(buffer) {
+		return new FileTypeBox(buffer);
+	}
+
+	pdin() {
+		return 'TODO pdin';
+	}
+
+	moov(buffer) {
+		return new MovieBox(buffer);
+	}
+
+	mdat() {
+		return 'TODO mdat';
+	}
+}
+
 /*
 	aligned(8) class FileTypeBox extends Box(‘ftyp’) {
 		unsigned int(32) major_brand;
@@ -141,6 +192,7 @@ class FileTypeBox extends Box {
 			const compatibleBrand = buffer.slice(i, i + 4).toString();
 			this.compatibleBrands.push(compatibleBrand);
 		}
+		// console.log(this);
 	}
 }
 
@@ -150,11 +202,15 @@ class FileTypeBox extends Box {
 class MovieBox extends Box {
 	constructor(buffer) {
 		super('moov', '', buffer);
+		this.setInnerBoxes(buffer);
+	}
 
-		const headerSize = this.headerSize;
-		this.mvhd = new MovieHeaderBox(buffer.slice(headerSize));
+	mvhd(buffer) {
+		return new MovieHeaderBox(buffer);
+	}
 
-		console.log(this.mvhd);
+	trak(buffer) {
+		return new TrackBox(buffer);
 	}
 }
 
@@ -224,5 +280,106 @@ class MovieHeaderBox extends FullBox {
 		const preDefinedBytes = 32 * 6 / 8;
 		this.pre_defined = buffer.slice(offset + 52, offset + 52 + preDefinedBytes); // 
 		this.next_track_ID = buffer.readUInt32BE(offset + 52 + preDefinedBytes);
+	}
+}
+
+
+/*
+	aligned(8) class TrackBox extends Box(‘trak’) { }
+*/
+class TrackBox extends Box {
+	constructor(buffer) {
+		super('trak', '', buffer);
+
+		this.setInnerBoxes(buffer);
+		// console.log(this.boxes);
+	}
+
+	tkhd(buffer) {
+		return new TrackHeaderBox(buffer);
+	}
+
+	edts(buffer) {
+		return 'TODO edts';
+	}
+
+	mdia(buffer) {
+		return 'TODO mdia';
+	}
+}
+
+/*
+	aligned(8) class TrackHeaderBox extends FullBox(‘tkhd’, version, flags){ 
+		if (version==1) {
+			unsigned int(64)  creation_time;
+			unsigned int(64)  modification_time;
+			unsigned int(32)  track_ID;
+			const unsigned int(32)  reserved = 0;
+			unsigned int(64)  duration;
+	    } else { // version==0
+			unsigned int(32)  creation_time;
+			unsigned int(32)  modification_time;
+			unsigned int(32)  track_ID;
+			const unsigned int(32)  reserved = 0;
+			unsigned int(32)  duration;
+		}
+		const unsigned int(32)[2] reserved = 0;
+		template int(16) layer = 0;
+		template int(16) alternate_group = 0;
+		template int(16) volume = {if track_is_audio 0x0100 else 0}; const unsigned int(16) reserved = 0;
+		template int(32)[9] matrix= { 0x00010000,0,0,0,0x00010000,0,0,0,0x40000000 }; // unity matrix
+	   	unsigned int(32) width;
+	   	unsigned int(32) height;
+	}
+*/
+class TrackHeaderBox extends FullBox {
+	constructor(buffer) {
+		super('tkhd', buffer);
+
+		const headerSize = this.headerSize;
+		let offset = 0;
+
+		if (this.version === 1) {
+			this.creation_time = buffer.readUIntBE(headerSize, 8); // 8个字节
+			this.modification_time = buffer.readUIntBE(headerSize + 8, 8); // 8个字节
+			this.track_ID = buffer.readUInt32BE(headerSize + 16);
+			// const unsigned int(32)  reserved = 0; // 预留4个字节
+			this.duration = buffer.readUIntBE(headerSize + 24, 8); // 4个字节
+			offset = headerSize + 32;
+		} else {
+			this.creation_time = buffer.readUInt32BE(headerSize); // 4个字节
+			this.modification_time = buffer.readUInt32BE(headerSize + 4); // 4个字节
+			this.track_ID = buffer.readUInt32BE(headerSize + 8);
+			// const unsigned int(32)  reserved = 0; // 预留4个字节
+			this.duration = buffer.readUInt32BE(headerSize + 16); // 4个字节
+			offset = headerSize + 20;
+		}
+		
+		// 请勿删，接下来8个字节是保留用途
+		// const unsigned int(32)[2] reserved = 0; // 8个字节
+		
+		this.layer = buffer.readUInt16BE(offset + 8); // 2个字节
+		this.alternate_group = buffer.readUInt16BE(offset + 10); // 2个字节
+		this.volume = 'TODO'; // TODO 2个字节，根据是视频轨道，还是音频轨道，赋不同的值（需要先处理 hdlr，然后再回来处理这个值）
+
+		// 请勿删，接下来2个字节是保留用途
+		// const unsigned int(16) reserved = 0;
+
+		offset += 16; // 加上
+
+	   	// 36个字节：9个元素，每个元素4个字节
+		this.matrix = [
+			buffer.readInt32BE(offset),
+			buffer.readInt32BE(offset + 4),
+			buffer.readInt32BE(offset + 8),
+			buffer.readInt32BE(offset + 12),
+			buffer.readInt32BE(offset + 16),
+			buffer.readInt32BE(offset + 20),
+			buffer.readInt32BE(offset + 24),
+			buffer.readInt32BE(offset + 28),
+			buffer.readInt32BE(offset + 32)
+		];
+		this.width = buffer.readUInt32BE(offset + 36); // 4个字节
+		this.height = buffer.readUInt32BE(offset + 40); // 4个字节
 	}
 }
