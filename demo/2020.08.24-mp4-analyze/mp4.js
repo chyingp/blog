@@ -1,21 +1,61 @@
 const fs = require('fs');
 
 const filepath = './flower.mp4';
-const BYTES_READ_PER_TIME = 1024 * 1024 * 2; // 每次读取的字节数
+const BYTES_READ_PER_TIME = 256 * 1024; // 每次读取的字节数，256kb
 const OPEN_FLAGS = 'r';
 
 const fd = fs.openSync(filepath, OPEN_FLAGS);
 const buff = Buffer.alloc(BYTES_READ_PER_TIME);
 
-fs.read(fd, buff, 0, BYTES_READ_PER_TIME, 0, function (err, bytesRead, buffer) {
-	// console.log(`bytesRead is ${bytesRead}, buffer.byteLength == ${buffer.byteLength}`);
-	// console.log(buffer.toString());
-	// getBoxes(buffer);
-	// new Movie(buffer);
-	// console.log(buffer.readUInt32BE(0));
-	const movie = new Movie( buffer.slice(0, bytesRead) );
-	// console.log(movie);
-});
+let unconsumedBytes = null;
+let bytesNum = 0;
+
+const stats = fs.statSync(filepath);
+const fileSize = stats.size; // 文件大小，单位是字节
+const mp4 = { boxes: [] };
+
+function read() {
+	fs.read(fd, buff, 0, BYTES_READ_PER_TIME, null, function (err, bytesRead, buffer) {
+
+		bytesNum += bytesRead;
+
+		// const movie = new Movie( buffer.slice(0, bytesRead) );
+
+		let bytesToParse = bytesRead < BYTES_READ_PER_TIME ? buffer.slice(0, bytesRead) : buffer;
+		
+		if (unconsumedBytes) {
+			bytesToParse = Buffer.concat([unconsumedBytes, bytesToParse]);
+		}
+		
+		let { boxes, bytesConsumed } = parse(bytesToParse); // { boxes: [], bytesConsumed: 0 }
+		
+		if (boxes.length !== 0) {
+			mp4.boxes.push(...boxes);
+		}
+
+		if (bytesConsumed < bytesRead) {
+			unconsumedBuffer = bytesToParse.slice(bytesConsumed);
+		}
+
+		if (bytesNum < fileSize) { // 还没读完
+			read();
+		} else { // 已读完
+			console.log('done. \n');
+			console.log(mp4.boxes);
+		}
+	});
+}
+
+function parse(buffer) {
+	let movie = new Movie(buffer);
+	return movie;
+}
+
+function run() {
+	read();
+}
+
+run();
 
 function getInnerBoxes(buffer) {
 	let boxes = [];
@@ -111,6 +151,26 @@ class Box {
 			}
 		});
 	}
+
+	// _setInnerBoxes(buffer, offset = 0) {
+	// 	const innerBoxes = getInnerBoxes(buffer.slice(this.headerSize + offset, this.size));
+
+	// 	const innerBoxes = getInnerBoxes(buffer);
+	// 	const boxes = [];
+		
+	// 	innerBoxes.forEach(item => {
+	// 		let { type, buffer } = item;
+
+	// 		type = type.trim(); // 备注，有些box类型不一定四个字母，比如 url、urn
+
+	// 		if (this[type]) {
+	// 			const box = this[type](buffer);
+	// 			this.boxes.push(box);					
+	// 		} else {
+	// 			// console.log(`unknowed type: ${type}`);
+	// 		}
+	// 	});
+	// }	
 }
 
 /*
@@ -136,20 +196,20 @@ class Movie {
 	constructor(buffer) {
 
 		this.boxes = [];
+		this.bytesConsumed = 0;
 
 		const innerBoxes = getInnerBoxes(buffer);
 
 		innerBoxes.forEach(item => {
-			const { type, buffer } = item;
+			const { type, buffer, size } = item;
 			if (this[type]) {
 				const box = this[type](buffer);
 				this.boxes.push(box);
 			} else {
 				// console.log(`unknowed type: ${type}`);
 			}
+			this.bytesConsumed += size;
 		});
-
-		// console.log(this.boxes);
 	}
 
 	ftyp(buffer) {
@@ -164,8 +224,8 @@ class Movie {
 		return new MovieBox(buffer);
 	}
 
-	mdat() {
-		return 'TODO mdat';
+	mdat(buffer) {
+		return new MediaDataBox(buffer);
 	}
 }
 
@@ -193,6 +253,19 @@ class FileTypeBox extends Box {
 		// console.log(this);
 	}
 }
+
+/*
+	aligned(8) class MediaDataBox extends Box(‘mdat’) {
+		bit(8) data[];
+	}
+*/
+class MediaDataBox extends Box {
+	constructor(buffer) {
+		super('mdat', '', buffer);
+		this.data = buffer.slice(this.headerSize);
+	}
+}
+
 
 /*
 	aligned(8) class MovieBox extends Box(‘moov’){ }
@@ -1091,3 +1164,11 @@ class DataReferenceBox extends FullBox {
 		return new DataEntryUrnBox(buffer);
 	}
 }
+
+/*
+	获取视频 时长、宽、高、分辨率
+	获取视频、音频 编码
+	获取视频关键帧
+	获取视频帧率
+
+*/
