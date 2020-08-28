@@ -14,7 +14,7 @@ const stats = fs.statSync(filepath);
 const fileSize = stats.size; // 文件大小，单位是字节
 const mp4 = { boxes: [] };
 
-function read() {
+function read(done) {
 	fs.read(fd, buff, 0, BYTES_READ_PER_TIME, null, function (err, bytesRead, buffer) {
 
 		bytesNum += bytesRead;
@@ -27,7 +27,7 @@ function read() {
 			bytesToParse = Buffer.concat([unconsumedBytes, bytesToParse]);
 		}
 		
-		let { boxes, bytesConsumed } = parse(bytesToParse); // { boxes: [], bytesConsumed: 0 }
+		let { boxes, bytesConsumed } = parseMovie(bytesToParse); // { boxes: [], bytesConsumed: 0 }
 		
 		if (boxes.length !== 0) {
 			mp4.boxes.push(...boxes);
@@ -38,21 +38,32 @@ function read() {
 		}
 
 		if (bytesNum < fileSize) { // 还没读完
-			read();
+			read(done);
 		} else { // 已读完
 			console.log('done. \n');
-			console.log(mp4.boxes);
+			// console.log(mp4.boxes);
+			done(mp4.boxes);
 		}
 	});
 }
 
-function parse(buffer) {
+function parseMovie(buffer) {
 	let movie = new Movie(buffer);
 	return movie;
 }
 
+function describeMovie(boxes, parentBoxType = '') {
+	boxes.forEach(box => {
+		console.log(`<< ${parentBoxType}.${box.type} >>`);
+		console.log(box);
+		if (box.boxes) {
+			describeMovie(box.boxes, [parentBoxType, box.type].join('.'));
+		}
+	});
+}
+
 function run() {
-	read();
+	read(describeMovie);
 }
 
 run();
@@ -461,8 +472,10 @@ class TrackHeaderBox extends FullBox {
 class MediaBox extends Box {
 	constructor(buffer) {
 		super('mdia', '', buffer);
+		this._handler_type = '';
+
+		// TODO 需要确保 hdlr 比 minf 先解析
 		this.setInnerBoxes(buffer);
-		// console.log(this.boxes);	
 	}
 
 	mdhd(buffer) {
@@ -470,11 +483,14 @@ class MediaBox extends Box {
 	}
 
 	hdlr(buffer) {
-		return new HandlerBox(buffer);
+		let hdlr = new HandlerBox(buffer);
+		this._handler_type = hdlr.handler_type;
+
+		return hdlr;
 	}
 
 	minf(buffer) {
-		return new MediaInformationBox(buffer);
+		return new MediaInformationBox(buffer, this._handler_type);
 	}
 }
 
@@ -598,11 +614,10 @@ class HandlerBox extends FullBox {
 	video media header, overall information (video track only)
 */
 class MediaInformationBox extends Box {
-	constructor(buffer) {
+	constructor(buffer, handler_type) {
 		super('minf', '', buffer);
+		this._handler_type = handler_type;
 		this.setInnerBoxes(buffer);
-		
-		// console.log(this.boxes);
 	}
 
 	vmhd(buffer) {
@@ -622,7 +637,7 @@ class MediaInformationBox extends Box {
 	}
 
 	stbl(buffer) {
-		return new SampleTableBox(buffer);
+		return new SampleTableBox(buffer, this._handler_type);
 	}
 }
 
@@ -703,14 +718,14 @@ class SoundMediaHeaderBox extends FullBox {
 	aligned(8) class SampleTableBox extends Box(‘stbl’) { }
 */
 class SampleTableBox extends Box {
-	constructor(buffer) {
+	constructor(buffer, handler_type) {
 		super('stbl', '', buffer);
+		this._handler_type = handler_type;
 		this.setInnerBoxes(buffer);
-		// console.log(this);
 	}
 
 	stsd(buffer) {
-		return 'TODO stsd';
+		return new SampleDescriptionBox(buffer, this._handler_type);
 	}	
 
 	stco(buffer) {
@@ -739,6 +754,96 @@ class SampleTableBox extends Box {
 
 	ctts(buffer) {
 		return new CompositionOffsetBox(buffer);
+	}
+}
+
+/*
+	sample descriptions (codec types, initialization etc.)
+
+	aligned(8) abstract class SampleEntry (unsigned int(32) format) extends Box(format){
+		const unsigned int(8)[6] reserved = 0;
+		unsigned int(16) data_reference_index;
+	}
+
+	class HintSampleEntry() extends SampleEntry (protocol) {
+		unsigned int(8) data [];
+	}
+
+	// Visual Sequences
+	class VisualSampleEntry(codingname) extends SampleEntry (codingname){
+		unsigned int(16) pre_defined = 0;
+		const unsigned int(16) reserved = 0;
+		unsigned int(32)[3] pre_defined = 0;
+		unsigned int(16) width;
+		unsigned int(16) height;
+		template unsigned int(32) horizresolution = 0x00480000; // 72 dpi template unsigned int(32) vertresolution = 0x00480000; // 72 dpi const unsigned int(32) reserved = 0;
+		template unsigned int(16) frame_count = 1;
+		string[32] compressorname;
+		template unsigned int(16) depth = 0x0018;
+		int(16) pre_defined = -1;
+	}
+
+	// Audio Sequences
+	class AudioSampleEntry(codingname) extends SampleEntry (codingname){
+		const unsigned int(32)[2] reserved = 0;
+		template unsigned int(16) channelcount = 2;
+		template unsigned int(16) samplesize = 16;
+		unsigned int(16) pre_defined = 0;
+		const unsigned int(16) reserved = 0 ;
+		template unsigned int(32) samplerate = {timescale of media}<<16;
+	}
+
+	aligned(8) class SampleDescriptionBox (unsigned int(32) handler_type) extends FullBox('stsd', 0, 0){
+		int i;
+		unsigned int(32) entry_count;
+		for (i = 1 ; i u entry_count ; i++){
+			switch (handler_type){
+				case ‘soun’: // for audio tracks
+			}
+		}
+	}
+
+aligned(8) class SampleDescriptionBox (unsigned int(32) handler_type) extends FullBox('stsd', 0, 0){
+	int i ;
+	unsigned int(32) entry_count;
+	for (i = 1 ; i u entry_count ; i++){
+		switch (handler_type){
+			case ‘soun’: // for audio tracks
+				AudioSampleEntry();
+				break;
+			case ‘vide’: // for video tracks
+				VisualSampleEntry();
+				break;
+			case ‘hint’: // Hint track
+				HintSampleEntry();
+		   		break;
+		}
+	}
+}	   
+*/
+class SampleEntry extends Box {
+	constructor(buffer) {
+		super();
+	}
+}
+
+
+class SampleDescriptionBox extends FullBox {
+	constructor(buffer, handler_type) {
+		super('stsd', buffer);
+
+		this.entry_count = buffer.readUInt32BE(0); // 4个字节，条目数
+
+		for (let i = 0; i < this.entry_count; i++) {
+			switch (handler_type) {
+				case 'soun':
+					break;
+				case 'vide':
+					break;
+				case 'hint':
+					break;
+			}
+		}
 	}
 }
 
@@ -1170,5 +1275,4 @@ class DataReferenceBox extends FullBox {
 	获取视频、音频 编码
 	获取视频关键帧
 	获取视频帧率
-
 */
