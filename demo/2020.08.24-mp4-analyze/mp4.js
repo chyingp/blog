@@ -981,6 +981,35 @@ class AVCConfigurationBox extends Box {
 }
 
 /*
+	Color Parameter Atoms ('colr')
+	参考：https://developer.apple.com/library/archive/documentation/QuickTime/QTFF/QTFFChap3/qtff3.html#//apple_ref/doc/uid/TP40000939-CH205-125526
+
+	Color parameter type：4字节
+	Primaries index：2字节
+	Transfer function index：2字节
+	Matrix index：2字节
+
+	例子：
+	Colr { type: 'colr', size: 19, headerSize: 8, boxes: Array(0), colorParameterType: 'nclx'}
+*/
+
+class Colr extends Box {
+	constructor(buffer) {
+		super('colr', '', buffer);
+		const offset = this.headerSize;
+
+		// A 32-bit field containing a four-character code for the color parameter type. The currently defined types are 'nclc' for video, and 'prof' for print. 
+		this.colorParameterType = buffer.slice(offset, offset + 4).toString().trim(); // 4字节		
+		// A 16-bit unsigned integer containing an index into a table specifying the CIE 1931 xy chromaticity coordinates of the white point and the red, green, and blue primaries.
+		this.primariesIndex = buffer.readUInt32BE(offset + 4); // 2字节
+		// A 16-bit unsigned integer containing an index into a table specifying the nonlinear transfer function coefficients used to translate between RGB color space values and Y´CbCr values. 
+		this.transferFunctionIndex = buffer.readUInt16BE(offset + 2); // 2字节
+		// A 16-bit unsigned integer containing an index into a table specifying the transformation matrix coefficients used to translate between RGB color space values and Y´CbCr values.
+		this.matrix = buffer.readUInt16BE(offset + 2); // 2字节
+	} 
+}
+
+/*
 
 	The ‘protocol’ and ‘codingname’ fields are registered identifiers that uniquely identify the streaming protocol or compression format decoder to be used. 
 	A given protocol or codingname may have optional or required extensions to the sample description (e.g. codec initialization parameters). 
@@ -1064,8 +1093,9 @@ class VisualSampleEntry extends SampleEntry {
 		return new AVCConfigurationBox(buffer);
 	}
 
+	// 参考：https://developer.apple.com/library/archive/documentation/QuickTime/QTFF/QTFFChap3/qtff3.html#//apple_ref/doc/uid/TP40000939-CH205-125526
 	colr(buffer) {
-		return 'TODO colr';
+		return new Colr(buffer);
 	}
 
 	pasp() {
