@@ -1008,6 +1008,28 @@ class Colr extends Box {
 		this.matrix = buffer.readUInt16BE(offset + 2); // 2字节
 	} 
 }
+/*
+	This extension specifies the height-to-width ratio of pixels found in the video sample. 
+	This is a required extension for MPEG-4 and uncompressed Y´CbCr video formats when non-square pixels are used. 
+	It is optional when square pixels are used.
+
+	参考这里：https://developer.apple.com/library/archive/documentation/QuickTime/QTFF/QTFFChap3/qtff3.html#//apple_ref/doc/uid/TP40000939-CH205-124550
+
+	hSpacing：4字节，An unsigned 32-bit integer specifying the horizontal spacing of pixels, such as luma sampling instants for Y´CbCr or YUV video.
+	vSpacing：4字节，An unsigned 32-bit integer specifying the vertical spacing of pixels, such as video picture lines
+
+	例子：
+	PixelAspectRatio {type: 'pasp', size: 16, headerSize: 8, boxes: Array(0), hSpacing: 1}
+*/
+class PixelAspectRatio extends Box {
+	constructor(buffer) {
+		super('pasp', '', buffer);
+		let offset = this.headerSize;
+		
+		this.hSpacing = buffer.readUInt32BE(offset);
+		this.vSpacing = buffer.readUInt32BE(offset + 4);
+	}
+}
 
 /*
 
@@ -1098,8 +1120,8 @@ class VisualSampleEntry extends SampleEntry {
 		return new Colr(buffer);
 	}
 
-	pasp() {
-		return 'TODO pasp';
+	pasp(buffer) {
+		return new PixelAspectRatio(buffer);
 	}
 }
 
