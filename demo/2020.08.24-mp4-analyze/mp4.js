@@ -1,73 +1,5 @@
 const fs = require('fs');
 
-const filepath = './flower.mp4';
-const BYTES_READ_PER_TIME = 256 * 1024; // 每次读取的字节数，256kb
-const OPEN_FLAGS = 'r';
-
-const fd = fs.openSync(filepath, OPEN_FLAGS);
-const buff = Buffer.alloc(BYTES_READ_PER_TIME);
-
-let unconsumedBytes = null;
-let bytesNum = 0;
-
-const stats = fs.statSync(filepath);
-const fileSize = stats.size; // 文件大小，单位是字节
-const mp4 = { boxes: [] };
-
-function read(done) {
-	fs.read(fd, buff, 0, BYTES_READ_PER_TIME, null, function (err, bytesRead, buffer) {
-
-		bytesNum += bytesRead;
-
-		// const movie = new Movie( buffer.slice(0, bytesRead) );
-
-		let bytesToParse = bytesRead < BYTES_READ_PER_TIME ? buffer.slice(0, bytesRead) : buffer;
-		
-		if (unconsumedBytes) {
-			bytesToParse = Buffer.concat([unconsumedBytes, bytesToParse]);
-		}
-		
-		let { boxes, bytesConsumed } = parseMovie(bytesToParse); // { boxes: [], bytesConsumed: 0 }
-		
-		if (boxes.length !== 0) {
-			mp4.boxes.push(...boxes);
-		}
-
-		if (bytesConsumed < bytesRead) {
-			unconsumedBuffer = bytesToParse.slice(bytesConsumed);
-		}
-
-		if (bytesNum < fileSize) { // 还没读完
-			read(done);
-		} else { // 已读完
-			console.log('done. \n');
-			// console.log(mp4.boxes);
-			done(mp4.boxes);
-		}
-	});
-}
-
-function parseMovie(buffer) {
-	let movie = new Movie(buffer);
-	return movie;
-}
-
-function describeMovie(boxes, parentBoxType = '') {
-	boxes.forEach(box => {
-		console.log(`<< ${parentBoxType}.${box.type} >>`);
-		console.log(box);
-		if (box.boxes) {
-			describeMovie(box.boxes, [parentBoxType, box.type].join('.'));
-		}
-	});
-}
-
-function run() {
-	read(describeMovie);
-}
-
-run();
-
 function getBox(buffer, offset = 0) {
 	let size = buffer.readUInt32BE(offset); // 4个字节
 	let type = buffer.slice(offset + 4, offset + 8).toString(); // 4个字节
@@ -1605,9 +1537,79 @@ class DataReferenceBox extends FullBox {
 	}
 }
 
+///////////////////////////// 上面是是MP4结构 /////////////////////////////
+
 /*
 	获取视频 时长、宽、高、分辨率
 	获取视频、音频 编码
 	获取视频关键帧
 	获取视频帧率
 */
+
+const filepath = './flower.mp4';
+const BYTES_READ_PER_TIME = 256 * 1024; // 每次读取的字节数，256kb
+const OPEN_FLAGS = 'r';
+
+const fd = fs.openSync(filepath, OPEN_FLAGS);
+const buff = Buffer.alloc(BYTES_READ_PER_TIME);
+
+let unconsumedBytes = null;
+let bytesNum = 0;
+
+const stats = fs.statSync(filepath);
+const fileSize = stats.size; // 文件大小，单位是字节
+const mp4 = { boxes: [] };
+
+function read(done) {
+	fs.read(fd, buff, 0, BYTES_READ_PER_TIME, null, function (err, bytesRead, buffer) {
+
+		bytesNum += bytesRead;
+
+		// const movie = new Movie( buffer.slice(0, bytesRead) );
+
+		let bytesToParse = bytesRead < BYTES_READ_PER_TIME ? buffer.slice(0, bytesRead) : buffer;
+		
+		if (unconsumedBytes) {
+			bytesToParse = Buffer.concat([unconsumedBytes, bytesToParse]);
+		}
+		
+		let { boxes, bytesConsumed } = parseMovie(bytesToParse); // { boxes: [], bytesConsumed: 0 }
+		
+		if (boxes.length !== 0) {
+			mp4.boxes.push(...boxes);
+		}
+
+		if (bytesConsumed < bytesRead) {
+			unconsumedBuffer = bytesToParse.slice(bytesConsumed);
+		}
+
+		if (bytesNum < fileSize) { // 还没读完
+			read(done);
+		} else { // 已读完
+			console.log('done. \n');
+			// console.log(mp4.boxes);
+			done(mp4.boxes);
+		}
+	});
+}
+
+function parseMovie(buffer) {
+	let movie = new Movie(buffer);
+	return movie;
+}
+
+function describeMovie(boxes, parentBoxType = '') {
+	boxes.forEach(box => {
+		console.log(`<< ${parentBoxType}.${box.type} >>`);
+		console.log(box);
+		if (box.boxes) {
+			describeMovie(box.boxes, [parentBoxType, box.type].join('.'));
+		}
+	});
+}
+
+function run() {
+	read(describeMovie);
+}
+
+run();
