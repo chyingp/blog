@@ -776,7 +776,9 @@ class SampleTableBox extends Box {
 		unsigned int(32)[3] pre_defined = 0;
 		unsigned int(16) width;
 		unsigned int(16) height;
-		template unsigned int(32) horizresolution = 0x00480000; // 72 dpi template unsigned int(32) vertresolution = 0x00480000; // 72 dpi const unsigned int(32) reserved = 0;
+		template unsigned int(32) horizresolution = 0x00480000; // 72 dpi 
+		template unsigned int(32) vertresolution = 0x00480000; // 72 dpi const 
+		unsigned int(32) reserved = 0;
 		template unsigned int(16) frame_count = 1;
 		string[32] compressorname;
 		template unsigned int(16) depth = 0x0018;
@@ -822,8 +824,73 @@ aligned(8) class SampleDescriptionBox (unsigned int(32) handler_type) extends Fu
 }	   
 */
 class SampleEntry extends Box {
-	constructor(buffer) {
-		super();
+	constructor(format = '', buffer) {
+		super(format, '', buffer);		
+		
+		// 预留 8*6 = 48位 => 6个字节
+		// const unsigned int(8)[6] reserved = 0;
+
+		this.data_reference_index = buffer.readUInt16BE(this.headerSize + 6); // 2个字节
+	}
+}
+
+/*
+
+	The ‘protocol’ and ‘codingname’ fields are registered identifiers that uniquely identify the streaming protocol or compression format decoder to be used. 
+	A given protocol or codingname may have optional or required extensions to the sample description (e.g. codec initialization parameters). 
+	All such extensions shall be within boxes; these boxes occur after the required fields. 
+	Unrecognized boxes shall be ignored.
+
+	上面这段话的意思，比如 'codingname' 是 'AVC'，那么，VisualSampleEntry 里还可以包含其他扩展参数，比如编码初始化参数(codec initialization parameters)
+	这些扩展参数是可选的，作为 VisualSampleEntry 内部的box存在。如果这些内部box是不认识的，那么需要直接忽略。
+	也就是说，这些内部box是针对特定编码自定义的，需要查看编码相关的规范（MP4规范本身没有定义）
+	举例：codingname 为 avc1，内部box可能包含 avcC、colr、pasp 等内部box，其中，avcC 这个box内存储了SPS、PPS信息
+
+	VisualSampleEntry {
+		type: 'avc1',
+		size: 179,
+		headerSize: 8,
+		boxes: [],
+		data_reference_index: 1,
+		width: 960,
+		height: 540,
+		horizresolution: 4718592,
+		vertresolution: 4718592,
+		frame_count: 1,
+		compressorname: 'AVC Coding',
+		depth: 24
+	}
+*/
+class VisualSampleEntry extends SampleEntry {
+	constructor(codingname = '', buffer) {
+		super(codingname, buffer);		
+
+		let offset = this.headerSize + 6 + 2; // SampleEntry 额外占据了 6+2 个字节
+
+		// 预留16个字节
+		// unsigned int(16) pre_defined = 0; // 2个字节
+		// const unsigned int(16) reserved = 0; // 2个字节
+		// unsigned int(32)[3] pre_defined = 0; // 12个字节
+
+		this.width = buffer.readUInt16BE(offset += 16);  // 2个字节
+		this.height = buffer.readUInt16BE(offset += 2); // 2个字节
+
+		this.horizresolution = buffer.readUInt32BE(offset += 2) || 0x00480000; // 4个字节，默认值，72dpi
+		this.vertresolution = buffer.readUInt32BE(offset += 4) || 0x00480000; // 4个字节，默认值，72dpi
+
+		// unsigned int(32) reserved = 0; // 4个字节
+
+		this.frame_count =  buffer.readUInt16BE(offset += 8) || 1; // 2个字节
+
+		offset += 2;
+
+		const bytesOfCompressorname = buffer.readUInt8(offset); // 1个字节，compressorname 的实际字节数
+		this.compressorname =  buffer.slice(offset + 1, offset + 1 + bytesOfCompressorname).toString(); // 32个字节，比如，第1个字节是compressorname实际占据的字节数（假设是len），第2~len字节是实际的字符串，len+1~32是padding
+
+		this.depth = buffer.readUInt16BE(offset += 32) || 0x0018; // 2个字节		
+		
+		// 预留2个字节
+		// int(16) pre_defined = -1; // 2个字节
 	}
 }
 
@@ -834,11 +901,18 @@ class SampleDescriptionBox extends FullBox {
 
 		this.entry_count = buffer.readUInt32BE(0); // 4个字节，条目数
 
+		let offset = this.headerSize + 4;
+
 		for (let i = 0; i < this.entry_count; i++) {
 			switch (handler_type) {
 				case 'soun':
 					break;
 				case 'vide':
+					// TODO 提前检测size，效率会更高
+					const vide = new VisualSampleEntry('', buffer.slice(offset));
+					console.log(vide);
+					Object.assign(this, vide);
+					offset += vide.size;
 					break;
 				case 'hint':
 					break;
