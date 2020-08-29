@@ -835,6 +835,152 @@ class SampleEntry extends Box {
 }
 
 /*
+	AVC decoder configuration record
+	参考 mpeg-4 part 15，5.2.4.1节
+
+	aligned(8) class AVCDecoderConfigurationRecord {
+		unsigned int(8) configurationVersion = 1;
+		unsigned int(8) AVCProfileIndication;
+		unsigned int(8) profile_compatibility;
+		unsigned int(8) AVCLevelIndication;
+		bit(6) reserved = ‘111111’b;
+		unsigned int(2) lengthSizeMinusOne;
+		bit(3) reserved = ‘111’b;
+		unsigned int(5) numOfSequenceParameterSets;
+		
+		for (i=0; i< numOfSequenceParameterSets; i++) {
+			unsigned int(16) sequenceParameterSetLength ;
+			bit(8*sequenceParameterSetLength) sequenceParameterSetNALUnit;
+		}
+		
+		unsigned int(8) numOfPictureParameterSets;
+		
+		for (i=0; i< numOfPictureParameterSets; i++) {
+			unsigned int(16) pictureParameterSetLength;
+			bit(8*pictureParameterSetLength) pictureParameterSetNALUnit; 
+		}
+		
+		if( profile_idc  ==  100  ||  profile_idc  ==  110  ||
+			profile_idc  ==  122  ||  profile_idc  ==  144 )
+		{
+			bit(6) reserved = ‘111111’b;
+			unsigned int(2) chroma_format;
+			bit(5) reserved = ‘11111’b;
+			unsigned int(3) bit_depth_luma_minus8;
+			bit(5) reserved = ‘11111’b;
+			unsigned int(3) bit_depth_chroma_minus8;
+			unsigned int(8) numOfSequenceParameterSetExt;
+			
+			for (i=0; i< numOfSequenceParameterSetExt; i++) {
+				unsigned int(16) sequenceParameterSetExtLength;
+				bit(8*sequenceParameterSetExtLength) sequenceParameterSetExtNALUnit;
+			}
+		}
+	}
+*/
+class AVCDecoderConfigurationRecord{
+	constructor(buffer) {
+		// super(boxType, '', buffer);
+
+		// const offset = this.headerSize;
+		let offset = 0;
+		
+		this.configurationVersion = buffer.readUInt8(offset++); // 1个字节
+		
+		// AVCProfileIndication contains the profile code as defined in ISO/IEC 14496-10.
+		this.AVCProfileIndication = buffer.readUInt8(offset++); // 1个字节
+		
+		this.profile_compatibility = buffer.readUInt8(offset++); // 1个字节
+		
+		// AVCLevelIndication contains the level code as defined in ISO/IEC 14496-10.
+		this.AVCLevelIndication = buffer.readUInt8(offset++); // 1个字节
+		
+		// bit(6) reserved = ‘111111’b; // 高6位，保留
+		this.lengthSizeMinusOne = buffer[offset++] & 0b00000011; // 高2位
+
+		// bit(3) reserved = ‘111’b; // 高3位，保留
+		this.numOfSequenceParameterSets = buffer[offset++] & 0b00011111; // 低5位		
+		this.sequenceParameterSets = [];
+		for(let i = 0; i< this.numOfSequenceParameterSets; i++) {
+			const sequenceParameterSetLength = buffer.readUInt16BE(offset); // 2个字节
+			offset += 2;
+			const sequenceParameterSetNALUnit = buffer.slice(offset, offset += sequenceParameterSetLength); // sequenceParameterSetLength 个字节
+			this.sequenceParameterSets.push({ sequenceParameterSetLength, sequenceParameterSetNALUnit });
+		}
+
+		this.numOfPictureParameterSets = buffer[offset++]; // 1个字节
+		this.pictureParameterSets = [];
+		for (let i = 0; i < this.numOfPictureParameterSets; i++) {
+			const pictureParameterSetLength = buffer.readUInt16BE(offset); // 2个字节
+			offset += 2;
+			const pictureParameterSetNALUnit = buffer.slice(offset, offset += pictureParameterSetLength); // pictureParameterSetLength 个字节
+			this.pictureParameterSets.push({ pictureParameterSetLength, pictureParameterSetNALUnit });
+		}
+		
+		const profile_idc = this.AVCProfileIndication;
+		if( profile_idc  ==  100  ||  profile_idc  ==  110  ||
+			profile_idc  ==  122  ||  profile_idc  ==  144 )
+		{
+			// bit(6) reserved = ‘111111’b; // 高6位，保留
+			this.chroma_format = buffer[offset++] & 0b00000011; // 低2位
+
+			// bit(5) reserved = ‘11111’b; // 高5位，保留
+			this.bit_depth_luma_minus8 = buffer[offset++] & 0b00000111; // 低3位
+
+			// bit(5) reserved = ‘11111’b; // 高5位，保留
+			this.bit_depth_chroma_minus8 = buffer[offset++] & 0b00000111; // 3位
+
+			this.numOfSequenceParameterSetExt = buffer.readUInt8(offset++); // 1个字节
+			this.sequenceParameterSetExt = [];
+			for (let i = 0; i < this.numOfSequenceParameterSetExt; i++) {
+				const sequenceParameterSetExtLength = buffer.readUInt16BE(offset); // 2个字节
+				const sequenceParameterSetExtNALUnit = buffer.slice(offset += 2, offset += sequenceParameterSetExtLength); // sequenceParameterSetExtLength 个字节
+				this.sequenceParameterSetExt.push({ sequenceParameterSetExtLength, sequenceParameterSetExtNALUnit });
+			}
+		}
+	}
+}
+/*
+	// Visual Sequences
+	class AVCConfigurationBox extends Box(‘avcC’) {
+		AVCDecoderConfigurationRecord() AVCConfig;
+	}
+
+	例子：
+	AVCConfigurationBox {
+		type: 'avcC',
+		size: 58,
+		headerSize: 8,
+		boxes: [],
+		AVCConfig: AVCDecoderConfigurationRecord {
+			configurationVersion: 1,
+			AVCProfileIndication: 100,
+			profile_compatibility: 0,
+			AVCLevelIndication: 31,
+			lengthSizeMinusOne: 3,
+			numOfSequenceParameterSets: 1,
+			sequenceParameterSets: [ [Object] ],
+			numOfPictureParameterSets: 1,
+			pictureParameterSets: [ [Object] ],
+			chroma_format: 1,
+			bit_depth_luma_minus8: 0,
+			bit_depth_chroma_minus8: 0,
+			numOfSequenceParameterSetExt: 0,
+			sequenceParameterSetExt: []
+		}
+	}
+*/
+class AVCConfigurationBox extends Box {
+	constructor(buffer) {
+		super('avcC', '', buffer);
+		
+		this.AVCConfig = new AVCDecoderConfigurationRecord(buffer.slice(this.headerSize));
+
+		console.log(this);
+	}
+}
+
+/*
 
 	The ‘protocol’ and ‘codingname’ fields are registered identifiers that uniquely identify the streaming protocol or compression format decoder to be used. 
 	A given protocol or codingname may have optional or required extensions to the sample description (e.g. codec initialization parameters). 
@@ -844,13 +990,31 @@ class SampleEntry extends Box {
 	上面这段话的意思，比如 'codingname' 是 'AVC'，那么，VisualSampleEntry 里还可以包含其他扩展参数，比如编码初始化参数(codec initialization parameters)
 	这些扩展参数是可选的，作为 VisualSampleEntry 内部的box存在。如果这些内部box是不认识的，那么需要直接忽略。
 	也就是说，这些内部box是针对特定编码自定义的，需要查看编码相关的规范（MP4规范本身没有定义）
+	
 	举例：codingname 为 avc1，内部box可能包含 avcC、colr、pasp 等内部box，其中，avcC 这个box内存储了SPS、PPS信息
 
+	The AVC file format (Advanced Video Coding) is the video file format defined in Part 15 of the MPEG-4 standard. It uses ISO Base Media File Format (MPEG-4 Part 12), and AVC compression (H.264, MPEG-4 Part 10). 
+	avc/avc1 在'mpeg-4 part 15'中 定义，采用 AVC 编码，并采用 ISOM 存储，可以认为是 MP4 的扩展。
+
+	Part 15: Carriage of network abstraction layer (NAL) unit structured video in the ISO base media file format
+	For storage of Part 10 video. File format is based on Part 12, but also allows storage in other file formats.
+
+	例子：
 	VisualSampleEntry {
 		type: 'avc1',
 		size: 179,
 		headerSize: 8,
-		boxes: [],
+		boxes: [
+			AVCConfigurationBox {
+				type: 'avcC',
+				size: 58,
+				headerSize: 8,
+				boxes: [],
+				AVCConfig: [AVCDecoderConfigurationRecord]
+			},
+			'TODO colr',
+			'TODO pasp'
+		],
 		data_reference_index: 1,
 		width: 960,
 		height: 540,
@@ -891,6 +1055,21 @@ class VisualSampleEntry extends SampleEntry {
 		
 		// 预留2个字节
 		// int(16) pre_defined = -1; // 2个字节
+
+		// 解析内部的box
+		this.setInnerBoxes(buffer, offset + 2 + 2 - this.headerSize, 71);
+	}
+
+	avcC(buffer) {
+		return new AVCConfigurationBox(buffer);
+	}
+
+	colr(buffer) {
+		return 'TODO colr';
+	}
+
+	pasp() {
+		return 'TODO pasp';
 	}
 }
 
