@@ -68,34 +68,58 @@ function run() {
 
 run();
 
+function getBox(buffer, offset = 0) {
+	let size = buffer.readUInt32BE(offset); // 4个字节
+	let type = buffer.slice(offset + 4, offset + 8).toString(); // 4个字节
+
+	if (size === 1) {
+		size = buffer.readUIntBE(offset + 8, 8); // 8个字节，largeSize
+	} else if (size === 0) {
+		// last box
+	}
+
+	let boxBuffer = buffer.slice(offset, offset + size);
+
+	return {
+		size,
+		type,
+		buffer: boxBuffer
+	};
+}
+
 function getInnerBoxes(buffer) {
 	let boxes = [];
 	let offset = 0;
 	let totalByteLen = buffer.byteLength;
 
 	do {
-		let size = buffer.readUInt32BE(offset); // 4个字节
-		let type = buffer.slice(offset + 4, offset + 8).toString(); // 4个字节		
+		// let size = buffer.readUInt32BE(offset); // 4个字节
+		// let type = buffer.slice(offset + 4, offset + 8).toString(); // 4个字节		
 
-		if (size === 1) {
-			size = buffer.readUIntBE(offset + 8, 8); // 8个字节，largeSize
-		} else if (size === 0) {
-			// last box
-		}
+		// if (size === 1) {
+		// 	size = buffer.readUIntBE(offset + 8, 8); // 8个字节，largeSize
+		// } else if (size === 0) {
+		// 	// last box
+		// }
 
-		let boxBuffer = buffer.slice(offset, offset + size);
+		// let boxBuffer = buffer.slice(offset, offset + size);
 
-		boxes.push({
-			type: type,
-			size: size,
-			buffer: boxBuffer
-		});
+		// boxes.push({
+		// 	type: type,
+		// 	size: size,
+		// 	buffer: boxBuffer
+		// });
 
-		offset += size;
+		let box = getBox(buffer, offset);
+		boxes.push(box);
+
+		offset += box.size;
 		
 		// console.log(`size: ${size}, type: ${type}, offset: ${offset}, totalByteLen: ${totalByteLen}`);
 
 	} while(offset < totalByteLen);
+
+	// console.log(boxes);
 
 	return boxes;
 }
@@ -156,8 +180,9 @@ class Box {
 
 			if (this[type]) {
 				const box = this[type](buffer);
-				this.boxes.push(box);					
+				this.boxes.push(box);
 			} else {
+				this.boxes.push('TODO 待解析');
 				// console.log(`unknowed type: ${type}`);
 			}
 		});
@@ -1128,26 +1153,31 @@ class VisualSampleEntry extends SampleEntry {
 
 class SampleDescriptionBox extends FullBox {
 	constructor(buffer, handler_type) {
-		super('stsd', buffer);
+		super('stsd', buffer);		
 
-		this.entry_count = buffer.readUInt32BE(0); // 4个字节，条目数
+		let offset = this.headerSize;
 
-		let offset = this.headerSize + 4;
+		this.entry_count = buffer.readUInt32BE(offset); // 4个字节，条目数
+		offset += 4;
+
+		this.sampleDescriptionEntries = [];
 
 		for (let i = 0; i < this.entry_count; i++) {
+			let box = getBox(buffer, offset); // { size: xx, type: yy, buffer: zz }
 			switch (handler_type) {
 				case 'soun':
+					// box = getBox(buffer, offset);
+					// TODO
 					break;
 				case 'vide':
-					// TODO 提前检测size，效率会更高
-					const vide = new VisualSampleEntry('', buffer.slice(offset));
-					console.log(vide);
-					Object.assign(this, vide);
-					offset += vide.size;
+					box = new VisualSampleEntry('', box.buffer);
 					break;
 				case 'hint':
-					break;
+					// TODO
+					break;			
 			}
+			offset += box.size;
+			this.sampleDescriptionEntries.push(box);
 		}
 	}
 }
