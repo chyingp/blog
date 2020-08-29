@@ -1,3 +1,8 @@
+/**
+ * @fileoverview MP4结构解析，仅用于测试学习使用
+ * 
+ * @author chyingp
+ */
 const fs = require('fs');
 
 function getBox(buffer, offset = 0) {
@@ -114,7 +119,7 @@ class Box {
 				const box = this[type](buffer);
 				this.boxes.push(box);
 			} else {
-				this.boxes.push('TODO 待解析');
+				this.boxes.push('TODO 待实现');
 				// console.log(`unknowed type: ${type}`);
 			}
 		});
@@ -175,6 +180,7 @@ class Movie {
 				this.boxes.push(box);
 			} else {
 				// console.log(`unknowed type: ${type}`);
+				this.boxes.push('TODO 待实现');
 			}
 			this.bytesConsumed += size;
 		});
@@ -418,8 +424,8 @@ class TrackHeaderBox extends FullBox {
 			buffer.readInt32BE(offset + 28),
 			buffer.readInt32BE(offset + 32)
 		];
-		this.width = buffer.readUInt32BE(offset + 36); // 4个字节
-		this.height = buffer.readUInt32BE(offset + 40); // 4个字节		
+		this.width = buffer.readUInt16BE(offset + 36); // 4个字节，格式为 16.16
+		this.height = buffer.readUInt16BE(offset + 40); // 4个字节，格式为 16.16
 	}
 }
 
@@ -933,7 +939,7 @@ class AVCConfigurationBox extends Box {
 		
 		this.AVCConfig = new AVCDecoderConfigurationRecord(buffer.slice(this.headerSize));
 
-		console.log(this);
+		// console.log(this);
 	}
 }
 
@@ -1539,13 +1545,6 @@ class DataReferenceBox extends FullBox {
 
 ///////////////////////////// 上面是是MP4结构 /////////////////////////////
 
-/*
-	获取视频 时长、宽、高、分辨率
-	获取视频、音频 编码
-	获取视频关键帧
-	获取视频帧率
-*/
-
 const filepath = './flower.mp4';
 const BYTES_READ_PER_TIME = 256 * 1024; // 每次读取的字节数，256kb
 const OPEN_FLAGS = 'r';
@@ -1586,9 +1585,9 @@ function read(done) {
 		if (bytesNum < fileSize) { // 还没读完
 			read(done);
 		} else { // 已读完
-			console.log('done. \n');
+			// console.log('done. \n');
 			// console.log(mp4.boxes);
-			done(mp4.boxes);
+			done(mp4);
 		}
 	});
 }
@@ -1598,14 +1597,71 @@ function parseMovie(buffer) {
 	return movie;
 }
 
-function describeMovie(boxes, parentBoxType = '') {
-	boxes.forEach(box => {
-		console.log(`<< ${parentBoxType}.${box.type} >>`);
-		console.log(box);
-		if (box.boxes) {
-			describeMovie(box.boxes, [parentBoxType, box.type].join('.'));
+function describeMovie(movie, parentBoxType = '') {
+	// const boxes = movie.boxes;
+	// boxes.forEach(box => {
+	// 	console.log(`<< ${parentBoxType}.${box.type} >>`);
+	// 	console.log(box);
+	// 	if (box.boxes) {
+	// 		describeMovie(box.boxes, [parentBoxType, box.type].join('.'));
+	// 	}
+	// });
+
+	/*
+		获取视频 时长、宽、高
+		获取视频、音频 编码
+		获取视频关键帧
+		获取视频帧率
+	*/
+
+	// 获取视频时长
+	const mvhd = findBoxes(movie, 'moov.mvhd');
+	let duration = 0; // 时长，单位为秒
+	if (mvhd.length === 1) {
+		duration = mvhd[0].duration / mvhd[0].timescale;
+	}
+
+	// 获取视频宽、高
+	const tkhdBoxes = findBoxes(movie, 'moov.trak.tkhd');
+	const tkhdOfVideo = tkhdBoxes.length >= 1 ? tkhdBoxes.find(box => box.width > 0) : null;
+	let width = 0;
+	let height = 0;
+	if (tkhdOfVideo) {
+		width = tkhdOfVideo.width;
+		height = tkhdOfVideo.height;
+	}
+
+	console.log(`视频时长=${duration}s，宽=${width}，高=${height}`);
+}
+
+/**
+ * 返回特定层级的box，比如 moov.trak.tkhd，需要注意，返回的可能不止一个box
+ * 比如 moov.trak，包含了 video trak、audio trak
+ * 
+ * @param {Object} box 举例：{ boxes: [{type: 'ftyp'}, {type: 'moov'}]}
+ * @param {String} chanin 举例：'moov.mvhd'
+ * 
+ * @returns {Array} 对应的boxes，每个元素的类型为 Box|FullBox
+ */
+function findBoxes(outterBox, chanin) {
+	const types = chanin.split('.');
+	let outterBoxes = [outterBox];
+
+	for(let i = 0; i < types.length; i++) {
+		const type = types[i];
+		// 比如，moov.trak，匹配中了2个trak，因此，需要将2个trak的boxes合并
+		const boxes = outterBoxes.reduce((boxes, curOutterBox) => {
+			return [...boxes, ...(curOutterBox.boxes || [])];
+		}, []);
+
+		outterBoxes = boxes.filter(box => box.type === type);
+
+		if (outterBoxes.length === 0) {
+			break;
 		}
-	});
+	}
+	
+	return outterBoxes;
 }
 
 function run() {
