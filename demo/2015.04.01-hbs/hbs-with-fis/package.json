@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "grunt": "^0.4.5",
-    "handlebars": "^3.0.1",
+    "handlebars": "^4.5.3",
     "hbs": "^3.0.1"
   }
 }
