@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<script type="text/javascript">
+	const canvas = document.getElementById('canvas');
+	const gl = canvas.getContext('webgl');
+
+	// 设置背景色，参数分别是RGBA，从0.0到1.0，
+	// alpha：0为全透明，1为不透明
+	gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+	// 用之前指定的背景色，清空（填充）绘制区域
+	gl.clear(gl.COLOR_BUFFER_BIT);
+
+	// console.log(gl);
+</script>
+</body>
+</html>
