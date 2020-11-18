@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>绘制通过三角形</title>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<script src="./utils.js"></script>
+<script type="text/javascript">
+	// 两种传输数据的方式，attribute、uniform
+	// attribute：与顶点相关的数据
+	// uniform：与顶点无关的数据（对所有顶点都相同）
+	const canvas = document.getElementById('canvas');
+	const gl = canvas.getContext('webgl');
+
+	// 顶点着色器：点的位置、大小
+	const vsSource = `
+		attribute vec4 a_Position;
+		void main() {
+			gl_Position = a_Position;
+			// gl_Position = vec4(0.0, 0.0, 0.0, 1.0); // 顶点位置，必选，表示顶点位置时，最后一个值是1.0
+			gl_PointSize = 10.0; // 顶点尺寸，非必选，默认是1.0
+		}
+	`;
+
+	// 片元着色器：点的颜色
+	const fsSource = `
+		void main() {
+			gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); // RGBA
+		}
+	`;
+
+	// 初始化着色器
+    initShaderProgram(gl, vsSource, fsSource);
+    
+    const vertics = new Float32Array([
+        0.0, 0.5,
+        -0.5, -0.5,
+        0.5, -0.5
+    ]);
+    
+    // 创建缓冲区
+    const vertexBuffer = gl.createBuffer();
+
+    // 绑定缓冲区
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+
+    // 向缓冲区写入数据
+    gl.bufferData(gl.ARRAY_BUFFER, vertics, gl.STATIC_DRAW);
+
+    // 将缓冲区对象分配给a_Pointer
+    const a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+    gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
+
+    // 启用...
+    gl.enableVertexAttribArray(a_Position);
+
+	// 设置背景色，参数分别是RGBA，从0.0到1.0；alpha：0为全透明，1为不透明
+	gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+
+	// 用之前指定的背景色，清空（填充）绘制区域
+	gl.clear(gl.COLOR_BUFFER_BIT);
+
+	gl.drawArrays(gl.POINTS, 0, 3); // drawArrays(mode, first, count)
+	
+</script>
+</body>
+</html>
