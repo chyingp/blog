@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>通过缓冲区绘制三角形</title>
+	<title>通过缓冲区绘制矩形（实心）</title>
 </head>
 <body>
 
@@ -35,11 +35,17 @@
 
 	// 初始化着色器
     initShaderProgram(gl, vsSource, fsSource);
-    
+	
     const vertics = new Float32Array([
-        0.0, 0.5,
-        -0.5, -0.5,
-        0.5, -0.5
+		// -0.5, 0.5,
+		// 0.5, 0.5,
+        // 0.5, -0.5,
+		// -0.5, -0.5
+		
+		-0.5, 0.5,
+		-0.5, -0.5,
+		0.5, 0.5,
+		0.5, -0.5
     ]);
     
     // 创建缓冲区
@@ -65,8 +71,9 @@
 	// 用之前指定的背景色，清空（填充）绘制区域
 	gl.clear(gl.COLOR_BUFFER_BIT);
 
-	// 【note】将gl.POINTS改成gl.TRIANGLES
-	gl.drawArrays(gl.TRIANGLES, 0, 3); // drawArrays(mode, first, count)
+	// 【note】将gl.TRIANGLES 改成gl.TRIANGLES
+	gl.drawArrays(gl.TRIANGLE_FAN, 0, 4); // drawArrays(mode, first, count)
+	// gl.drawArrays(gl.LINE_LOOP, 0, 4); // drawArrays(mode, first, count)
 	
 </script>
 </body>
