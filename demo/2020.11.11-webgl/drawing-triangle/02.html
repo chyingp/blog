@@ -20,14 +20,15 @@
 		attribute vec4 a_Position;
 		void main() {
 			gl_Position = a_Position;
-			// gl_Position = vec4(0.0, 0.0, 0.0, 1.0); // 顶点位置，必选，表示顶点位置时，最后一个值是1.0
-			gl_PointSize = 10.0; // 顶点尺寸，非必选，默认是1.0
+			// 【note】注释掉这句，画三角形不需要顶点大小
+			// gl_PointSize = 10.0; // 顶点尺寸，非必选，默认是1.0
 		}
 	`;
 
 	// 片元着色器：点的颜色
 	const fsSource = `
 		void main() {
+			// 【note】注释掉这句，画三角形不需要顶点大小
 			gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); // RGBA
 		}
 	`;
@@ -64,7 +65,8 @@
 	// 用之前指定的背景色，清空（填充）绘制区域
 	gl.clear(gl.COLOR_BUFFER_BIT);
 
-	gl.drawArrays(gl.POINTS, 0, 3); // drawArrays(mode, first, count)
+	// 【note】将gl.POINTS改成gl.TRIANGLES
+	gl.drawArrays(gl.TRIANGLES, 0, 3); // drawArrays(mode, first, count)
 	
 </script>
 </body>
