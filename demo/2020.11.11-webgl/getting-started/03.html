@@ -18,10 +18,12 @@
 	// 顶点着色器：点的位置、大小
 	const vsSource = `
 		attribute vec4 a_Position;
+		attribute float a_PositionSize;
 		void main() {
 			gl_Position = a_Position;
 			// gl_Position = vec4(0.0, 0.0, 0.0, 1.0); // 顶点位置，必选，表示顶点位置时，最后一个值是1.0
-			gl_PointSize = 10.0; // 顶点尺寸，非必选，默认是1.0
+			// gl_PointSize = 10.0; // 顶点尺寸，非必选，默认是1.0
+			gl_PointSize = a_PositionSize;
 		}
 	`;
 
@@ -35,11 +37,13 @@
 	// 初始化着色器
 	initShaderProgram(gl, vsSource, fsSource);
 
-	// 获取 a_Position 存储地址
+	// 获取 a_Position、a_PositionSize 存储地址
 	const a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+	const a_PositionSize = gl.getAttribLocation(gl.program, 'a_PositionSize');
 
 	// 设置 a_Position 的值
 	gl.vertexAttrib3f(a_Position, 0.0, 0.5, 0.0);
+	gl.vertexAttrib1f(a_PositionSize, 15.0);
 
 	// 设置背景色，参数分别是RGBA，从0.0到1.0；alpha：0为全透明，1为不透明
 	gl.clearColor(0.0, 0.0, 0.0, 1.0);
