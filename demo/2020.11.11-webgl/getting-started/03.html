@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>在JS、着色器之间传输数据</title>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<script src="./utils.js"></script>
+<script type="text/javascript">
+	// 两种传输数据的方式，attribute、uniform
+	// attribute：与顶点相关的数据
+	// uniform：与顶点无关的数据（对所有顶点都相同）
+	const canvas = document.getElementById('canvas');
+	const gl = canvas.getContext('webgl');
+
+	// 顶点着色器：点的位置、大小
+	const vsSource = `
+		attribute vec4 a_Position;
+		void main() {
+			gl_Position = a_Position;
+			// gl_Position = vec4(0.0, 0.0, 0.0, 1.0); // 顶点位置，必选，表示顶点位置时，最后一个值是1.0
+			gl_PointSize = 10.0; // 顶点尺寸，非必选，默认是1.0
+		}
+	`;
+
+	// 片元着色器：点的颜色
+	const fsSource = `
+		void main() {
+			gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); // RGBA
+		}
+	`;
+
+	// 初始化着色器
+	initShaderProgram(gl, vsSource, fsSource);
+
+	// 获取 a_Position 存储地址
+	const a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+
+	// 设置 a_Position 的值
+	gl.vertexAttrib3f(a_Position, 0.0, 0.5, 0.0);
+
+	// 设置背景色，参数分别是RGBA，从0.0到1.0；alpha：0为全透明，1为不透明
+	gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+	// 用之前指定的背景色，清空（填充）绘制区域
+	gl.clear(gl.COLOR_BUFFER_BIT);
+
+	gl.drawArrays(gl.POINTS, 0, 1); // drawArrays(mode, first, count)
+	
+</script>
+</body>
+</html>
