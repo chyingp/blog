@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.5.6/swiper-bundle.css">
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+ 
+  body {
+    overflow: hidden;
+  }
+ 
+  .swiper-container {
+    margin-top: 20px;
+    width: 100%;
+    height: 550px;
+    margin-bottom: 53px;
+    overflow: visible !important;
+  }
+ 
+  .swiper-container .swiper-wrapper .swiper-slide {
+    width: 1200px;
+    border-radius: 2px;
+    /* overflow: hidden; */
+    height: 480px;
+  }
+ 
+  .swiper-container .swiper-wrapper .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+ 
+  }
+ 
+   .swiper-slide.swiper-slide-active:before {
+    opacity: 0;
+   }
+   .swiper-container .swiper-pagination {
+    bottom:60px;
+  }
+ 
+  .swiper-pagination .swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+    background: rgba(0,0,0,0.6);
+  }
+ 
+  .swiper-pagination .swiper-pagination-bullet-active {
+    background: #fff;
+  }
+</style>
+
+</head>
+<body>
+
+
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide fadeInUpS"><img
+          src="http://s1.dgtle.com/dgtle_img/carouselItem/2019/06/05/862fa201906051927426778.png" /></div>
+      <div class="swiper-slide fadeInUpS"><img
+          src="http://s1.dgtle.com/dgtle_img/carouselItem/2019/06/05/862fa201906051927426778.png" /></div>
+      <div class="swiper-slide fadeInUpS"><img
+          src="http://s1.dgtle.com/dgtle_img/carouselItem/2019/06/05/862fa201906051927426778.png" /></div>
+      <div class="swiper-slide fadeInUpS"><img
+          src="http://s1.dgtle.com/dgtle_img/carouselItem/2019/06/05/862fa201906051927426778.png" /></div>
+      <div class="swiper-slide fadeInUpS"><img
+          src="http://s1.dgtle.com/dgtle_img/carouselItem/2019/06/05/862fa201906051927426778.png" /></div>
+      <div class="swiper-slide fadeInUpS"><img
+          src="http://s1.dgtle.com/dgtle_img/carouselItem/2019/06/05/862fa201906051927426778.png" /></div>
+      <div class="swiper-slide fadeInUpS"><img
+          src="http://s1.dgtle.com/dgtle_img/carouselItem/2019/06/05/862fa201906051927426778.png" /></div>
+      <div class="swiper-slide fadeInUpS"><img
+          src="http://s1.dgtle.com/dgtle_img/carouselItem/2019/06/05/862fa201906051927426778.png" /></div>
+      <div class="swiper-slide fadeInUpS"><img
+          src="http://s1.dgtle.com/dgtle_img/carouselItem/2019/06/05/862fa201906051927426778.png" /></div>
+      <div class="swiper-slide fadeInUpS"><img
+          src="http://s1.dgtle.com/dgtle_img/carouselItem/2019/06/05/862fa201906051927426778.png" /></div>
+      <div class="swiper-slide fadeInUpS"><img
+          src="http://s1.dgtle.com/dgtle_img/carouselItem/2019/06/05/862fa201906051927426778.png" /></div>
+      <div class="swiper-slide fadeInUpS"><img
+          src="http://s1.dgtle.com/dgtle_img/carouselItem/2019/06/05/862fa201906051927426778.png" /></div>
+    </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev swiper-button">
+        <span class="button-fonts icon-Dgtlex-dgtlexicon-chevron-left"></span>
+      </div>
+      <div class="swiper-button-next swiper-button">
+        <span class="button-fonts icon-Dgtlex-dgtlexicon-chevron-right"></span>
+      </div>
+    
+  </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.5.6/swiper-bundle.min.js"></script>
+    <script type="text/javascript">
+		var mySwiper = new Swiper('.swiper-container', {
+			autoplay: {
+				disableOnInteraction: false, // 鼠标滑动后继续自动播放
+				delay: 5000, //4秒切换一次
+			},
+			speed: 500, //切换过渡速度
+			effect: 'coverflow',
+			loop: true,
+			slidesPerView: "auto",
+			centeredSlides: true, //设置slide居中
+			spaceBetween: 20,
+			coverflowEffect: {
+				rotate: 0, //slide做3d旋转时Y轴的旋转角度。默认50。
+				stretch: -50, //每个slide之间的拉伸值（距离），越大slide靠得越紧。 默认0。
+				depth: 100, //slide的位置深度。值越大z轴距离越远，看起来越小。 默认100。
+				modifier: 1, //depth和rotate和stretch的倍率，相当于            depth*modifier、rotate*modifier、stretch*modifier，值越大这三个参数的效果越明显。默认1。
+				slideShadows: false //开启slide阴影。默认 true。
+			},
+		   navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+  		})    	
+    </script>
+  
+</body>
+</html>
