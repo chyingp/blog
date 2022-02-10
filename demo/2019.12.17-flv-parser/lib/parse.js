@@ -1,5 +1,6 @@
 const fs = require('fs');
-const filepath = './02.flv';
+// const filepath = './02.flv';
+const filepath = '/tmp/world.flv';
 const chunk = fs.readFileSync(filepath);
 
 // const AUDIO_TAG = 0x08;
@@ -74,19 +75,29 @@ function parseFLV(chunk) {
         const dataView = new DataView(chunk, offset);        
         const tagType = dataView.getUint8(0); // flv tag 类型
         const tagDataSize =  dataView.getUint32(0, false) & 0x00FFFFFF; // flv tag data size，24位
+        // const tagTimestamp = dataView.getUint32(1, false) & 0xFFFFFF00; // flv tag timestamp, 24位
+
+            let ts2 = dataView.getUint8(4);
+            let ts1 = dataView.getUint8(5);
+            let ts0 = dataView.getUint8(6);
+            let ts3 = dataView.getUint8(7);
+            let tagTimestamp = ts0 | (ts1 << 8) | (ts2 << 16) | (ts3 << 24);            
 
         switch(tagType) {
             case AUDIO_TAG:
                 // console.log(`AUDIO_TAG found.`);
+                console.log(`Audio, size: ${tagDataSize}, timestamp: ${tagTimestamp}`);
                 break;
             case VIDEO_TAG:
                 // const videoType = getVideoType(chunk, offset + 11);
                 // console.log(`VIDEO_TAG found, video type is ${videoType}`);
-                const {codecID, frameType} = getVideoTagInfo(chunk, offset + TAG_HEADER_SIZE);
-                console.log(`Video tag found, CodeID is ${codecID}, frameType is ${frameType}`);
+                // const {codecID, frameType} = getVideoTagInfo(chunk, offset + TAG_HEADER_SIZE);
+                // console.log(`Video tag found, CodeID is ${codecID}, frameType is ${frameType}`);
+                console.log(`Video, size: ${tagDataSize}, timestamp: ${tagTimestamp}`);
                 break;
             case SCRIPT_TAG:
                 // console.log(`SCRIPT_TAG found.`);
+                console.log(`Script, size: ${tagDataSize}, timestamp: ${tagTimestamp}`);
                 break;
             default:
                 // doing nothing...
