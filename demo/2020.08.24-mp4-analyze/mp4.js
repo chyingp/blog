@@ -201,6 +201,10 @@ class Movie {
 	mdat(buffer) {
 		return new MediaDataBox(buffer);
 	}
+
+	moof(buffer) {
+		return new MovieFragmentBox(buffer);
+	}
 }
 
 /*
@@ -238,6 +242,13 @@ class MediaDataBox extends Box {
 		super('mdat', '', buffer);
 		this.data = buffer.slice(this.headerSize);
 	}
+}
+
+class MovieFragmentBox extends Box {
+	constructor(buffer) {
+		super('moof', '', buffer);
+		this.data = buffer.slice(this.headerSize);
+	}	
 }
 
 
@@ -1606,6 +1617,18 @@ function describeMovie(movie, parentBoxType = '') {
 	// 		describeMovie(box.boxes, [parentBoxType, box.type].join('.'));
 	// 	}
 	// });
+	let totalSize = 0;
+	const boxes = movie.boxes;
+	boxes.forEach(box => {
+		totalSize += (box.size || box.largesize);
+		// console.log(`<< ${parentBoxType}.${box.type} size=${box.size || box.largesize} totalSize=${totalSize} >>`);
+		console.log(`${box.type} size=${box.size}(${box.headerSize}+${box.size-box.headerSize}) curTotalSize=${totalSize}`);
+		// console.log(box);
+		// if (box.boxes) {
+		// 	describeMovie(box.boxes, [parentBoxType, box.type].join('.'));
+		// }
+	});	
+	return;
 
 	/*
 		获取视频 时长、宽、高

@@ -1,0 +1,988 @@
+AVCConfigurationBox {
+  type: 'avcC',
+  size: 58,
+  headerSize: 8,
+  boxes: [],
+  AVCConfig: AVCDecoderConfigurationRecord {
+    configurationVersion: 1,
+    AVCProfileIndication: 100,
+    profile_compatibility: 0,
+    AVCLevelIndication: 31,
+    lengthSizeMinusOne: 3,
+    numOfSequenceParameterSets: 1,
+    sequenceParameterSets: [ [Object] ],
+    numOfPictureParameterSets: 1,
+    pictureParameterSets: [ [Object] ],
+    chroma_format: 1,
+    bit_depth_luma_minus8: 0,
+    bit_depth_chroma_minus8: 0,
+    numOfSequenceParameterSetExt: 0,
+    sequenceParameterSetExt: []
+  }
+}
+done. 
+
+<< .ftyp >>
+FileTypeBox {
+  type: 'ftyp',
+  size: 32,
+  headerSize: 8,
+  boxes: [],
+  majorBrand: 'mp42',
+  minorVersion: 0,
+  compatibleBrands: [ 'mp42', 'mp41', 'isom', 'avc1' ]
+}
+<< .moov >>
+MovieBox {
+  type: 'moov',
+  size: 4238,
+  headerSize: 8,
+  boxes: [
+    MovieHeaderBox {
+      type: 'mvhd',
+      size: 108,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      creation_time: 3603280881,
+      modification_time: 3603280881,
+      timescale: 600,
+      duration: 3033,
+      rate: 1,
+      volume: 1,
+      matrix: [Array],
+      pre_defined: <Buffer 21 45 ff 30 8e 18 9c 00 c2 81 07 61 1d 9f 38 fe e6 92 c4 8a 31 13 c3 78>,
+      next_track_ID: 3
+    },
+    'TODO 待解析',
+    TrackBox {
+      type: 'trak',
+      size: 2591,
+      headerSize: 8,
+      boxes: [Array]
+    },
+    TrackBox {
+      type: 'trak',
+      size: 1489,
+      headerSize: 8,
+      boxes: [Array]
+    }
+  ]
+}
+<< .moov.mvhd >>
+MovieHeaderBox {
+  type: 'mvhd',
+  size: 108,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  creation_time: 3603280881,
+  modification_time: 3603280881,
+  timescale: 600,
+  duration: 3033,
+  rate: 1,
+  volume: 1,
+  matrix: [ 65536, 0, 0, 0, 65536, 0, 0, 0, 1073741824 ],
+  pre_defined: <Buffer 21 45 ff 30 8e 18 9c 00 c2 81 07 61 1d 9f 38 fe e6 92 c4 8a 31 13 c3 78>,
+  next_track_ID: 3
+}
+<< .moov.undefined >>
+TODO 待解析
+<< .moov.trak >>
+TrackBox {
+  type: 'trak',
+  size: 2591,
+  headerSize: 8,
+  boxes: [
+    TrackHeaderBox {
+      type: 'tkhd',
+      size: 92,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 7,
+      creation_time: 3603280881,
+      modification_time: 3603280881,
+      track_ID: 1,
+      duration: 3003,
+      layer: 0,
+      alternate_group: 0,
+      volume: 'TODO',
+      matrix: [Array],
+      width: 62914560,
+      height: 35389440
+    },
+    'TODO edts',
+    MediaBox {
+      type: 'mdia',
+      size: 2455,
+      headerSize: 8,
+      boxes: [Array],
+      _handler_type: 'vide'
+    }
+  ]
+}
+<< .moov.trak.tkhd >>
+TrackHeaderBox {
+  type: 'tkhd',
+  size: 92,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 7,
+  creation_time: 3603280881,
+  modification_time: 3603280881,
+  track_ID: 1,
+  duration: 3003,
+  layer: 0,
+  alternate_group: 0,
+  volume: 'TODO',
+  matrix: [ 65536, 0, 0, 0, 65536, 0, 0, 0, 1073741824 ],
+  width: 62914560,
+  height: 35389440
+}
+<< .moov.trak.undefined >>
+TODO edts
+<< .moov.trak.mdia >>
+MediaBox {
+  type: 'mdia',
+  size: 2455,
+  headerSize: 8,
+  boxes: [
+    MediaHeaderBox {
+      type: 'mdhd',
+      size: 32,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      creation_time: 3603280881,
+      modification_time: 3603280881,
+      timescale: 30000,
+      duration: 150150,
+      pad: 0,
+      language: [Array],
+      pre_defined: 0
+    },
+    HandlerBox {
+      type: 'hdlr',
+      size: 54,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      pre_defined: 0,
+      handler_type: 'vide',
+      name: 'L-SMASH Video Handler\u0000'
+    },
+    MediaInformationBox {
+      type: 'minf',
+      size: 2361,
+      headerSize: 8,
+      boxes: [Array],
+      _handler_type: 'vide'
+    }
+  ],
+  _handler_type: 'vide'
+}
+<< .moov.trak.mdia.mdhd >>
+MediaHeaderBox {
+  type: 'mdhd',
+  size: 32,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  creation_time: 3603280881,
+  modification_time: 3603280881,
+  timescale: 30000,
+  duration: 150150,
+  pad: 0,
+  language: [ 'u', 'n', 'd' ],
+  pre_defined: 0
+}
+<< .moov.trak.mdia.hdlr >>
+HandlerBox {
+  type: 'hdlr',
+  size: 54,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  pre_defined: 0,
+  handler_type: 'vide',
+  name: 'L-SMASH Video Handler\u0000'
+}
+<< .moov.trak.mdia.minf >>
+MediaInformationBox {
+  type: 'minf',
+  size: 2361,
+  headerSize: 8,
+  boxes: [
+    VideoMediaHeaderBox {
+      type: 'vmhd',
+      size: 20,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 1,
+      graphicsmode: 0,
+      opcolor: [Array]
+    },
+    DataInformationBox {
+      type: 'dinf',
+      size: 36,
+      headerSize: 8,
+      boxes: [Array]
+    },
+    SampleTableBox {
+      type: 'stbl',
+      size: 2297,
+      headerSize: 8,
+      boxes: [Array],
+      _handler_type: 'vide'
+    }
+  ],
+  _handler_type: 'vide'
+}
+<< .moov.trak.mdia.minf.vmhd >>
+VideoMediaHeaderBox {
+  type: 'vmhd',
+  size: 20,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 1,
+  graphicsmode: 0,
+  opcolor: [ 0, 0, 0 ]
+}
+<< .moov.trak.mdia.minf.dinf >>
+DataInformationBox {
+  type: 'dinf',
+  size: 36,
+  headerSize: 8,
+  boxes: [
+    DataReferenceBox {
+      type: 'dref',
+      size: 28,
+      headerSize: 12,
+      boxes: [Array],
+      version: 0,
+      flags: 0,
+      entry_count: 1
+    }
+  ]
+}
+<< .moov.trak.mdia.minf.dinf.dref >>
+DataReferenceBox {
+  type: 'dref',
+  size: 28,
+  headerSize: 12,
+  boxes: [
+    DataEntryUrlBox {
+      type: 'url ',
+      size: 12,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 1,
+      location: ''
+    }
+  ],
+  version: 0,
+  flags: 0,
+  entry_count: 1
+}
+<< .moov.trak.mdia.minf.dinf.dref.url  >>
+DataEntryUrlBox {
+  type: 'url ',
+  size: 12,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 1,
+  location: ''
+}
+<< .moov.trak.mdia.minf.stbl >>
+SampleTableBox {
+  type: 'stbl',
+  size: 2297,
+  headerSize: 8,
+  boxes: [
+    SampleDescriptionBox {
+      type: 'stsd',
+      size: 195,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      entry_count: 1,
+      sampleDescriptionEntries: [Array]
+    },
+    TimeToSampleBox {
+      type: 'stts',
+      size: 24,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      entry_count: 1,
+      entries: [Array]
+    },
+    CompositionOffsetBox {
+      type: 'ctts',
+      size: 1128,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      entry_count: 139,
+      entries: [Array]
+    },
+    SyncSampleBox {
+      type: 'stss',
+      size: 24,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      entry_count: 2,
+      sample_numbers: [Array]
+    },
+    'TODO 待解析',
+    SampleToChunkBox {
+      type: 'stsc',
+      size: 28,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      entry_count: 1,
+      entries: [Array]
+    },
+    SampleSizeBox {
+      type: 'stsz',
+      size: 620,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      sample_size: 0,
+      sample_count: 150,
+      entry_sizes: [Array]
+    },
+    ChunkOffsetBox {
+      type: 'stco',
+      size: 56,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      entry_count: 10,
+      chunk_offsets: [Array]
+    },
+    'TODO 待解析',
+    'TODO 待解析'
+  ],
+  _handler_type: 'vide'
+}
+<< .moov.trak.mdia.minf.stbl.stsd >>
+SampleDescriptionBox {
+  type: 'stsd',
+  size: 195,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  entry_count: 1,
+  sampleDescriptionEntries: [
+    VisualSampleEntry {
+      type: 'avc1',
+      size: 179,
+      headerSize: 8,
+      boxes: [Array],
+      data_reference_index: 1,
+      width: 960,
+      height: 540,
+      horizresolution: 4718592,
+      vertresolution: 4718592,
+      frame_count: 1,
+      compressorname: 'AVC Coding',
+      depth: 24
+    }
+  ]
+}
+<< .moov.trak.mdia.minf.stbl.stts >>
+TimeToSampleBox {
+  type: 'stts',
+  size: 24,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  entry_count: 1,
+  entries: [ { sample_count: 150, sample_delta: 1001 } ]
+}
+<< .moov.trak.mdia.minf.stbl.ctts >>
+CompositionOffsetBox {
+  type: 'ctts',
+  size: 1128,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  entry_count: 139,
+  entries: [
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 4004 },
+    { sample_count: 2, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 3003 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 4004 },
+    { sample_count: 2, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 4004 },
+    { sample_count: 2, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 4004 },
+    { sample_count: 2, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 3003 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 3003 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 4004 },
+    { sample_count: 2, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 4004 },
+    { sample_count: 2, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    { sample_count: 1, sample_offset: 1001 },
+    { sample_count: 1, sample_offset: 5005 },
+    { sample_count: 1, sample_offset: 2002 },
+    { sample_count: 1, sample_offset: 0 },
+    ... 39 more items
+  ]
+}
+<< .moov.trak.mdia.minf.stbl.stss >>
+SyncSampleBox {
+  type: 'stss',
+  size: 24,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  entry_count: 2,
+  sample_numbers: [ 1, 91 ]
+}
+<< .moov.trak.mdia.minf.stbl.undefined >>
+TODO 待解析
+<< .moov.trak.mdia.minf.stbl.stsc >>
+SampleToChunkBox {
+  type: 'stsc',
+  size: 28,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  entry_count: 1,
+  entries: [
+    {
+      first_chunk: 1,
+      samples_per_chunk: 15,
+      sample_description_index: 1
+    }
+  ]
+}
+<< .moov.trak.mdia.minf.stbl.stsz >>
+SampleSizeBox {
+  type: 'stsz',
+  size: 620,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  sample_size: 0,
+  sample_count: 150,
+  entry_sizes: [
+    58070, 21324,  6598,  4720,  4316, 19998,  3844,  1749,  1232,
+    16156,  3428,  5076,  2246, 16502,  6327,  1776, 15771,  2078,
+      914,  1785, 13188,  3018,   849,   957, 13289,  2482,  1709,
+     1923, 12550,  1099, 12846,  1412,  1138, 10171,  2103,  1091,
+    12911,  2210,  3242,  2084, 16420,  6624,  3448,  2200, 13526,
+     2351,  1386,  1516, 12467,  3251,  2474,  1810, 11603,  2235,
+     7587, 15614,  4889,  1623,  3467, 10024,  3529, 14164,  4207,
+     1305,  1209,  8981, 12934,  1852,  1264,  1669, 11107,  4233,
+    14843,  3164,  3305,  2696, 13010,  2956,  1893,  4367, 12540,
+     2365,  1728,  1243, 13051,  2207,  3577, 13507,  2612,  2390,
+    51044, 12934,  2815,  1389,  2826, 14958,  4322,  1824,  2786,
+    14237,
+    ... 50 more items
+  ]
+}
+<< .moov.trak.mdia.minf.stbl.stco >>
+ChunkOffsetBox {
+  type: 'stco',
+  size: 56,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  entry_count: 10,
+  chunk_offsets: [
+      4286,  192256,
+    282028,  389838,
+    488519,  592669,
+    689195,  841434,
+    939661, 1047160
+  ]
+}
+<< .moov.trak.mdia.minf.stbl.undefined >>
+TODO 待解析
+<< .moov.trak.mdia.minf.stbl.undefined >>
+TODO 待解析
+<< .moov.trak >>
+TrackBox {
+  type: 'trak',
+  size: 1489,
+  headerSize: 8,
+  boxes: [
+    TrackHeaderBox {
+      type: 'tkhd',
+      size: 92,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 7,
+      creation_time: 3603280881,
+      modification_time: 3603280881,
+      track_ID: 2,
+      duration: 3033,
+      layer: 0,
+      alternate_group: 0,
+      volume: 'TODO',
+      matrix: [Array],
+      width: 0,
+      height: 0
+    },
+    'TODO edts',
+    MediaBox {
+      type: 'mdia',
+      size: 1353,
+      headerSize: 8,
+      boxes: [Array],
+      _handler_type: 'soun'
+    }
+  ]
+}
+<< .moov.trak.tkhd >>
+TrackHeaderBox {
+  type: 'tkhd',
+  size: 92,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 7,
+  creation_time: 3603280881,
+  modification_time: 3603280881,
+  track_ID: 2,
+  duration: 3033,
+  layer: 0,
+  alternate_group: 0,
+  volume: 'TODO',
+  matrix: [ 65536, 0, 0, 0, 65536, 0, 0, 0, 1073741824 ],
+  width: 0,
+  height: 0
+}
+<< .moov.trak.undefined >>
+TODO edts
+<< .moov.trak.mdia >>
+MediaBox {
+  type: 'mdia',
+  size: 1353,
+  headerSize: 8,
+  boxes: [
+    MediaHeaderBox {
+      type: 'mdhd',
+      size: 32,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      creation_time: 3603280881,
+      modification_time: 3603280881,
+      timescale: 48000,
+      duration: 242688,
+      pad: 0,
+      language: [Array],
+      pre_defined: 0
+    },
+    HandlerBox {
+      type: 'hdlr',
+      size: 54,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      pre_defined: 0,
+      handler_type: 'soun',
+      name: 'L-SMASH Audio Handler\u0000'
+    },
+    MediaInformationBox {
+      type: 'minf',
+      size: 1259,
+      headerSize: 8,
+      boxes: [Array],
+      _handler_type: 'soun'
+    }
+  ],
+  _handler_type: 'soun'
+}
+<< .moov.trak.mdia.mdhd >>
+MediaHeaderBox {
+  type: 'mdhd',
+  size: 32,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  creation_time: 3603280881,
+  modification_time: 3603280881,
+  timescale: 48000,
+  duration: 242688,
+  pad: 0,
+  language: [ 'u', 'n', 'd' ],
+  pre_defined: 0
+}
+<< .moov.trak.mdia.hdlr >>
+HandlerBox {
+  type: 'hdlr',
+  size: 54,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  pre_defined: 0,
+  handler_type: 'soun',
+  name: 'L-SMASH Audio Handler\u0000'
+}
+<< .moov.trak.mdia.minf >>
+MediaInformationBox {
+  type: 'minf',
+  size: 1259,
+  headerSize: 8,
+  boxes: [
+    SoundMediaHeaderBox {
+      type: 'smhd',
+      size: 16,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      balance: 0
+    },
+    DataInformationBox {
+      type: 'dinf',
+      size: 36,
+      headerSize: 8,
+      boxes: [Array]
+    },
+    SampleTableBox {
+      type: 'stbl',
+      size: 1199,
+      headerSize: 8,
+      boxes: [Array],
+      _handler_type: 'soun'
+    }
+  ],
+  _handler_type: 'soun'
+}
+<< .moov.trak.mdia.minf.smhd >>
+SoundMediaHeaderBox {
+  type: 'smhd',
+  size: 16,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  balance: 0
+}
+<< .moov.trak.mdia.minf.dinf >>
+DataInformationBox {
+  type: 'dinf',
+  size: 36,
+  headerSize: 8,
+  boxes: [
+    DataReferenceBox {
+      type: 'dref',
+      size: 28,
+      headerSize: 12,
+      boxes: [Array],
+      version: 0,
+      flags: 0,
+      entry_count: 1
+    }
+  ]
+}
+<< .moov.trak.mdia.minf.dinf.dref >>
+DataReferenceBox {
+  type: 'dref',
+  size: 28,
+  headerSize: 12,
+  boxes: [
+    DataEntryUrlBox {
+      type: 'url ',
+      size: 12,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 1,
+      location: ''
+    }
+  ],
+  version: 0,
+  flags: 0,
+  entry_count: 1
+}
+<< .moov.trak.mdia.minf.dinf.dref.url  >>
+DataEntryUrlBox {
+  type: 'url ',
+  size: 12,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 1,
+  location: ''
+}
+<< .moov.trak.mdia.minf.stbl >>
+SampleTableBox {
+  type: 'stbl',
+  size: 1199,
+  headerSize: 8,
+  boxes: [
+    SampleDescriptionBox {
+      type: 'stsd',
+      size: 103,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      entry_count: 1,
+      sampleDescriptionEntries: [Array]
+    },
+    TimeToSampleBox {
+      type: 'stts',
+      size: 24,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      entry_count: 1,
+      entries: [Array]
+    },
+    SampleToChunkBox {
+      type: 'stsc',
+      size: 40,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      entry_count: 2,
+      entries: [Array]
+    },
+    SampleSizeBox {
+      type: 'stsz',
+      size: 968,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      sample_size: 0,
+      sample_count: 237,
+      entry_sizes: [Array]
+    },
+    ChunkOffsetBox {
+      type: 'stco',
+      size: 56,
+      headerSize: 12,
+      boxes: [],
+      version: 0,
+      flags: 0,
+      entry_count: 10,
+      chunk_offsets: [Array]
+    }
+  ],
+  _handler_type: 'soun'
+}
+<< .moov.trak.mdia.minf.stbl.stsd >>
+SampleDescriptionBox {
+  type: 'stsd',
+  size: 103,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  entry_count: 1,
+  sampleDescriptionEntries: [
+    {
+      size: 87,
+      type: 'mp4a',
+      buffer: <Buffer 01 c2 f2 94 1b 6c f2 2d bc 04 51 39 e0 30 0d 90 74 26 00 7e 87 6f 36 38 5f 87 7c ec 91 16 ac 1a f6 2e 1b 67 e9 f0 c8 1d d9 1a 30 b7 b7 53 71 7d a9 ae ... 37 more bytes>
+    }
+  ]
+}
+<< .moov.trak.mdia.minf.stbl.stts >>
+TimeToSampleBox {
+  type: 'stts',
+  size: 24,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  entry_count: 1,
+  entries: [ { sample_count: 237, sample_delta: 1024 } ]
+}
+<< .moov.trak.mdia.minf.stbl.stsc >>
+SampleToChunkBox {
+  type: 'stsc',
+  size: 40,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  entry_count: 2,
+  entries: [
+    {
+      first_chunk: 1,
+      samples_per_chunk: 24,
+      sample_description_index: 1
+    },
+    {
+      first_chunk: 10,
+      samples_per_chunk: 21,
+      sample_description_index: 1
+    }
+  ]
+}
+<< .moov.trak.mdia.minf.stbl.stsz >>
+SampleSizeBox {
+  type: 'stsz',
+  size: 968,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  sample_size: 0,
+  sample_count: 237,
+  entry_sizes: [
+    683, 682, 683, 683, 682, 683, 683, 682, 683, 683, 682, 683,
+    683, 682, 683, 683, 682, 683, 683, 682, 683, 683, 682, 683,
+    683, 682, 683, 683, 682, 683, 683, 682, 683, 683, 682, 683,
+    683, 682, 683, 683, 682, 683, 683, 682, 683, 683, 682, 683,
+    683, 682, 683, 683, 682, 683, 683, 682, 683, 683, 682, 683,
+    683, 682, 683, 683, 682, 683, 683, 682, 683, 683, 682, 683,
+    683, 682, 683, 683, 682, 683, 683, 682, 683, 683, 682, 683,
+    683, 682, 683, 683, 682, 683, 683, 682, 683, 683, 682, 683,
+    683, 682, 683, 683,
+    ... 137 more items
+  ]
+}
+<< .moov.trak.mdia.minf.stbl.stco >>
+ChunkOffsetBox {
+  type: 'stco',
+  size: 56,
+  headerSize: 12,
+  boxes: [],
+  version: 0,
+  flags: 0,
+  entry_count: 10,
+  chunk_offsets: [
+     175872,  265644,
+     373454,  472135,
+     576285,  672811,
+     825050,  923277,
+    1030776, 1114039
+  ]
+}
+<< .mdat >>
+MediaDataBox {
+  type: 'mdat',
+  size: 1124105,
+  headerSize: 8,
+  boxes: [],
+  data: <Buffer f8 b6 0f be 6b a3 f6 d9 b9 81 4d 23 46 76 b2 32 bf bb 0b ba ea 7b f7 11 31 98 1b cb 78 53 e1 92 17 59 42 c6 ad b7 35 c9 5c 43 e9 59 0f f2 29 c5 d8 3e ... 257816 more bytes>
+}
