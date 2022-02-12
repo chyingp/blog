@@ -1,7 +1,8 @@
 
 var renderNode = {
 	current: null,
-	container: null
+	container: null,
+	stateIndex: 0
 };
 
 const React = {
@@ -31,7 +32,7 @@ const React = {
 		const reactElement = {
 			type: type,
 			props: props,
-			state: null,
+			stateList: [],
 			eventMap: eventMap,
 			render: render
 		};
@@ -42,13 +43,16 @@ const React = {
 	useState(initialState) {
 
 		const _renderNode = renderNode;
-		_renderNode.current.state = _renderNode.current.state || initialState;
+		const _stateIndex = _renderNode.stateIndex;
+		
+		_renderNode.current.stateList[_stateIndex] = _renderNode.current.stateList[_stateIndex] || initialState;
+		_renderNode.stateIndex++;
 		
 		return [
-			_renderNode.current.state,
+			_renderNode.current.stateList[_stateIndex],
 			(newState) => {
-				_renderNode.current.state = newState;
-				// ReactDom.render(App, document.getElementById('root'));
+				_renderNode.current.stateList[_stateIndex] = newState;
+ 
 				ReactDom.render(_renderNode.current, _renderNode.container);
 			}
 		];
@@ -60,6 +64,7 @@ const ReactDom = {
 
 		renderNode.current = reactElement
 		renderNode.container = container;
+		renderNode.stateIndex = 0;
 
 		container.innerHTML = '';
 		container.appendChild(reactElement.render());
@@ -70,12 +75,21 @@ const useState = React.useState;
 
 function App() {
 	const [count, setCount] = useState(0);
+	const [number, setNumber] = useState(1);
 
 	return React.createElement('div', {
-		innerHTML: count
+		innerHTML: `
+			<div id="count">count is ${count}</div>
+			<div id="number">number is ${number}</div>`
 	}, {
-		onclick() {
-			setCount(count + 1);
+		onclick(evt) {
+			const el = evt.target;
+			if (el.id === 'count') {
+				setCount(count + 1);
+			} else if (el.id === 'number') {
+				setNumber(number + 1);
+			}
+			
 		}
 	});
 }
@@ -84,57 +98,3 @@ ReactDom.render(
 	React.createElement(App),
 	document.getElementById('root')
 );
-
-
-{/* <App>
-	<Header></Header>
-	<Header></Header>
-</App> */}
-
-
-// import react from 'react'
-// import {useState} from 'react'
-// import {render} from 'react-dom'
-
-// var _state = {};
-// function useState(initialState) {
-// 	_state = initialState;
-// 	return [
-// 		_state,
-// 		function(state){
-// 			_state = state;
-// 		}
-// 	];
-// }
-
-// class Header extends React.Component {
-//   	constructor(props) {
-//     	this.state = {};
-//     }
-// 	render() {
-//     	return <div>header</div>;
-//     }
-// }
-
-// function Footer() {
-// 	const [count, setCount] = useState(0);
-// 	return <div onClick={()=> setCount(count)}>footer</div>;
-// }
-
-// function App() {
-// 	return (
-//     	<div>
-//       		<Header/>
-//         	<Footer/>
-//       	</div>
-//     );
-// }
-
-// ReactDom.render(
-// 	<App/>, 
-// 	document.getElementById('root')
-// );
-
-// App.render()
-// 	=> Header().render()
-// 	=> Footer.render()
