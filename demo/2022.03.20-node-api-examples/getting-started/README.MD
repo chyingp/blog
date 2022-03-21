@@ -3,6 +3,8 @@
 * node：14.18.1
 * node-gyp：9.0.0
 
+>N-API在8.0.0引入，当时还是实验版本，那会的helloworld例子似乎已经跑不起来了 = =b
+
 ## 示例代码
 
 关于各API的定义，可以参考官方文档：https://nodejs.org/api/n-api.html#napi_create_function
