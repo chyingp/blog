@@ -47,9 +47,15 @@ def get_features_labels(audio_files, texts):
     for audio_file, text in zip(audio_files, texts):
         audio_data, sample_rate = load_audio(audio_file)
         feature = extract_mfcc(audio_data, sample_rate) # 提取语音特征，可以使用MFCC或其他特征提取方法
+        
         label = text_to_label(text, texts)
         features.append(feature)
         labels.append(label)
+
+    # 将特征列表转换为NumPy数组并添加一个额外的维度
+    features = np.array(features)
+    features = np.expand_dims(features, axis=1)  # 将特征数组从二维变为三维
+    
     return features, labels
 
 # 构建模型
