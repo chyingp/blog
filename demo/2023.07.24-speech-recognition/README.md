@@ -383,7 +383,7 @@ def get_features_labels(audio_files, texts):
 
 ## 对模型进行测试
 
-问题：训练完成后，我想对测试数据进行推理，假设输入文件是 audio.avi，代码怎么写
+问题：训练完成后，我想对测试数据进行推理，假设输入文件是 no-2.wav，代码怎么写
 
 答案：
 
@@ -406,11 +406,12 @@ def load_and_extract_feature(audio_file):
 model = load_model('speech_recognition_model.h5')  # 加载之前保存的模型
 
 # 定义测试语音文件
-test_audio_file = 'audio.avi'
+test_audio_file = 'audio/no-2.wav'
 
 # 提取特征并转换为模型输入形式
 test_feature = load_and_extract_feature(test_audio_file)
 test_feature = np.expand_dims(test_feature, axis=0)  # 添加额外维度以匹配模型输入形式
+test_feature = np.expand_dims(test_feature, axis=1)  # 添加额外维度以匹配模型输入形式
 
 # 进行推理
 predicted_label = model.predict(test_feature)
@@ -425,3 +426,61 @@ print("Predicted text:", predicted_text)
 
 请确保测试语音文件的格式和采样率与训练时的语音文件相同，以确保特征提取的正确性。同时，确保加载的模型与训练时的模型相同，以保持一致的推理结果。如果测试数据集较大，你也可以考虑使用批量推理的方法来提高效率。
 
+
+### 完整代码
+
+对上面代码微调，修正一些明显问题（如何修复也是chatgpt告诉我的）
+
+```python
+import librosa
+import numpy as np
+from tensorflow.keras.models import load_model
+
+# 定义与录制的语音对应的文本列表
+texts = ['no', 'go', 'left']
+
+# 加载语音文件并提取特征
+def load_and_extract_feature(audio_file):
+    audio_data, sample_rate = librosa.load(audio_file)
+    feature = extract_mfcc(audio_data, sample_rate)  # 使用之前定义的extract_mfcc函数提取特征
+    return feature
+
+# 提取MFCC特征
+def extract_mfcc(audio_data, sample_rate, num_mfcc=13):
+    # 计算MFCC特征
+    mfccs = librosa.feature.mfcc(y=audio_data, sr=sample_rate, n_mfcc=num_mfcc)
+    # 取特征的均值作为最终特征向量
+    feature = np.mean(mfccs.T, axis=0)
+    return feature
+
+# 加载模型
+model = load_model('speech_recognition_model.h5')  # 加载之前保存的模型
+
+# 定义测试语音文件
+test_audio_file = 'audio/no-2.wav'
+
+# 提取特征并转换为模型输入形式
+test_feature = load_and_extract_feature(test_audio_file)
+test_feature = np.expand_dims(test_feature, axis=0)  # 添加额外维度以匹配模型输入形式
+test_feature = np.expand_dims(test_feature, axis=1)  # 添加额外维度以匹配模型输入形式
+
+# 进行推理
+predicted_label = model.predict(test_feature)
+predicted_label = np.argmax(predicted_label, axis=-1)  # 取最大概率的类别标签
+
+# 根据类别标签获取对应的文本
+predicted_text = texts[predicted_label[0]]
+print("Predicted text:", predicted_text)
+```
+
+### 运行推理代码
+
+运行结果如下：
+
+```
+(dev_env) E:\develop\github\blog\demo\2023.07.24-speech-recognition>python predict.py
+2023-07-25 00:08:33.696504: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE SSE2 SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+1/1 [==============================] - 0s 148ms/step
+Predicted text: no
+```
