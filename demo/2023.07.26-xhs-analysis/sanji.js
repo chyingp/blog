@@ -6,6 +6,30 @@
 //   }
 // });
 
+// if (typeof window === 'undefined') {
+//     window = global;
+// }
+
+// window = {};
+
+if (typeof window === 'undefined') {
+    const Window = require('window');
+    window = new Window();
+
+    window.Date = global.Date;
+    window.Math = global.Math;
+    window.RegExp = global.RegExp;
+    window.indexedDB = {};  // node下没有
+    window.eval = global.eval;
+}
+
+// var list = ['RegExp', 'Math', 'indexedDB', 'eval', 'localStorage', 'isNaN', 'unescape', 'Array', 'Function', 'setInterval', 'encodeURIComponent', 'decodeURIComponent', 'CanvasRenderingContext2D', 'HTMLCanvasElement', 'navigator', 'location', 'String', 'Date', 'Object', 'screen', 'document'];
+// for(var i = 0; i < list.length; i++) {
+//     if(!window[list[i]]) {
+//         console.log(list[i]);
+//     }
+// }
+
 (function() {
     function Sanji() {
         var _ace_2725e = 2147483647
@@ -190,7 +214,7 @@
                 while (_ace_7d4cc < _ace_2d9a.length) {
                     var _ace_b34db = _ace_2d9a[_ace_7d4cc];
                     var _ace_416e1 = _ace_aec23[_ace_b34db[_ace_c9a41]];
-                    _ace_7d4cc = _ace_416e1(_ace_b34db[1], _ace_b34db[2], _ace_b34db[3], _ace_b34db[4], _ace_7d4cc, _ace_75a05, _ace_2d9a);
+                    _ace_7d4cc = _ace_416e1(_ace_b34db[1], _ace_b34db[2], _ace_b34db[3], _ace_b34db[4], _ace_7d4cc, _ace_75a05, _ace_2d9a);                    
                 }
             };
             var _ace_2437 = function(_ace_a135, _ace_7577, _ace_b34db, _ace_2d9a) {
@@ -462,7 +486,12 @@
                 var _ace_bdcc = _ace_a3718.splice(_ace_a3718.length - _ace_163c1, _ace_163c1).map(_ace_8cba0)
                   , _ace_25a6 = _ace_a3718.pop()
                   , _ace_8712 = _ace_8cba0(_ace_25a6);
-                _ace_1ae3c(_ace_8712.apply(typeof _ace_25a6._ace_936 == "undefined" ? _ace_4752e : _ace_25a6._ace_936, _ace_bdcc), _ace_be07c, _ace_be07c, 0);
+                try {
+                // if (_ace_25a6._ace_936 && _ace_25a6._ace_936.apply)
+                    _ace_1ae3c(_ace_8712.apply(typeof _ace_25a6._ace_936 == "undefined" ? _ace_4752e : _ace_25a6._ace_936, _ace_bdcc), _ace_be07c, _ace_be07c, 0);
+                } catch(e) {
+                    // console.log(e);
+                }
                 return ++p4;
             }
             , function(p0, p1, p2, p3, p4, p5, p6) {
@@ -568,4 +597,7 @@
 //     console.log('window._webmsxyw is assigned.');
 // };
 
-console.log(window._webmsxyw);
+// console.log(window._webmsxyw);
+
+var obj = window._webmsxyw('/api/sns/web/v1/user_posted?cursor=626a65ae000000000102f0da&user_id=59783e1650c4b404d88f7fd5&num=20', undefined);
+console.log(obj);
