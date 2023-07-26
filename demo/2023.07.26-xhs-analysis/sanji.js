@@ -1,10 +1,10 @@
 // window = global;
-Object.defineProperty(window, '_webmsxyw', {
-  set(value) {
-    // alert(value);
-    debugger;
-  }
-});
+// Object.defineProperty(window, '_webmsxyw', {
+//   set(value) {
+//     // alert(value);
+//     debugger;
+//   }
+// });
 
 (function() {
     function Sanji() {
@@ -555,13 +555,13 @@ Object.defineProperty(window, '_webmsxyw', {
 // window.encode();
 
 
-Object.defineProperty(window, '_webmsxyw', {
-  set(value) {
-    // console.log('_webmsxyw set to: ', value)
-    // window._webmsxyw = value;
-  }
-  // ...
-});
+// Object.defineProperty(window, '_webmsxyw', {
+//   set(value) {
+//     // console.log('_webmsxyw set to: ', value)
+//     // window._webmsxyw = value;
+//   }
+//   // ...
+// });
 
 
 // window._webmsxyw = function () {
